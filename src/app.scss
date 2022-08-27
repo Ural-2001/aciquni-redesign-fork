@@ -12,9 +12,24 @@
 	--text-secondary-color: #999999;
 	--text-tertiary-color: #E7E7E7;
 	--card-border-secondary-color: #E7E7E7;
+	--secondary-button-color: #F2F2F2;
 	
 }
 
 body {
 	font-family: var(--font-golos);
+}
+
+.button {
+	border-radius: 24px;
+	padding: 7px 20px 9px 20px;
+}
+
+a {
+	text-decoration: none;
+	color: initial;
+}
+
+a:hover {
+	text-decoration: underline;
 }
