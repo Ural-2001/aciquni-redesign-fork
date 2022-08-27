@@ -18,8 +18,9 @@
 		<a href="#" class="button">
 			Әдәбият
 		</a>
-		<a href="#" class="button">
-			Брача
+		<a href="#" class="button-secondary">
+			<span>Барча</span>
+			<img src="./icons/ArrowUpRight.svg" alt="">
 		</a>
 	</div>
 
@@ -37,9 +38,9 @@
 		<a href="">
 			Элемтә
 		</a>
-		
-		<a href="">
+		<a href="" style="display:flex; align-items:center; gap: 5px;">
 			Тат
+			<img src="./icons/globe.svg" alt="">
 		</a>
 	</div>
 
@@ -67,6 +68,13 @@
 		align-items: center;
 		gap: 27px;
 	}
+	
+	.right-links a{
+		color: var(--text-secondary-color);
+	}
+	.right-links a:hover{
+		color: var(--primary-color);
+	}
 
 	.button {
 		background-color: var(--secondary-button-color);
@@ -77,6 +85,17 @@
 	.button:hover {
 		background-color: var(--primary-color);
 		color: white;
+	}
+
+	.button-secondary {
+		border: 1px solid var(--text-tertiary-color);
+		color: var(--text-secondary-color);
+		display: flex;
+		align-items: center;
+		padding: 0 10px 0 0;
+	}
+	.button-secondary span {
+		padding: 0 10px 0 20px;
 	}
 
 	a:hover {
