@@ -14,11 +14,13 @@
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"node-sass": "^7.0.1",
 		"prettier": "^2.6.2",
 		"prettier-plugin-svelte": "^2.7.0",
 		"rollup-plugin-copy": "^3.4.0",
 		"sass": "^1.54.5",
 		"svelte": "^3.46.0",
+		"svelte-preprocess": "^4.10.7",
 		"vite": "^3.0.8"
 	},
 	"type": "module",
@@ -26,8 +28,6 @@
 		"@fontsource/fira-mono": "^4.5.0",
 		"@fontsource/golos-ui": "^4.5.3",
 		"bootstrap": "^5.2.0",
-		"cookie": "^0.4.1",
-		"node-sass": "^7.0.1",
-		"svelte-preprocess": "^4.10.7"
+		"cookie": "^0.4.1"
 	}
 }
