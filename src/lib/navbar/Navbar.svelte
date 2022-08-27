@@ -19,7 +19,7 @@
 	</div>
 
 	<div class="search">
-
+        <input type="text" placeholder="Сайт буенча эзләү">
     </div>
 
 	<div class="profile-buttons">
@@ -46,7 +46,7 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
-		gap: 30px;
+		gap: 40px;
 	}
 	.profile-buttons {
 		display: flex;
@@ -65,5 +65,14 @@
     }
     .button-secondary img {
         margin-right: 20px;
+    }
+
+    .search input{
+        border-radius: 25px;
+        border: 1px solid #D3D3D3;
+        padding: 8px 20px;
+        background: url(./MagnifyingGlass.svg) no-repeat scroll 95% 50%;
+        font-size: 14px;
+        width: 350px;
     }
 </style>
