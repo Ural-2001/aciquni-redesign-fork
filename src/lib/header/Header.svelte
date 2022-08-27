@@ -1,21 +1,22 @@
 <script>
+	import Navbar from '$lib/navbar/Navbar.svelte';
 </script>
 
 <header class="container">
 	<div class="left-links">
-		<a href="#" class="button">
+		<a href="#" class="button-header">
 			Тарих
 		</a>
-		<a href="#" class="button">
+		<a href="#" class="button-header">
 			Мәдәният
 		</a>
-		<a href="#" class="button">
+		<a href="#" class="button-header">
 			Дизайн
 		</a>
-		<a href="#" class="button">
+		<a href="#" class="button-header">
 			Икътисад
 		</a>
-		<a href="#" class="button">
+		<a href="#" class="button-header">
 			Әдәбият
 		</a>
 		<a href="#" class="button-secondary">
@@ -46,9 +47,11 @@
 
 </header>
 
+<Navbar />
+
 <style type="text/scss">
 	header {
-		padding: 45px;
+		padding-top: 45px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -76,13 +79,13 @@
 		color: var(--primary-color);
 	}
 
-	.button {
+	.button-header {
 		background-color: var(--secondary-button-color);
 		height: initial;
 		max-height: 28px;
 	}
 
-	.button:hover {
+	.button-header:hover {
 		background-color: var(--primary-color);
 		color: white;
 	}
