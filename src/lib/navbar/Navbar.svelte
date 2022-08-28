@@ -22,13 +22,52 @@
         <input type="text" placeholder="Сайт буенча эзләү">
     </div>
 
-	<div class="profile-buttons">
+	<div class="login-buttons">
 		<a href="" class="button button-small">
 			Шәхси Кабинет
 		</a>
 		<a href="" class="button-secondary">
 			Теркәү
 		</a>
+	</div>
+
+</div>
+
+<div class="container navibar">
+	<div class="left-links">
+		<a href="#" class="button-secondary courses-button">
+            <img src="./icons/CirclesFour.svg" alt="">
+			Курслар
+		</a>
+		<a href="#">
+			Татарча фән
+		</a>
+		<a href="#">
+			Мөгалимнәр
+		</a>
+		<a href="#">
+			Университет
+		</a>
+	</div>
+
+	<a href="">
+		<img src="./aciquni-logo.svg" alt="">
+	</a>
+
+	<div class="profile-buttons">
+        <a href="" class="my-courses-button">
+            <img src="./avatar.png" alt="">
+            Минем курслар
+        </a>
+        <a href="">
+            <img src="./icons/Trophy.svg" alt="">
+        </a>
+        <a href="">
+            <img src="./icons/HeartStraight.svg" alt="">
+        </a>
+        <a href="">
+            <img src="./icons/SignOut.svg" alt="">
+        </a>
 	</div>
 
 </div>
@@ -48,7 +87,7 @@
 		align-items: center;
 		gap: 40px;
 	}
-	.profile-buttons {
+	.login-buttons {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -56,6 +95,9 @@
 		gap: 15px;
 	}
 
+    .left-links a {
+        font-size: 18px;
+    }
     .left-links a:hover {
         color: var(--primary-color);
         text-decoration: none;
@@ -74,5 +116,28 @@
         background: url(./MagnifyingGlass.svg) no-repeat scroll 95% 50%;
         font-size: 14px;
         width: 350px;
+    }
+
+    .profile-buttons {
+        display: flex;
+        align-items: center;
+        border: 1px solid #D3D3D3;
+        border-radius: 30px;
+        padding: 4px 20px 4px 4px;
+        gap: 20px;
+    }
+    .my-courses-button {
+        background-color: var(--primary-color);
+        border-radius: 24px;
+        color: white;
+        padding: 7px 20px 8px 8px;
+        font-size: 14px;
+    }
+    .my-courses-button:hover {
+        text-decoration: none;
+    }
+    .my-courses-button img{
+        margin-right: 20px;
+        margin-top: -2px;
     }
 </style>
