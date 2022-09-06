@@ -1,4 +1,18 @@
 <script>
+	import { onMount } from 'svelte';
+
+	let openPopup;
+
+	onMount(() => {
+		let loginPopup = document.getElementById('loginPopup');
+		let popupBackground = document.getElementById('popupBackground');
+
+		openPopup = () => {
+			popupBackground.style.display = 'block';
+			loginPopup.style.display = 'flex';
+			loginPopup.style.opacity = '100%';
+		};
+	});
 </script>
 
 <div class="container navibar">
@@ -23,7 +37,7 @@
     </div>
 
 	<div class="login-buttons">
-		<a href="" class="button button-small">
+		<a href="" class="button button-small" on:click={openPopup}>
 			Шәхси Кабинет
 		</a>
 		<a href="" class="button-secondary">
