@@ -3,6 +3,9 @@
 
     let closePopup;
 
+    let hasAccount = true;
+    let changeSection;
+
     onMount(() => {
         let loginPopup = document.getElementById('loginPopup');
         let popupBackground = document.getElementById('popupBackground');
@@ -12,18 +15,24 @@
             loginPopup.style.opacity = '0';
             popupBackground.style.display = 'none';
         };
+
+        changeSection = () => {
+            hasAccount = !hasAccount;
+        };
+        
 	});
 </script>
 
 <div class="popup" id="loginPopup">
-    {#if false}
+    <div class="popup-section">
         <div>
             <div class="login-header">
                 <div class="login-links">  
-                    <a href="">Керү</a>
-                    <a href="" style="color: #CBCBCB;">Теркәү</a>
+                    <span on:click={changeSection} class="{hasAccount ? 'selected' : ''}">Керү</span>
+                    <span on:click={changeSection} class="{!hasAccount ? 'selected' : ''}">Теркәү</span>
                 </div>
             </div>
+            {#if hasAccount}
             <form class="login-form">
                 <div class="form-input">
                     <div class="form-input-field">
@@ -47,20 +56,7 @@
                     <a href="#" class="forgot-password">Пароль онытылдымы?</a>
                 </div>
             </form>
-        </div> 
-        <div>
-            <button class="button-secondary close-button" on:click={closePopup}>
-                <img src="./icons/x.svg" alt="">
-            </button>
-        </div>
-    {:else}
-        <div>
-            <div class="login-header">
-                <div class="login-links">  
-                    <a href="">Керү</a>
-                    <a href="" style="color: #CBCBCB;">Теркәү</a>
-                </div>
-            </div>
+            {:else}
             <form class="login-form">
                 <div class="form-input">
                     <div class="form-input-field">
@@ -112,13 +108,14 @@
                     </button>
                 </div>
             </form>
+            {/if}
         </div> 
         <div>
             <button class="button-secondary close-button" on:click={closePopup}>
                 <img src="./icons/x.svg" alt="">
             </button>
         </div>
-    {/if}
+    </div>
 </div>
 
 <style>
@@ -144,6 +141,20 @@
         -ms-transition: all ease 0.2s;
         -o-transition: all ease 0.2s;
     }
+    .popup-section {
+        display: flex;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 424px;
+        max-width: 530px;
+        z-index: 2;
+        background-color: white;
+        border: 1px solid var(--text-tertiary-color);
+        border-radius: 24px;
+        padding: 40px 30px 50px 80px;
+    }
 
     .login-header {
         font-size: 40px;
@@ -152,9 +163,21 @@
         line-height: initial;
     }
 
-    .login-header a:hover {
-        text-decoration: none;
-        color: var(--text-color);
+    .login-links span {
+        color: #B4B4B4;
+    }
+
+    .login-links span:hover {
+        cursor: pointer;
+        color: #1A233E;
+    }
+
+    .login-links span.selected {
+        color: #1A233E;
+    }
+
+    label {
+        color: #B4B4B4;
     }
 
     .form-input{
@@ -175,7 +198,6 @@
     }
     .form-input-field label {
         font-size: 12px;
-        color: var(--text-color);
         margin-top: -5px;
     }
     .form-input-field input{
