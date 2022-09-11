@@ -2,18 +2,27 @@
     import { onMount } from 'svelte';
 
     let closePopup;
+    let openPasswordResetPopup;
 
     let hasAccount = true;
     let changeSection;
 
     onMount(() => {
         let loginPopup = document.getElementById('loginPopup');
+        let passwordResetPopup = document.getElementById('passwordResetPopup');
         let popupBackground = document.getElementById('popupBackground');
 
 		closePopup = () => {
             loginPopup.style.display = 'none';
             loginPopup.style.opacity = '0';
             popupBackground.style.display = 'none';
+        };
+
+        openPasswordResetPopup = () => {
+            loginPopup.style.display = 'none';
+            loginPopup.style.opacity = '0';
+            passwordResetPopup.style.display = 'flex';
+            passwordResetPopup.style.opacity = '100%';
         };
 
         changeSection = () => {
@@ -53,7 +62,7 @@
                         Керү
                         <img src="./icons/ArrowUpRightWhite.svg" alt="">
                     </button>
-                    <a href="#" class="forgot-password">Пароль онытылдымы?</a>
+                    <span on:click={openPasswordResetPopup} class="forgot-password">Пароль онытылдымы?</span>
                 </div>
             </form>
             {:else}
@@ -122,7 +131,6 @@
     .popup {
         display: none;
         opacity: 0;
-        display: flex;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -224,6 +232,9 @@
     .forgot-password {
         font-size: 12px;
         color: var(--primary-color);
+    }
+    .forgot-password:hover {
+        cursor: pointer;
     }
 
     .popup-bottom {

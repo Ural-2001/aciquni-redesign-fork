@@ -2,10 +2,12 @@
 	import Header from '$lib/header/Header.svelte';
 	import '../app.scss';
 	import Login from '../lib/popups/login/Login.svelte';
+	import PasswordReset from '../lib/popups/password/PasswordReset.svelte';
 </script>
 <div id="popupBackground" style="display: none; background-color: rgba(0, 0, 0, 0.343); position: absolute; width: 100%; height: 100%; "></div>
 
 <Login />
+<PasswordReset />
 
 <Header />
 
