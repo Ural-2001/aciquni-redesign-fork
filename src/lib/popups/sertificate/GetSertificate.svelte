@@ -69,6 +69,15 @@
                     <img src="./icons/user.svg" alt="">
                 </div>
             </form>
+            <div class="city-index">
+                <p>Чит ил вәкиле булсагыз, илегезнең коды.</p>
+                <div class="form-input">
+                    <div class="form-input-field">
+                        <label for="cityIndex">Илегезнең коды</label>
+                        <input type="number" id="cityIndex" value="556 578 685">
+                    </div>
+                </div>
+            </div>
             <div class="popup-bottom">
                 <button type="submit" class="button submit-button">
                     Сертификат алу
@@ -90,8 +99,8 @@
 
 <style>
     .popup {
-        /* display: none; */
-        /* opacity: 0; */
+        display: none;
+        opacity: 0;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -168,6 +177,34 @@
         margin-top: -5px;
     }
 
+    .city-index {
+        display: flex;
+        align-items: center;
+        background-color: #F5F5F5;
+        border-radius: 25px 25px 25px 25px;
+        margin-bottom: 30px;
+    }
+    .city-index p {
+        font-size: 16px;
+        max-width: 216px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 20px;
+        line-height: 140%;
+    }
+    .city-index .form-input {
+        background-color: white;
+        width: 100%;
+        margin-left: 30px;
+        height: auto;
+    }
+    .city-index .form-input-field {
+        width: 100%;
+    }
+    .city-index input {
+        width: 100%;
+    }
+
     .close-button {
         border: none;
         padding: 12px;
@@ -184,7 +221,11 @@
 
     .terms-checked {
         font-size: 12px;
-        color: var(--primary-color);
+        color: #B4B4B4;
+    }
+    .terms-checked a{
+        color: #B4B4B4;
+        text-decoration: underline;
     }
 
     .popup-bottom {
