@@ -1,6 +1,7 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
 	import '../app.scss';
+	import AdvicePopup from '../lib/popups/advice/AdvicePopup.svelte';
 	import Login from '../lib/popups/login/Login.svelte';
 	import PasswordReset from '../lib/popups/password/PasswordReset.svelte';
 	import GetSertificate from '../lib/popups/sertificate/GetSertificate.svelte';
@@ -10,6 +11,7 @@
 <Login />
 <PasswordReset />
 <GetSertificate />
+<AdvicePopup />
 
 <Header />
 
