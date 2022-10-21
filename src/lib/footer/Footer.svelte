@@ -121,6 +121,9 @@
 	.search input::placeholder {
 		color: #B9B9B9;
 	}
+	.search input:focus {
+		outline: none;
+	}
 	.search-block-actions {
 		display: flex;
 	}

@@ -8,8 +8,5 @@
 </svelte:head>
 
 
-<h1>AçıqUni</h1>
-
-
 <style>
 </style>
