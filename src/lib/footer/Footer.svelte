@@ -27,7 +27,72 @@
 </div>
 
 <footer class="container">
+	<div class="links">
+		<div>
+			<h3>Курслар</h3>
+			<div class="links-column">
+				<a href="">Тарих</a>
+				<a href="">Мәдәният</a>
+				<a href="">Дизайн</a>
+				<a href="">Икътисад</a>
+				<a href="" class="all">Барча</a>
+			</div>
+		</div>
+		<div>
+			<h3>Татарча фән</h3>
+			<div class="links-column">
+				<a href="">Мәкаләләр</a>
+				<a href="">Язмалар</a>
+				<a href="">Видео</a>
+				<a href="">Фото</a>
+			</div>
+		</div>
+		<div>
+			<h3>Университет</h3>
+			<div class="links-column">
+				<a href="">Безнең тарих</a>
+				<a href="">Укытучылар</a>
+				<a href="">Команда</a>
+				<a href="">Хезмәттәшлек</a>
+			</div>
+		</div>
+		<div>
+			<h3>Ярдәм</h3>
+			<div class="links-column">
+				<a href="">Шәхси сораулар</a>
+				<a href="">Мәгариф оешмасы турында мәгълүмат</a>
+				<a href="">Хокукый мәгълүмат</a>
+				<a href="">Юридик документлар</a>
+			</div>
+		</div>
+		<div>
+			<h3 style="margin-left: 32px;">Элемтә</h3>
 
+			<div class="links-column">
+				<div class="phone">
+					<img src="./icons/phone.svg" alt="">
+					<div class="phone-text">
+						<a href="tel:88432560720">8 843 256-07-20</a>
+						<span>Көн саен 10: 00 дән 21: 00 гә кадәр</span>
+					</div>
+				</div>
+			</div>
+			<div class="links-column">
+				<div class="phone">
+					<img src="./icons/NavigationArrow.svg" alt="">
+					<div class="phone-text">
+						<a href="">Казан шәһәре, Карл Маркс урамы, 38/5</a>
+						<span>12 мин Габдулла Тукай мәйданы метро станциясеннән</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="terms">
+		<span>© 2022 Ачык Университет. Барлык хокуклар якланган.</span>
+		<a href="">Политика конфиденциальности</a>
+		<a href="">Карта сайта</a>
+	</div>
 </footer>
 
 <style>
@@ -86,5 +151,60 @@
 	}
 	.new-courses-button:hover {
 		text-decoration: none;
+	}
+	footer {
+		margin-top: 70px;
+	}
+	.links {
+		display: flex;
+		justify-content: space-between;
+	}
+	.links h3 {
+		color: var(--primary-color);
+		font-size: 22px;
+	}
+	.links-column {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-top: 20px;
+	}
+	.links-column a {
+		font-size: 12px;
+	}
+	.links-column a:hover {
+		color: var(--primary-color);
+	}
+	.links-column .all {
+		color: #999999;
+	}
+	.phone {
+		display: flex;
+	}
+	.phone-text {
+		display: flex;
+		flex-direction: column;
+		margin-left: 10px;
+	}
+	.phone-text a {
+		font-size: 18px;
+		color: #1A233E;
+		font-weight: 600;
+	}
+	.phone-text span{
+		color: #B9B9B9;
+		line-height: 15px;
+		font-size: 12px;
+	}
+	.terms {
+		font-size: 10px;
+		color: #BFBFBF;
+		display: flex;
+		gap: 22px;
+		margin-top: 60px;
+		margin-bottom: 30px;
+	}
+	.terms a{
+		color: #BFBFBF;
 	}
 </style>
