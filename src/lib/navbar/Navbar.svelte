@@ -47,7 +47,7 @@
 
 </div>
 
-<div class="container navibar">
+<!-- <div class="container navibar">
 	<div class="left-links">
 		<a href="#" class="button-secondary courses-button">
             <img src="./icons/CirclesFour.svg" alt="">
@@ -84,7 +84,7 @@
         </a>
 	</div>
 
-</div>
+</div> -->
 
 <style type="text/scss">
 	.navibar {
