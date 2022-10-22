@@ -37,10 +37,31 @@
 	</div>
 </div>
 
+<div class="section container description">
+	<p class="description-text">
+		Ачык Университет – озак көтелгән тулы татар телле университет булдыруга зур адым. Киләчәктә милли университет булдыруга рәсми мөмкинлекләр тудырылгач, Ачык Университет аның өчен нигез булачак. Тулырак
+	</p>
+	<div class="numbers">
+		<div class="students">
+			<p>1 600</p>
+			<span>студент белем ала</span>
+			<div class="numbers-circle" style="margin-top: -90px; margin-left: 100px;"></div>
+		</div>
+		<div class="courses">
+			<p>2 800</p>
+			<span>онлайн курслар</span>
+			<div class="numbers-circle" style="margin-top: -90px; margin-left: -50px;"></div>
+		</div>
+	</div>
+</div>
+
 <style>
 	.top {
 		display: flex;
-	}	
+	}
+	.section {
+		margin-top: 150px;
+	}
 	.left-tube {
 		height: 240px;
 		width: 25%;
@@ -99,5 +120,33 @@
 	}
 	.people-section span {
 		color: var(--primary-color);
+	}
+	.description {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.description-text {
+		width: 628px;
+	}
+	.description .numbers {
+		display: flex;
+		gap: 65px;
+	}
+	.description .numbers p {
+		font-size: 72px;
+		margin-bottom: 35px;
+	}
+	.description .numbers span {
+		font-size: 20px;
+		color: var(--primary-color);
+	}
+	.numbers-circle {
+		width: 120px;
+		height: 120px;
+		border: 1px solid var(--card-border-secondary-color);
+		border-radius: 150px;
+		position: absolute;
+		z-index: -1;
 	}
 </style>
