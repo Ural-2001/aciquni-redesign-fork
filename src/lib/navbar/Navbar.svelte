@@ -91,6 +91,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		flex-wrap: wrap;
 		font-size: 18px;
         margin-top: 45px;
 	}

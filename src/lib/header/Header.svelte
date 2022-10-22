@@ -44,7 +44,6 @@
 			<img src="./icons/globe.svg" alt="">
 		</a>
 	</div>
-
 </header>
 
 <Navbar />
@@ -55,6 +54,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		flex-wrap: wrap;
 		font-size: 12px;
 	}
 	.left-links {
