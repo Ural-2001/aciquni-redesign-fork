@@ -1,3 +1,7 @@
+<script>
+	import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
+</script>
+
 <div class="search-section">
 	<div class="search-block">
 		<div class="search">
@@ -18,10 +22,11 @@
 					<img src="./icons/social/vk.svg" alt="">
 				</a>
 			</div>
-			<a href="/" class="new-courses-button">
+			<ButtonArrowLong text={'Яңа онлайн курслар'}/>
+			<!-- <a href="/" class="new-courses-button">
 				Яңа онлайн курслар
 				<img src="./icons/ArrowUpRightWhite.svg" alt="">
-			</a>	
+			</a>	 -->
 		</div>
 	</div>
 </div>
@@ -130,6 +135,7 @@
 	.social-buttons {
 		display: flex;
 		gap: 12px;
+		margin-right: 25px;
 	}
 	.social {
 		display: flex;
@@ -141,19 +147,6 @@
 	}
 	.social:hover {
 		border-color: var(--primary-color);
-	}
-	.new-courses-button {
-		background-color: var(--primary-color);
-		color: white;
-		padding: 18px 30px 18px 30px;
-		border-radius: 50px;	
-		margin-left: 25px;
-	}
-	.new-courses-button img {
-		width: 20px;
-	}
-	.new-courses-button:hover {
-		text-decoration: none;
 	}
 	footer {
 		margin-top: 70px;

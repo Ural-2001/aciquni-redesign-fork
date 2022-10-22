@@ -1,4 +1,5 @@
 <script>
+	import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
 </script>
 
 <svelte:head>
@@ -19,10 +20,7 @@
 		<div class="circle" style="border-color: var(--primary-color); margin-left: -30px"></div>
 		<div class="action-section">
 			<h1>тулысынча <span>татар</span> теле</h1>
-			<a href="/" class="new-courses-button">
-				Яңа онлайн курслар
-				<img src="./icons/ArrowUpRightWhite.svg" alt="">
-			</a>
+			<ButtonArrowLong text={'Яңа онлайн курслар'} />
 		</div>
 	</div>
 	<div class="people">
@@ -76,20 +74,6 @@
 	}
 	.action-section span {
 		color: var(--primary-color);
-	}
-	.new-courses-button {
-		background-color: var(--primary-color);
-		color: white;
-		padding: 18px 30px 18px 30px;
-		border-radius: 50px;	
-		margin-left: 25px;
-	}
-	.new-courses-button img {
-		width: 20px;
-		margin-left: 50px;
-	}
-	.new-courses-button:hover {
-		text-decoration: none;
 	}
 	.people {
 		padding: 10px 50px 10px 50px;
