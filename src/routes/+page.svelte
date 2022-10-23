@@ -2,6 +2,16 @@
 	import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
 	import ButtonPrimary from '$lib/components/button/ButtonPrimary.svelte';
 	import ButtonSecondary from '$lib/components/button/ButtonSecondary.svelte';
+	import Carousel from '$lib/components/carousel/Carousel.svelte';
+
+	// let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+	let partners = [
+		{title: 'kitap', img: '/img/people/1.png'},
+		{title: 'mdm', img: '/img/people/2.png'},
+		{title: 'vkt', img: '/img/people/3.png'},
+		{title: 'gtr', img: '/img/people/4.png'},
+		{title: 'new', img: '/img/people/5.png'},
+	]
 </script>
 
 <svelte:head>
@@ -259,7 +269,42 @@
 </div>
 
 <div class="section container partners">
-	partners
+	<h2>университет <br> партнерлары</h2>
+	<div class="partners-nav-buttons">
+		<div class="partners-nav-button-left">
+			<img src="/icons/CaretLeft.svg" alt="">
+		</div>
+		<div class="partners-nav-button-right">
+			<img src="/icons/CaretRight.svg" alt="">
+		</div>
+	</div>
+	<div class="partners-carousel">
+		<div>
+			<img src="/img/partners/1.png" alt="">
+		</div>
+		<div>
+			<img src="/img/partners/2.png" alt="">
+		</div>
+		<div>
+			<img src="/img/partners/4.png" alt="">
+		</div>
+		<div>
+			<img src="/img/partners/3.png" alt="">
+		</div>
+	</div>
+	<!-- <Carousel autoplay="5000">
+		{#each partners as partner, index (index)}
+		<div class="parners-nav-item">
+			<img src={partner.img} alt="">
+		</div>
+		{/each}
+		<div class="parners-nav-button-left" slot="left-control">
+			<img src="/icons/ArrowUpRight.svg" alt="">
+		</div>
+		<div class="parners-nav-button-right" slot="right-control">
+			<img src="/icons/ArrowUpRight.svg" alt="">
+		</div>
+	</Carousel> -->
 </div>
 
 <style>
@@ -539,5 +584,52 @@
 		line-height: 16px;
 		margin-top: 8px;
 		color: var(--primary-color);
+	}
+	.partners {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 30px;
+	}
+	.partners h2 {
+		font-size: 40px;
+	}
+	/* .partners-nav-item {
+	} */
+	
+	/* .partners-nav-button-left, .partners-nav-button-right {
+		display: inline-block;
+		margin-top: 100px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid var(--primary-color);
+		border-radius: 150px;
+	} */
+
+	.partners-nav-buttons {
+		display: flex;
+	}
+	.partners-nav-button-left, .partners-nav-button-right {
+		/* display: inline-block; */
+		/* margin-top: 100px; */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid #E7E7E7;
+		border-radius: 150px;
+		padding: 18px;
+	}
+	.partners-nav-button-right {
+		border: 1px solid var(--primary-color);
+		margin-left: -10px;
+	}
+	.partners-nav-button-left:hover, .partners-nav-button-right:hover {
+		cursor: pointer;
+	}
+	.partners-carousel {
+		display: flex;
+		justify-content: space-between;
+		gap: 50px;
 	}
 </style>

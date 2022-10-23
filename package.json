@@ -28,6 +28,7 @@
 		"@fontsource/fira-mono": "^4.5.0",
 		"@fontsource/golos-ui": "^4.5.3",
 		"bootstrap": "^5.2.0",
-		"cookie": "^0.4.1"
+		"cookie": "^0.4.1",
+		"siema": "^1.5.1"
 	}
 }
