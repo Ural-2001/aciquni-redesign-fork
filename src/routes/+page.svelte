@@ -84,7 +84,133 @@
 </div>
 
 <div class="section container courses">
-	courses
+	<h2>яңа онлайн курслар</h2>
+	<div class="courses-cards">
+		<div class="course-card">
+			<img src="/img/courses/1.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/2.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/3.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/4.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/5.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/6.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/7.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+		<div class="course-card">
+			<img src="/img/courses/8.png" alt="">
+			<a href="" class="course-card-button">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</a>
+			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+			<div class="course-card-info">
+				<div>
+					<span>Әдәбият</span>
+				</div>
+				<div>
+					<span>12 дәрес</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a href="/" class="all-courses-button">
+		Барлык курслар
+		<img src="/icons/ArrowUpRight.svg" alt="">
+	</a>
 </div>
 
 <div class="section container teachers">
@@ -225,5 +351,60 @@
 		z-index: 1;
 		margin-top: -247px; 
 		margin-left: 430px;
+	}
+	.courses h2 {
+		font-size: 52px;
+	}
+	.courses {
+		display: flex;
+		flex-direction: column;
+	}
+	.courses-cards {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-column-gap: 15px;
+		grid-row-gap: 50px;
+		margin-top: 30px;
+		margin-bottom: 50px;
+	}
+	.course-card {
+		display: flex;
+		flex-direction: column;
+	}
+	.course-card-button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 50px;
+		height: 50px;
+		border: 1px solid var(--primary-color);
+		border-radius: 50px;
+		margin-top: -20px;
+	}
+	.course-card-button img {
+		width: 24px;
+	}
+	.course-card-title {
+		font-size: 20px;
+		padding-left: 65px;
+		padding-right: 20px;
+	}
+	.course-card-info {
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+	}
+	.course-card-info div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0px 15px;
+		border: 1px solid #999999;
+		border-radius: 50px;
+		color: #999999;
+		font-size: 12px;
+	}
+	.course-card-info span {
+		margin-top: -2px;
 	}
 </style>
