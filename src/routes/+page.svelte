@@ -407,4 +407,18 @@
 	.course-card-info span {
 		margin-top: -2px;
 	}
+	.all-courses-button {
+        display: flex;
+		justify-content: center;
+        align-items: center;
+		width: fit-content;
+        border: 1px solid var(--primary-color);
+        border-radius: 32px;
+        padding: 10px 25px;
+        font-size: 14px;
+	}
+	.all-courses-button img {
+		margin-left: 80px;
+		width: 20px;
+	}
 </style>
