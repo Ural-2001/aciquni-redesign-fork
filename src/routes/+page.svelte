@@ -1,5 +1,7 @@
 <script>
 	import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
+	import ButtonPrimary from '$lib/components/button/ButtonPrimary.svelte';
+	import ButtonSecondary from '$lib/components/button/ButtonSecondary.svelte';
 </script>
 
 <svelte:head>
@@ -53,6 +55,44 @@
 			<div class="numbers-circle" style="margin-top: -90px; margin-left: -50px;"></div>
 		</div>
 	</div>
+</div>
+
+<div class="section container topics">
+	<div class="topics-left">
+		<h2>укыту юнәлешләре</h2>
+		<div class="topics-buttons">
+			<ButtonSecondary text={'Тарих'} />
+			<ButtonSecondary text={'Мәдәният'} />
+			<ButtonSecondary text={'Дизайн'} />
+			<ButtonPrimary text={'Икътисад'} />
+			<ButtonSecondary text={'Әдәбият'} />
+			<ButtonSecondary text={'PR һәм реклам'} />
+			<ButtonSecondary text={'Укытучылык'} />
+			<ButtonSecondary text={'Актёрлык сәнгате'} />
+			<ButtonSecondary text={'Дин белеме'} />
+		</div>
+		<div class="search">
+			<input type="text" placeholder="Курслар буенча эзләү">
+		</div>
+	</div>
+	<div>
+		<img src="/img/topics-art.png" alt="">
+		<div class="topics-circle">
+
+		</div>
+	</div>
+</div>
+
+<div class="section container courses">
+	courses
+</div>
+
+<div class="section container teachers">
+	teachers
+</div>
+
+<div class="section container partners">
+	partners
 </div>
 
 <style>
@@ -148,5 +188,42 @@
 		border-radius: 150px;
 		position: absolute;
 		z-index: -1;
+	}
+	.topics {
+		display: flex;	
+		justify-content: space-between;
+		align-items: flex-end;
+		flex-wrap: wrap;
+	}
+	.topics-left {
+		width: 55%;
+	}
+	.topics h2 {
+		font-size: 52px;
+	}
+	.topics-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 15px;
+		margin-top: 30px;
+	}
+	.topics .search input{
+        border-radius: 25px;
+        border: 1px solid #D3D3D3;
+        padding: 8px 20px;
+        background: url(/icons/MagnifyingGlass.svg) no-repeat scroll 95% 50%;
+        font-size: 14px;
+        width: 100%;
+		margin-top: 15px;
+    }
+	.topics-circle {
+		width: 247px;
+		height: 247px;
+		border: 1px solid var(--primary-color);
+		border-radius: 250px;
+		position: absolute;
+		z-index: 1;
+		margin-top: -247px; 
+		margin-left: 430px;
 	}
 </style>
