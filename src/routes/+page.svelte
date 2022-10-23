@@ -214,7 +214,48 @@
 </div>
 
 <div class="section container teachers">
-	teachers
+	<div class="teachers-left">
+		<h2>безнең укытучылар</h2>
+		<p>Бу эш иҗтимагый оешма тарафыннан башкарыла. Безнең такым яшь, белемле, креатив шәхесләрдән тора.</p>
+		<a href="/" class="all-teachers-button">
+			Барлык курслар
+			<img src="/icons/ArrowUpRight.svg" alt="">
+		</a>
+	</div>
+	<div class="teachers-examples">
+		<div class="teachers-examples-top">
+			<div class="teacher">
+				<img src="/img/teachers/yoldiz.png" alt="">
+				<div class="teacher-info">
+					<span class="name">Йолдыз <br> Миңнуллина</span>
+					<span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+				</div>
+			</div>
+			<div class="teacher">
+				<img src="/img/teachers/fayaz.png" alt="">
+				<div class="teacher-info">
+					<span class="name">Фаяз <br> Хуҗин</span>
+					<span class="occupation">мөхбир әгъзасы, тарих фәннәре докторы</span>
+				</div>
+			</div>
+		</div>
+		<div class="teachers-examples-bottom">
+			<div class="teacher">
+				<div class="teacher-info">
+					<span class="name">Дамир <br> Исхаков</span>
+					<span class="occupation">тарих фәннәре докторы, күпсанлы китаплар авторы</span>
+				</div>
+				<img src="/img/teachers/damir.png" alt="">
+			</div>
+			<div class="teacher">
+				<div class="teacher-info">
+					<span class="name">Халисә <br> Кузьмина</span>
+					<span class="occupation">филология фәннәре кандидаты, доцент</span>
+				</div>
+				<img src="/img/teachers/halisa.png" alt="">
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="section container partners">
@@ -420,5 +461,83 @@
 	.all-courses-button img {
 		margin-left: 80px;
 		width: 20px;
+	}
+	.all-courses-button:hover {
+        color: var(--primary-color);
+		text-decoration: none;
+	}
+	.teachers {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 120px;
+	}
+	.teachers-left {
+		width: 30%;
+	}
+	.teachers-left h2 {
+		font-size: 52px;
+	}
+	.teachers-left p {
+		margin-top: 30px;
+	}
+	.all-teachers-button {
+        display: flex;
+		justify-content: center;
+        align-items: center;
+		width: fit-content;
+        border: 1px solid var(--primary-color);
+        border-radius: 32px;
+        padding: 10px 25px;
+        font-size: 14px;
+		margin-top: 45px;
+	}
+	.all-teachers-button img {
+		margin-left: 80px;
+		width: 20px;
+	}
+	.all-teachers-button:hover {
+        color: var(--primary-color);
+		text-decoration: none;
+	}
+	.teachers-examples-top {
+		display: flex;
+		justify-content: space-between;
+		gap: 15px;
+	}
+	.teachers-examples-bottom {
+		display: flex;
+		justify-content: space-between;
+		gap: 15px;
+		margin-top: 40px;
+	}
+	.teacher {
+		display: flex;
+		align-items: center;
+	}
+	.teacher-info {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		/* align-items: center; */
+		border: 1px solid var(--primary-color);
+		border-radius: 100px;
+		padding: 30px 50px;
+	}
+	.teachers-examples-top .teacher-info{
+		margin-left: -20px;
+	}
+	.teachers-examples-bottom .teacher-info{
+		margin-right: -20px;
+		z-index: 1;
+	}
+	.teacher-info .name {
+		line-height: 24px;
+	}
+	.teacher-info .occupation {
+		font-size: 14px;
+		line-height: 16px;
+		margin-top: 8px;
+		color: var(--primary-color);
 	}
 </style>
