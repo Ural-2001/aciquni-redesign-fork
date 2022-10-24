@@ -17,7 +17,7 @@
 
 <div class="container navibar">
 	<div class="left-links">
-		<a href="#" class="button-secondary courses-button">
+		<a href="/courses" class="button-secondary courses-button">
             <img src="./icons/CirclesFour.svg" alt="">
 			Курслар
 		</a>
@@ -49,7 +49,7 @@
 
 <!-- <div class="container navibar">
 	<div class="left-links">
-		<a href="#" class="button-secondary courses-button">
+		<a href="/courses" class="button-secondary courses-button">
             <img src="./icons/CirclesFour.svg" alt="">
 			Курслар
 		</a>
