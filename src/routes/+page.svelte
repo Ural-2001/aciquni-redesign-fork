@@ -62,7 +62,7 @@
 		<div class="courses">
 			<p>2 800</p>
 			<span>онлайн курслар</span>
-			<div class="numbers-circle" style="margin-top: -90px; margin-left: -50px;"></div>
+			<div class="numbers-circle" style="margin-left: -50px;"></div>
 		</div>
 	</div>
 </div>
