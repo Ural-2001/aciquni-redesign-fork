@@ -25,7 +25,7 @@
 		</a>
 	</div>
 
-	<a href="">
+	<a href="/">
 		<img src="./aciquni-logo.svg" alt="">
 	</a>
 
