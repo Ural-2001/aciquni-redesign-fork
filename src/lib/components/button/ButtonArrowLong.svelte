@@ -4,7 +4,7 @@
 
 <a href="/" class="button">
 	<span>{text}</span>
-    <img src="./icons/ArrowUpRightWhite.svg" alt="">
+    <img src="../icons/ArrowUpRightWhite.svg" alt="">
 </a>
 
 <style>
@@ -13,7 +13,7 @@
 		color: white;
 		padding: 15px 30px 18px 30px;
 		border-radius: 50px;	
-		margin-left: 25px;
+		/* margin-left: 25px; */
 	}
 	.button img {
 		width: 20px;

@@ -78,3 +78,19 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+
+.breadcrumbs {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+.breadcrumbs a{
+	color: #BCBCBC;
+	font-size: 12px;
+}
+.breadcrumbs img{
+	width: 11px;
+}
+.breadcrumbs a:hover{
+	text-decoration: none;
+}

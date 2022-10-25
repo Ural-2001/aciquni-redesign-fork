@@ -10,16 +10,16 @@
 		<div class="search-block-actions">
 			<div class="social-buttons">
 				<a href="" class="social">
-					<img src="./icons/social/whatsapp.svg" alt="">
+					<img src="../icons/social/whatsapp.svg" alt="">
 				</a>
 				<a href="" class="social">
-					<img src="./icons/social/telegram.svg" alt="">
+					<img src="../icons/social/telegram.svg" alt="">
 				</a>
 				<a href="" class="social">
-					<img src="./icons/social/youtube.svg" alt="">
+					<img src="../icons/social/youtube.svg" alt="">
 				</a>
 				<a href="" class="social">
-					<img src="./icons/social/vk.svg" alt="">
+					<img src="../icons/social/vk.svg" alt="">
 				</a>
 			</div>
 			<ButtonArrowLong text={'Яңа онлайн курслар'}/>
@@ -75,7 +75,7 @@
 
 			<div class="links-column">
 				<div class="phone">
-					<img src="./icons/phone.svg" alt="">
+					<img src="../icons/phone.svg" alt="">
 					<div class="phone-text">
 						<a href="tel:88432560720">8 843 256-07-20</a>
 						<span>Көн саен 10: 00 дән 21: 00 гә кадәр</span>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="links-column">
 				<div class="phone">
-					<img src="./icons/NavigationArrow.svg" alt="">
+					<img src="../icons/NavigationArrow.svg" alt="">
 					<div class="phone-text">
 						<a href="">Казан шәһәре, Карл Маркс урамы, 38/5</a>
 						<span>12 мин Габдулла Тукай мәйданы метро станциясеннән</span>

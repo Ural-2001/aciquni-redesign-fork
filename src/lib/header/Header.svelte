@@ -21,12 +21,12 @@
 		</a>
 		<a href="#" class="button-secondary">
 			<span>Барча</span>
-			<img src="./icons/ArrowUpRight.svg" alt="">
+			<img src="../icons/ArrowUpRight.svg" alt="">
 		</a>
 	</div>
 
 	<a href="/">
-		<img src="./aciquni-logo.svg" alt="">
+		<img src="../aciquni-logo.svg" alt="">
 	</a>
 
 	<div class="right-links">
@@ -41,7 +41,7 @@
 		</a>
 		<a href="" style="display:flex; align-items:center; gap: 5px;">
 			Тат
-			<img src="./icons/globe.svg" alt="">
+			<img src="../icons/globe.svg" alt="">
 		</a>
 	</div>
 </header>
