@@ -13,7 +13,7 @@
         <div class="courses-cards">
             <div class="course-card">
                 <img src="/img/courses/1.png" alt="">
-                <a href="" class="course-card-button">
+                <a href="/courses/1" class="course-card-button">
                     <img src="/icons/ArrowUpRight.svg" alt="">
                 </a>
                 <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>

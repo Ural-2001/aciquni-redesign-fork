@@ -35,13 +35,13 @@
 </div>
 <div class="container">
     <div class="teachers">
-        <div class="teacher">
+        <a href="/teachers/1" class="teacher">
             <img src="/img/teachers/yoldiz.png" alt="">
             <div class="teacher-info">
                 <span class="name">Йолдыз <br> Миңнуллина</span>
                 <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
             </div>
-        </div>
+        </a>
         <div class="teacher">
             <img src="/img/teachers/halisa.png" alt="">
             <div class="teacher-info">
@@ -201,6 +201,10 @@
     .teacher {
 		display: flex;
 		align-items: center;
+	}
+    .teacher:hover {
+		text-decoration: none;
+        color: var(--primary-color);
 	}
 	.teacher-info {
 		display: flex;

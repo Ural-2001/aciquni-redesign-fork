@@ -32,7 +32,9 @@
 		<div class="circle" style="border-color: var(--primary-color); margin-left: -30px"></div>
 		<div class="action-section">
 			<h1>тулысынча <span>татар</span> теле</h1>
-			<ButtonArrowLong text={'Яңа онлайн курслар'} />
+			<div style="margin-left: 15px;">
+				<ButtonArrowLong text={'Яңа онлайн курслар'} />
+			</div>
 		</div>
 	</div>
 	<div class="people">

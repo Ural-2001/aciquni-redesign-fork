@@ -60,7 +60,7 @@
     <div class="articles-section">
         <div class="articles-section-top">
             <h2>мәкаләләр</h2>
-            <a href="" class="all-articles">
+            <a href="/articles" class="all-articles">
                 Барлык мәкаләләр
             </a>
         </div>
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <a href="/" class="show-all-button">
+        <a href="/articles" class="show-all-button">
             Барлык мәкаләләр
             <img src="/icons/ArrowUpRight.svg" alt="">
         </a>
@@ -130,7 +130,7 @@
     <div class="articles-section">
         <div class="articles-section-top">
             <h2>видео</h2>
-            <a href="" class="all-articles">
+            <a href="/videos" class="all-articles">
                 Барлык видеолар
             </a>
         </div>
@@ -204,7 +204,7 @@
                 </div>
             </div>
         </div>
-        <a href="/" class="show-all-button">
+        <a href="/videos" class="show-all-button">
             Барлык видеолар
             <img src="/icons/ArrowUpRight.svg" alt="">
         </a>

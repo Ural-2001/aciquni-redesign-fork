@@ -21,10 +21,10 @@
             <img src="../icons/CirclesFour.svg" alt="">
 			Курслар
 		</a>
-		<a href="#">
+		<a href="/blog">
 			Татарча фән
 		</a>
-		<a href="#">
+		<a href="/teachers">
 			Мөгалимнәр
 		</a>
 		<a href="#">
