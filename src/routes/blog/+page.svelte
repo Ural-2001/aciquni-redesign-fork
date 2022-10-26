@@ -137,7 +137,7 @@
         <div class="articles">
             <div class="article">
                 <img src="/img/blog/articles/1.png" alt="">
-                <a href="/blog-videos/1" class="video-play-button">
+                <a href="/videos/1" class="video-play-button">
                     <img src="/icons/Play.svg" alt="">
                 </a>
                 <span class="article-title">
@@ -154,7 +154,7 @@
             </div>
             <div class="article">
                 <img src="/img/blog/articles/1.png" alt="">
-                <a href="/blog-videos/1" class="video-play-button">
+                <a href="/videos/1" class="video-play-button">
                     <img src="/icons/Play.svg" alt="">
                 </a>
                 <span class="article-title">
@@ -171,7 +171,7 @@
             </div>
             <div class="article">
                 <img src="/img/blog/articles/1.png" alt="">
-                <a href="/blog-videos/1" class="video-play-button">
+                <a href="/videos/1" class="video-play-button">
                     <img src="/icons/Play.svg" alt="">
                 </a>
                 <span class="article-title">
@@ -188,7 +188,7 @@
             </div>
             <div class="article">
                 <img src="/img/blog/articles/1.png" alt="">
-                <a href="/blog-videos/1" class="video-play-button">
+                <a href="/videos/1" class="video-play-button">
                     <img src="/icons/Play.svg" alt="">
                 </a>
                 <span class="article-title">
