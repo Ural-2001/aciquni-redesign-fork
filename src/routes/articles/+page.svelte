@@ -8,6 +8,7 @@
     </div>
     <h1>мәкаләләр</h1>
     <div class="themes">
+        <div class="theme active">Барча</div>
         <div class="theme">Тарих</div>
         <div class="theme">Музыка</div>
         <div class="theme">Тел</div>
@@ -134,6 +135,11 @@
         padding: 5px 25px;
         font-size: 14px;
         min-width: 86px;
+    }
+    .theme.active {
+        border: 1px solid #1A233E;
+        background-color: #1A233E;
+        color: white;
     }
     .theme:hover {
         cursor: pointer;
