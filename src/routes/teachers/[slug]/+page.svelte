@@ -134,6 +134,7 @@
         border-radius: 220px;
         width: 220px;
         height: 220px;
+        margin-left: -20px;
     }
     .teacher-courses img{
         justify-self: flex-end;
