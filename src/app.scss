@@ -253,7 +253,8 @@ a:hover {
 .reels {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-	gap: 15px;
+	grid-column-gap: 15px;
+	grid-row-gap: 30px;
 }
 .reel {
 	border-radius: 24px;

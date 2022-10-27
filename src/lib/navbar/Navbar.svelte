@@ -27,7 +27,7 @@
 		<a href="/teachers">
 			Мөгалимнәр
 		</a>
-		<a href="#">
+		<a href="/university">
 			Университет
 		</a>
 	</div>

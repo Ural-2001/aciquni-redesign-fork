@@ -33,7 +33,7 @@
 		<a href="">
 			Сайланма
 		</a>
-		<a href="">
+		<a href="/reviews">
 			Фикерләр
 		</a>
 		<a href="">
