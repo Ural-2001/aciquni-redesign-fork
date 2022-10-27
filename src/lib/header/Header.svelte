@@ -4,22 +4,22 @@
 
 <header class="container">
 	<div class="left-links">
-		<a href="#" class="button-header">
+		<a href="/courses" class="button-header">
 			Тарих
 		</a>
-		<a href="#" class="button-header">
+		<a href="/courses" class="button-header">
 			Мәдәният
 		</a>
-		<a href="#" class="button-header">
+		<a href="/courses" class="button-header">
 			Дизайн
 		</a>
-		<a href="#" class="button-header">
+		<a href="/courses" class="button-header">
 			Икътисад
 		</a>
-		<a href="#" class="button-header">
+		<a href="/courses" class="button-header">
 			Әдәбият
 		</a>
-		<a href="#" class="button-secondary">
+		<a href="/courses" class="button-secondary">
 			<span>Барча</span>
 			<img src="../icons/ArrowUpRight.svg" alt="">
 		</a>
@@ -36,7 +36,7 @@
 		<a href="/reviews">
 			Фикерләр
 		</a>
-		<a href="">
+		<a href="/contacts">
 			Элемтә
 		</a>
 		<a href="" style="display:flex; align-items:center; gap: 5px;">
