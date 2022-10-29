@@ -2,6 +2,7 @@
     import ProfileCard from "$lib/profile/ProfileCard.svelte";
     import ProfileCourses from "$lib/profile/ProfileCourses.svelte";
     import ProfileCertificates from "$lib/profile/ProfileCertificates.svelte";
+    import ProfileFavourites from "$lib/profile/ProfileFavourites.svelte";
 </script>
 
 <div class="container profile">
@@ -22,8 +23,9 @@
                 </div>
             </a>
         </div>
+        <ProfileFavourites />
         <ProfileCourses />
-        <ProfileCertificates />
+        <ProfileCertificates />        
     </div>
 </div>
 
@@ -34,7 +36,7 @@
         gap: 125px;
     }
     .profile-content {
-        widows: 70%;
+        width: 70%;
     }
     .profile-pages-links {
         display: flex;
