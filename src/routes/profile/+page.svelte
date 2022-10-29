@@ -55,7 +55,7 @@
 <style>
     .profile {
         display: flex;
-        gap: 125px;
+        gap: 130px;
     }
     .profile-content {
         width: 70%;
