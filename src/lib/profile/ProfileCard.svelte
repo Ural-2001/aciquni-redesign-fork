@@ -121,6 +121,9 @@
         width: 36px;
         height: 36px;
     }
+    .profile-info {
+        width: max-content;
+    }
     .profile-info span {
         font-size: 12px;
         color: #B4B4B4;
