@@ -1,73 +1,116 @@
+<script>
+    let selectedPage = 'courses';
+    let selectPage = (page) => {
+        selectedPage = page;
+    };
+    // onMount(() => {
+	// });
+    
+</script>
+
 <div class="profile-courses">
     <div style="display: flex; gap: 27px;">
-        <p class="profile-courses-title">Курслар (3)</p>
-        <p class="profile-courses-title">Мәкаләләр (7)</p>
-        <p class="profile-courses-title">Видео (15)</p>
+        <p 
+            class="profile-courses-title" 
+            class:active="{selectedPage === 'courses'}"
+            on:click={() => selectPage('courses')} 
+        >Курслар (3)</p>
+        <p 
+            class="profile-courses-title" 
+            class:active="{selectedPage === 'articles'}"
+            on:click={() => selectPage('articles')} 
+        >Мәкаләләр (7)</p>
+        <p
+            class="profile-courses-title" 
+            class:active="{selectedPage === 'videos'}"
+            on:click={() => selectPage('videos')} 
+        >Видео (15)</p>
     </div>
-    <div class="profile-active-courses">
-        <div class="profile-active-course-card">
-            <div class="course-card-img">
-                <img src="/img/courses/1.png" alt="">
-                <a href="" class="course-card-link">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="profile-active-course-card-content">
-                <p class="course-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                <div class="course-card-status">
-                    <div class="course-card-tag">Укытучылык</div>
-                    <div class="course-card-tag">9 дәрес </div>
-                    <div class="course-card-tag">14 дәрес · 3 сәг 40 мин </div>
-                </div>
-                <div class="course-card-content-links">
-                    <a href="" class="course-card-review-button">
-                        Курсны башларга
-                        <img src="/icons/ArrowUpRightWhite.svg" alt="">
+    {#if selectedPage === 'courses'}
+        <div class="profile-active-courses">
+            <div class="profile-active-course-card">
+                <div class="course-card-img">
+                    <img src="/img/courses/1.png" alt="">
+                    <a href="" class="course-card-link">
+                        <img src="/icons/ArrowUpRight.svg" alt="">
                     </a>
-                    <div class="course-card-social-link">
-                        <img src="/icons/HeartFilledGrey.svg" alt="">
-                        Телеграмм чат
+                </div>
+                <div class="profile-active-course-card-content">
+                    <p class="course-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
+                    <div class="course-card-status">
+                        <div class="course-card-tag">Укытучылык</div>
+                        <div class="course-card-tag">9 дәрес </div>
+                        <div class="course-card-tag">14 дәрес · 3 сәг 40 мин </div>
                     </div>
-                    <div class="course-card-social-link">
-                        <img src="/icons/social/TelegramGreyOutline.svg" alt="">
-                        Бетерү
+                    <div class="course-card-content-links">
+                        <a href="" class="course-card-review-button">
+                            Курсны башларга
+                            <img src="/icons/ArrowUpRightWhite.svg" alt="">
+                        </a>
+                        <div class="course-card-social-link">
+                            <img src="/icons/HeartFilledGrey.svg" alt="">
+                            Телеграмм чат
+                        </div>
+                        <div class="course-card-social-link">
+                            <img src="/icons/social/TelegramGreyOutline.svg" alt="">
+                            Бетерү
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="profile-active-articles">
-        <div class="profile-active-article-card">
-            <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
-            <div class="profile-active-article-card-content">
-                <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
-                <div class="article-card-status">
-                    <div class="article-card-tag">Тәрбия</div>
-                    <div class="article-card-tag">Тәрбия </div>
-                    <div class="article-card-social-link">
-                        <img src="/icons/HeartFilledGrey.svg" alt="">
-                        Сайланма әсәрләрдә
+    {:else if selectedPage === 'articles'}
+        <div class="profile-active-articles">
+            <div class="profile-active-article-card">
+                <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
+                <div class="profile-active-article-card-content">
+                    <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
+                    <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
+                    <div class="article-card-status">
+                        <div class="article-card-tag">Тәрбия</div>
+                        <div class="article-card-tag">Тәрбия </div>
+                        <div class="article-card-social-link">
+                            <img src="/icons/HeartFilledGrey.svg" alt="">
+                            Сайланма әсәрләрдә
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-active-article-card">
+                <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
+                <div class="profile-active-article-card-content">
+                    <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
+                    <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
+                    <div class="article-card-status">
+                        <div class="article-card-tag">Тәрбия</div>
+                        <div class="article-card-tag">Тәрбия </div>
+                        <div class="article-card-social-link">
+                            <img src="/icons/HeartFilledGrey.svg" alt="">
+                            Сайланма әсәрләрдә
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="profile-active-article-card">
-            <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
-            <div class="profile-active-article-card-content">
-                <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
-                <div class="article-card-status">
-                    <div class="article-card-tag">Тәрбия</div>
-                    <div class="article-card-tag">Тәрбия </div>
-                    <div class="article-card-social-link">
-                        <img src="/icons/HeartFilledGrey.svg" alt="">
-                        Сайланма әсәрләрдә
+    {:else if selectedPage === 'videos'}
+        <div class="profile-active-articles">
+            <div class="profile-active-article-card">
+                <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
+                <div class="profile-active-article-card-content">
+                    <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
+                    <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
+                    <div class="article-card-status">
+                        <div class="article-card-tag">Тәрбия</div>
+                        <div class="article-card-tag">Тәрбия </div>
+                        <div class="article-card-social-link">
+                            <img src="/icons/HeartFilledGrey.svg" alt="">
+                            Сайланма әсәрләрдә
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 
 <style>
@@ -79,6 +122,16 @@
     .profile-courses-title {
         margin-bottom: 35px;
         font-size: 18px;
+        color: #999999;
+    }
+    .profile-courses-title:hover {
+        cursor: pointer;
+        color: #1A233E;
+    }
+    .profile-courses-title.active {
+        margin-bottom: 35px;
+        font-size: 18px;
+        color: #1A233E;
     }
     .profile-active-courses {
         display: flex;
