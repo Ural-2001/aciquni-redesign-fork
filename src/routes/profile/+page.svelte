@@ -99,6 +99,70 @@
                 </div>
             </div>
         </div>
+        <div class="profile-courses">
+            <p class="profile-courses-title">Узган курслар (7)<p>
+            <div class="profile-active-courses">
+                <div class="profile-active-course-card">
+                    <div class="course-card-img">
+                        <img src="/img/courses/1.png" alt="">
+                        <a href="" class="course-card-link course-finished">
+                            <img src="/icons/CheckCircleBlack.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="profile-active-course-card-content">
+                        <p class="course-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
+                        <div class="course-card-status">
+                            <div class="course-card-tag">Укытучылык</div>
+                            <div class="course-card-tag">9 дәрес </div>
+                            <div class="course-card-progress-section">
+                                <div class="course-card-progress-percent">100% <span>уздым</span></div>
+                                <div class="course-card-progress-back">
+                                    <div class="course-card-progress-front" style="width: 100%; background-color: #56B954;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course-card-content-links done">
+                            <a href="" class="course-card-review-button">
+                                Фикер калдыру
+                            </a>
+                            <a href="" class="course-card-certificate-button">
+                                Сертификат алу
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-active-course-card">
+                    <div class="course-card-img">
+                        <img src="/img/courses/1.png" alt="">
+                        <a href="" class="course-card-link course-finished">
+                            <img src="/icons/CheckCircleBlack.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="profile-active-course-card-content">
+                        <p class="course-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
+                        <div class="course-card-status">
+                            <div class="course-card-tag">Укытучылык</div>
+                            <div class="course-card-tag">9 дәрес </div>
+                            <div class="course-card-progress-section">
+                                <div class="course-card-progress-percent">100% <span>уздым</span></div>
+                                <div class="course-card-progress-back">
+                                    <div class="course-card-progress-front" style="width: 100%; background-color: #56B954;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course-card-content-links done">
+                            <a href="" class="course-card-review-button done">
+                                Фикер кабул ителде
+                                <img src="/icons/CheckCircleBlack.svg" alt="">
+                            </a>
+                            <a href="" class="course-card-certificate-button">
+                                Сертификат алу
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -238,6 +302,9 @@
         align-items: center;
         gap: 30px;
     }
+    .course-card-content-links.done {
+        gap: 10px;
+    }
     .course-card-resume-button {
         font-size: 14px;
         background-color: var(--primary-color);
@@ -265,5 +332,39 @@
         gap: 10px;
         font-size: 12px;
         color: #B4B4B4;
+    }
+    .course-finished {
+        border-color: #56B954;
+    }
+    .course-card-review-button {
+        font-size: 14px;
+        background-color: var(--primary-color);
+        border-radius: 24px;
+        padding: 10px 25px 10px 25px;
+        display: flex;
+        color: white;
+        gap: 25px; 
+    }
+    .course-card-certificate-button {
+        font-size: 14px;
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        border-radius: 24px;
+        padding: 10px 25px 10px 25px;
+        display: flex;
+        gap: 25px; 
+        color: #1A233E;
+    }
+    .course-card-review-button.done {
+        font-size: 14px;
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        border-radius: 24px;
+        padding: 10px 25px 10px 25px;
+        display: flex;
+        color: #1A233E;
+    }
+    .course-card-review-button:hover {
+        text-decoration: none;
     }
 </style>
