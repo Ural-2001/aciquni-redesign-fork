@@ -54,6 +54,7 @@
             >Мөгаллимнәр</p>
         </div>
         <div class="course-sections">
+            <!-- svelte-ignore empty-block -->
             {#if selectedPage === 'content'}
             {:else if selectedPage === 'description'}
             <div class="course-description">
@@ -62,6 +63,22 @@
                 <p>Әлеге курс татар теле укытучыларына татар телен укытуда заманча, кызыклы һәм нәтиҗәле алымнар белән танышу, укытучыларга яңа проектларны һәм юнәлешләрне өйрәнү, татар телен укыту процессын камилләштерү өчен оештырылды. Курс Казан мэриясе һәм Казан Башкарма комитетының мәгариф идарәсе Туган телләр һәм халыклар бердәмлеге елы уңаеннан үткәргән семинар очрашуларыннан тора. Укытучыларга 14 спикер чыгыш тәкъдим ителә. Курс җитәкчесе – “Сәлам” дәреслеге авторы, “Унбер” лицееның татар теле укытучысы Рашат Якупов.</p>
             </div>
             {:else if selectedPage === 'teachers'}
+                <div class="course-teachers">
+                    <div class="course-teacher">
+                        <img src="/img/teachers/almaz.png" alt="">
+                        <div class="teacher-info">
+                            <p class="teacher-name">Алмаз Хәмидуллин</p>
+                            <p class="teacher-occupation">“Унбер” лицее диркторы, Global Teacher Prize 2021 халы...</p>
+                        </div>
+                    </div>
+                    <div class="course-teacher">
+                        <img src="/img/teachers/almaz.png" alt="">
+                        <div class="teacher-info">
+                            <p class="teacher-name">Алмаз Хәмидуллин</p>
+                            <p class="teacher-occupation">“Унбер” лицее диркторы, Global Teacher Prize 2021 халы...</p>
+                        </div>
+                    </div>
+                </div>
             {/if}
         </div>
     </div>
@@ -156,5 +173,21 @@
     .description-title {
         font-weight: 600;
         font-size: 20px;
+    }
+    .course-teachers {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .course-teacher {
+        display: flex;
+        align-items: center;
+    }
+    .course-teacher p {
+        margin: 0;
+    }
+    .teacher-info {
+        margin-left: -20px;
+        padding: 12px 35px;
     }
 </style>
