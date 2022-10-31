@@ -4,6 +4,7 @@
     import LessonVideo from "$lib/lesson/LessonVideo.svelte";
     import LessonPresentation from "$lib/lesson/LessonPresentation.svelte";
     import LessonTestBegin from "$lib/lesson/LessonTestBegin.svelte";
+    import LessonTestQuestion from "$lib/lesson/LessonTestQuestion.svelte";
 
     import { onMount } from 'svelte';
 
@@ -45,7 +46,8 @@
         <!-- <LessonText /> -->
         <!-- <LessonVideo /> -->
         <!-- <LessonPresentation /> -->
-        <LessonTestBegin />
+        <!-- <LessonTestBegin /> -->
+        <LessonTestQuestion />
     </div>
 </div>
 
