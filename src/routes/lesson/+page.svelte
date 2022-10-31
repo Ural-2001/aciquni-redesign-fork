@@ -3,6 +3,7 @@
     import LessonText from "$lib/lesson/LessonText.svelte";
     import LessonVideo from "$lib/lesson/LessonVideo.svelte";
     import LessonPresentation from "$lib/lesson/LessonPresentation.svelte";
+    import LessonTestBegin from "$lib/lesson/LessonTestBegin.svelte";
 
     import { onMount } from 'svelte';
 
@@ -18,7 +19,7 @@
 <div class="container lesson-page">
     <LessonCard />
     <div class="lesson">
-        <h1>"Сәлам" дәреслеге белән татар телен укыту алымнары"</h1>
+        <!-- <h1>"Сәлам" дәреслеге белән татар телен укыту алымнары"</h1>
         <p class="lesson-info">15 минут  ·  Лектор Халисә Кузьмина</p>
         <div class="lesson-nav">
             <div class="lesson-left">
@@ -40,10 +41,11 @@
                 Киләсе дәрес
                 <img src="/icons/CaretRightWhite.svg" alt="">
             </div>
-        </div>
+        </div> -->
         <!-- <LessonText /> -->
         <!-- <LessonVideo /> -->
-        <LessonPresentation />
+        <!-- <LessonPresentation /> -->
+        <LessonTestBegin />
     </div>
 </div>
 
