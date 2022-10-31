@@ -59,7 +59,6 @@
         display: flex;
         flex-direction: column;
         gap: 23px;
-        width: 25%;
     }
     .lesson-card-coursename {
         display: flex;
