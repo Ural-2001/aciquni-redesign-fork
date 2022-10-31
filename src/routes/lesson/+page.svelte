@@ -2,6 +2,7 @@
     import LessonCard from "$lib/lesson/LessonCard.svelte";
     import LessonText from "$lib/lesson/LessonText.svelte";
     import LessonVideo from "$lib/lesson/LessonVideo.svelte";
+    import LessonPresentation from "$lib/lesson/LessonPresentation.svelte";
 
     import { onMount } from 'svelte';
 
@@ -40,8 +41,9 @@
                 <img src="/icons/CaretRightWhite.svg" alt="">
             </div>
         </div>
-        <LessonText />
+        <!-- <LessonText /> -->
         <!-- <LessonVideo /> -->
+        <LessonPresentation />
     </div>
 </div>
 
