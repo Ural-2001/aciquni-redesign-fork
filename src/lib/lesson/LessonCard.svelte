@@ -1,6 +1,6 @@
 <div class="lesson-cards">
     <div class="lesson-card-coursename">
-        <a href="/profile/courses" class="lesson-card-go-back">
+        <a href="/profile" class="lesson-card-go-back">
             <img src="/icons/CaretLeftWhite.svg" alt="">
         </a>
         <h2>Татар телен укытуда заманча һәм нәтиҗәле ысуллар</h2>
