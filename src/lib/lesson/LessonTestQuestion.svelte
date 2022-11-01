@@ -102,6 +102,194 @@
             </div>
         </div>
     </div>
+    <div class="test-begin-card">
+        <h2>Один вариант</h2>
+        <hr>
+        <div class="question">
+            <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+            <div class="question-answers">
+                <label class="question-answers" for="answer11">
+                    <input type="radio" id="answer11" name="answers1">
+                    <span class="checkmark"></span>
+                    <span style="padding-left: 40px;">Memento mori — «Помни о смерти»</span>
+                </label>
+            </div>
+            <div class="question-answers">
+                <label class="question-answers" for="answer12">
+                    <input type="radio" id="answer12" name="answers1">
+                    <span class="checkmark"></span>
+                    <span style="padding-left: 40px;">Homo quisque fortūnae faber — «Каждый человек — творец своей судьбы»</span>
+                </label>
+            </div>
+            <div class="question-answers">
+                <label class="question-answers" for="answer13">
+                    <input type="radio" id="answer13" name="answers1">
+                    <span class="checkmark"></span>
+                    <span style="padding-left: 40px;">Temet nosce — «Познай себя»</span>
+                </label>
+            </div>
+            <div class="question-answers">
+                <label class="question-answers" for="answer14">
+                    <input type="radio" id="answer14" name="answers1">
+                    <span class="checkmark"></span>
+                    <span style="padding-left: 40px;">Җавапыгызны языгыз</span>
+                </label>
+            </div>
+        </div>
+        <div class="my-answer">
+            <input type="text" placeholder="Минем вариант...">
+        </div>
+        <div class="test-bottom">
+            <div class="test-begin-button">
+                Киләсе сорау
+                <img src="/icons/CaretRightWhite.svg" alt="">
+            </div>
+            <div class="test-progress">
+                <div class="test-progress-top">
+                    <div>
+                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
+                    </div> 
+                    <div>
+                        <p><span>6</span>/11</p>
+                    </div>
+                </div>
+                <div class="progress-line-back">
+                    <div class="progress-line-front" style="width: 53%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="test-begin-card">
+        <h2>Выбор последовательности</h2>
+        <hr>
+        <div class="question">
+            <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+            <div class="question-answers-select">
+                <div class="question-select">
+                    <select name="select" id="select1">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    <label class="select-label" for="select1">
+                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                    </label>
+                </div>
+                <div class="question-select">
+                    <select name="select" id="select2">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    <label class="select-label" for="select2">
+                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                    </label>
+                </div>
+                <div class="question-select">
+                    <select name="select" id="select3">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    <label class="select-label" for="select3">
+                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="test-bottom">
+            <div class="test-begin-button">
+                Киләсе сорау
+                <img src="/icons/CaretRightWhite.svg" alt="">
+            </div>
+            <div class="test-progress">
+                <div class="test-progress-top">
+                    <div>
+                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
+                    </div> 
+                    <div>
+                        <p><span>6</span>/11</p>
+                    </div>
+                </div>
+                <div class="progress-line-back">
+                    <div class="progress-line-front" style="width: 53%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="test-begin-card">
+        <h2>Соотнесение двух последовательностей</h2>
+        <hr>
+        <div class="question">
+            <span class="questions-title">Дөрес пунктларны берләштер</span>
+            <div class="question-answers-select">
+                <div class="question-select">
+                    <select name="select" id="select1">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    <label class="select-label" for="select1">
+                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                    </label>
+                </div>
+                <div class="question-select">
+                    <select name="select" id="select2">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    <label class="select-label" for="select2">
+                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                    </label>
+                </div>
+                <div class="question-select">
+                    <select name="select" id="select3">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    <label class="select-label" for="select3">
+                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                    </label>
+                </div>
+            </div>
+            <hr>
+            <div class="question-select-variants">
+                <div class="question-select-variant">
+                    <div class="question-select-variant-number">1</div>
+                    <span>Memento mori — «Помни о смерти»</span>
+                </div>
+                <div class="question-select-variant">
+                    <div class="question-select-variant-number">2</div>
+                    <span>Memento mori — «Помни о смерти»</span>
+                </div>
+                <div class="question-select-variant">
+                    <div class="question-select-variant-number">3</div>
+                    <span>Memento mori — «Помни о смерти»</span>
+                </div>
+            </div>
+        </div>
+        <div class="test-bottom">
+            <div class="test-begin-button">
+                Киләсе сорау
+                <img src="/icons/CaretRightWhite.svg" alt="">
+            </div>
+            <div class="test-progress">
+                <div class="test-progress-top">
+                    <div>
+                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
+                    </div> 
+                    <div>
+                        <p><span>6</span>/11</p>
+                    </div>
+                </div>
+                <div class="progress-line-back">
+                    <div class="progress-line-front" style="width: 53%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -214,10 +402,10 @@
     /* When the checkbox is checked, add a blue background */
     .question-answers input:checked ~ .checkmark {
         background-color: #1A233E;
-        background-image: url(./check.svg) ;
+        background-image: url(./DotWhite.svg) ;
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 18px;
+        background-size: 8px;
     }
     .question-answers input:hover ~ span {
         color: #A38BA5 !important;
@@ -272,5 +460,39 @@
         background: var(--primary-color);
         border-radius: 2px;
         height: 4px;
+    }
+    .question-answers-select {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 10px;
+    }
+    .question-select label {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .question-answers-select select {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 7px;
+        border: 1px solid #E7E7E7;
+        border-radius: 8px; 
+    }
+    .question-select-variants {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .question-select-variant {
+        display: flex;
+        gap: 14px;
+        font-size: 16px;
+    }
+    .question-select-variant-number {
+        font-size: 12px;
+        font-weight: 600;
+        background: #F3F3F3;
+        border-radius: 8px;
+        padding: 0px 20px;
     }
 </style>
