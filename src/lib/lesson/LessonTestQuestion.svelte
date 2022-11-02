@@ -1,9 +1,97 @@
+<script>
+    import CircleProgressBar from '$lib/components/CircleProgressBar/CircleProgressBar.svelte'
+	
+	const progress = 0.57;
+</script>
+
 <div class="test">
     <div class="test-top">
         <h1>Икенче модуль буенча тест</h1>
         <div class="close-test">
             <img src="/icons/XCircle.svg" alt="">
             Тестны башка вакытта үтәргә
+        </div>
+    </div>
+    <div class="test-begin-card finished">
+        <span>Бүлек буенча йомгаклау тестына сораулар</span>
+        <div class="questions-nav">
+            <div class="questions-nav-item passed">
+                <p>1</p>
+            </div>
+            <div class="questions-nav-item passed">
+                2
+            </div>
+            <div class="questions-nav-item passed">
+                3
+            </div>
+            <div class="questions-nav-item passed">
+                4
+            </div>
+            <div class="questions-nav-item passed">
+                5
+            </div>
+            <div class="questions-nav-item active">
+                6
+            </div>
+            <div class="questions-nav-item">
+                7
+            </div>
+            <div class="questions-nav-item">
+                8
+            </div>
+            <div class="questions-nav-item">
+                9
+            </div>
+            <div class="questions-nav-item">
+                10
+            </div>
+            <div class="questions-nav-item">
+                11
+            </div>
+            <div class="questions-nav-item">
+                Результат
+            </div>
+        </div>
+        <h2>Яхшы! Сез барлык сорауларга да җавап бирдегез 🔥</h2>
+        <div class="result-info">
+            <div class="points">
+                <div class="points-number">
+                    <span class="number">54</span>
+                    <span class="text">Вы набрали баллов</span>
+                </div>
+                <div class="points-number">
+                    <span class="number">90</span>
+                    <span class="text">Проходной балл</span>
+                </div>
+            </div>
+            <div class="grapgh">
+                <CircleProgressBar progress={progress} />
+                <img src="/icons/CheckCircleBlack.svg" alt="">
+                <span class="true-number">7</span>
+                <span class="false-number">4</span>
+            </div>
+            <div class="question-amounts">
+                <div class="question-amount">
+                    <div class="number">11</div>
+                    <span class="text">Барлык сораулар</span>
+                </div>
+                <div class="question-amount">
+                    <div class="number">4</div>
+                    <span class="text">Дөрестүгел җаваплар</span>
+                </div>
+                <div class="question-amount">
+                    <div class="number">7</div>
+                    <span class="text">Дөрес җаваплар</span>
+                </div>
+            </div>
+        </div>
+        <div class="test-bottom finished">
+            <div class="test-begin-button">
+                Киләсе бүлек
+            </div>
+            <div class="test-begin-button again">
+                Тестны кабат узарга
+            </div>
         </div>
     </div>
     <div class="test-begin-card">
@@ -436,6 +524,9 @@
         width: 70%;
     }
     .test-begin-button {
+        border-radius: 50px;
+        background-color: var(--primary-color);
+        color: white;
         font-size: 14px;
         padding: 10px 30px;
     }
@@ -494,5 +585,89 @@
         background: #F3F3F3;
         border-radius: 8px;
         padding: 0px 20px;
+    }
+    .finished h2 {
+        margin-top: 40px;
+    }
+    .result-info {
+        display: flex;
+        gap: 35px;
+        margin-top: 50px;
+    }
+    .points {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .points-number {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .points-number .number{
+        font-weight: 600;
+        font-size: 48px;
+    }
+    .points-number .text{
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+
+    .question-amounts {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .question-amount {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .question-amount .number{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 22px;
+        border: 1px solid #E7E7E7;
+        border-radius: 24px;
+        padding: 4px 18px;
+        width: 67px;
+    }
+    .question-amount .text{
+        font-weight: 400;
+        font-size: 16px;
+    }
+    .test-bottom.finished {
+        justify-content: flex-start;
+        gap: 10px;
+        margin-top: 50px;
+    }
+    .test-begin-button.again {
+        border: 1px solid var(--primary-color);
+        background-color: transparent;
+        color: #1A233E;
+    }
+    .grapgh img {
+        position: absolute;
+        margin-top: -102px;
+        margin-left: 56px;
+        width: 45px;
+    }
+    .grapgh .true-number {
+        position: absolute;
+        margin-top: -95px;
+        margin-left: 20px;
+        width: 45px;
+        font-size: 18px;
+        color: white;
+    }
+    .grapgh .false-number {
+        position: absolute;
+        margin-top: -95px;
+        margin-left: 130px;
+        width: 45px;
+        font-size: 18px;
     }
 </style>
