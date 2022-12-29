@@ -3,6 +3,67 @@
 	import ButtonPrimary from '$lib/components/button/ButtonPrimary.svelte';
 	import ButtonSecondary from '$lib/components/button/ButtonSecondary.svelte';
 	import Carousel from '$lib/components/carousel/Carousel.svelte';
+	import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+	const courses = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				courses {
+					id
+					name
+					description
+					shortDescription
+					image
+					tags
+					lessonsCount
+				}
+			}
+		`,
+	});
+
+	const mainPage = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				mainPage {
+					firstNumber
+					secondNumber
+				}
+			}
+		`,
+	});
+
+	const teachers = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				teachers {
+					id
+					firstName
+					lastName
+					information
+					position
+					imageCropped
+				}
+			}
+		`,
+	});
+	// let randomTeachers = $teachers.data.teachers
+
+	const universityPartners = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				universityPartners {
+					id
+					title
+					logo
+					link
+				}
+			}
+		`,
+	});
 
 	// let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
 	let partners = [
@@ -51,23 +112,29 @@
 	</div>
 </div>
 
+{#if $mainPage.fetching}
+	<p>Loading...</p>
+{:else if $mainPage.error}
+	<p>Oh no... {$mainPage.error.message}</p>
+{:else}
 <div class="section container description">
 	<p class="description-text">
 		Ачык Университет – озак көтелгән тулы татар телле университет булдыруга зур адым. Киләчәктә милли университет булдыруга рәсми мөмкинлекләр тудырылгач, Ачык Университет аның өчен нигез булачак. Тулырак
 	</p>
 	<div class="numbers">
 		<div class="students">
-			<p>1 600</p>
+			<p>{$mainPage.data.mainPage.firstNumber}</p>
 			<span>студент белем ала</span>
 			<div class="numbers-circle" style="margin-top: -90px; margin-left: 100px;"></div>
 		</div>
 		<div class="courses">
-			<p>2 800</p>
+			<p>{$mainPage.data.mainPage.secondNumber}</p>
 			<span>онлайн курслар</span>
 			<div class="numbers-circle" style="margin-left: -50px;"></div>
 		</div>
 	</div>
 </div>
+{/if}
 
 <div class="section container topics">
 	<div class="topics-left">
@@ -95,136 +162,46 @@
 	</div>
 </div>
 
-<div class="section container courses">
-	<h2>яңа онлайн курслар</h2>
-	<div class="courses-cards">
-		<div class="course-card">
-			<img src="/img/courses/1.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
+{#if $courses.fetching}
+	<p>Loading...</p>
+{:else if $courses.error}
+	<p>Oh no... {$courses.error.message}</p>
+{:else if $courses.data.courses.length > 0}
+	<div class="section container courses">
+		<h2>яңа онлайн курслар</h2>
+			<div class="courses-cards">
+				{#each $courses.data.courses as course}
+					<div class="course-card">
+						<img src="/img/courses/1.png" alt="">
+						<a href="" class="course-card-button">
+							<img src="/icons/ArrowUpRight.svg" alt="">
+						</a>
+						<p class="course-card-title">{course?.name}: {course?.shortDescription}</p>
+						<div class="course-card-info">
+							{#each course.tags as tag}
+								<div>
+									<span>{tag?.name}</span>
+								</div>
+							{/each}
+							<div>
+								<span>{course.lessonsCount} дәрес</span>
+							</div>
+						</div>
+					</div>
+				{/each}
 			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/2.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/3.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/4.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/5.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/6.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/7.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
-		<div class="course-card">
-			<img src="/img/courses/8.png" alt="">
-			<a href="" class="course-card-button">
-				<img src="/icons/ArrowUpRight.svg" alt="">
-			</a>
-			<p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-			<div class="course-card-info">
-				<div>
-					<span>Әдәбият</span>
-				</div>
-				<div>
-					<span>12 дәрес</span>
-				</div>
-			</div>
-		</div>
+		<a href="/" class="all-courses-button">
+			Барлык курслар
+			<img src="/icons/ArrowUpRight.svg" alt="">
+		</a>
 	</div>
-	<a href="/" class="all-courses-button">
-		Барлык курслар
-		<img src="/icons/ArrowUpRight.svg" alt="">
-	</a>
-</div>
+{/if}
 
+{#if $teachers.fetching}
+	<p>Loading...</p>
+{:else if $teachers.error}
+	<p>Oh no... {$teachers.error.message}</p>
+{:else if $teachers.data.teachers.length > 0}
 <div class="section container teachers">
 	<div class="teachers-left">
 		<h2>безнең укытучылар</h2>
@@ -236,78 +213,80 @@
 	</div>
 	<div class="teachers-examples">
 		<div class="teachers-examples-top">
-			<div class="teacher">
-				<img src="/img/teachers/yoldiz.png" alt="">
-				<div class="teacher-info">
-					<span class="name">Йолдыз <br> Миңнуллина</span>
-					<span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+			{#each $teachers.data.teachers.slice(0,2) as teacher}
+				<div class="teacher">
+					<img src="/img/teachers/yoldiz.png" alt="">
+					<div class="teacher-info">
+						<span class="name">{teacher.firstName} <br> {teacher.lastName}</span>
+						<span class="occupation">{teacher.position}</span>
+					</div>
 				</div>
-			</div>
-			<div class="teacher">
-				<img src="/img/teachers/fayaz.png" alt="">
-				<div class="teacher-info">
-					<span class="name">Фаяз <br> Хуҗин</span>
-					<span class="occupation">мөхбир әгъзасы, тарих фәннәре докторы</span>
-				</div>
-			</div>
+			{/each}
 		</div>
 		<div class="teachers-examples-bottom">
-			<div class="teacher">
-				<div class="teacher-info">
-					<span class="name">Дамир <br> Исхаков</span>
-					<span class="occupation">тарих фәннәре докторы, күпсанлы китаплар авторы</span>
+			{#each $teachers.data.teachers.slice(2,4) as teacher}
+				<div class="teacher">
+					<div class="teacher-info">
+						<span class="name">{teacher.firstName} <br> {teacher.lastName}</span>
+						<span class="occupation">{teacher.position}</span>
+					</div>
+					<img src="/img/teachers/damir.png" alt="">
 				</div>
-				<img src="/img/teachers/damir.png" alt="">
-			</div>
-			<div class="teacher">
-				<div class="teacher-info">
-					<span class="name">Халисә <br> Кузьмина</span>
-					<span class="occupation">филология фәннәре кандидаты, доцент</span>
-				</div>
-				<img src="/img/teachers/halisa.png" alt="">
-			</div>
+			{/each}
 		</div>
 	</div>
 </div>
+{/if}
 
-<div class="section container partners">
-	<h2>университет <br> партнерлары</h2>
-	<div class="partners-nav-buttons">
-		<div class="partners-nav-button-left">
-			<img src="/icons/CaretLeft.svg" alt="">
+{#if $universityPartners.fetching}
+	<p>Loading...</p>
+{:else if $universityPartners.error}
+	<p>Oh no... {$universityPartners.error.message}</p>
+{:else if $universityPartners.data.universityPartners.length > 0}
+	<div class="section container partners">
+		<h2>университет <br> партнерлары</h2>
+		<div class="partners-nav-buttons">
+			<div class="partners-nav-button-left">
+				<img src="/icons/CaretLeft.svg" alt="">
+			</div>
+			<div class="partners-nav-button-right">
+				<img src="/icons/CaretRight.svg" alt="">
+			</div>
 		</div>
-		<div class="partners-nav-button-right">
-			<img src="/icons/CaretRight.svg" alt="">
+		<div class="partners-carousel">
+			<!-- {#each $universityPartners.data.universityPartners as partner}
+				<div>
+					<img src={`${partner.logo}`} alt="">
+				</div>
+			{/each} -->
+			<div>
+				<img src="/img/partners/2.png" alt="">
+			</div>
+			<div>
+				<img src="/img/partners/1.png" alt="">
+			</div>
+			<div>
+				<img src="/img/partners/4.png" alt="">
+			</div>
+			<div>
+				<img src="/img/partners/3.png" alt="">
+			</div>
 		</div>
+		<!-- <Carousel autoplay="5000">
+			{#each partners as partner, index (index)}
+			<div class="parners-nav-item">
+				<img src={partner.img} alt="">
+			</div>
+			{/each}
+			<div class="parners-nav-button-left" slot="left-control">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</div>
+			<div class="parners-nav-button-right" slot="right-control">
+				<img src="/icons/ArrowUpRight.svg" alt="">
+			</div>
+		</Carousel> -->
 	</div>
-	<div class="partners-carousel">
-		<div>
-			<img src="/img/partners/1.png" alt="">
-		</div>
-		<div>
-			<img src="/img/partners/2.png" alt="">
-		</div>
-		<div>
-			<img src="/img/partners/4.png" alt="">
-		</div>
-		<div>
-			<img src="/img/partners/3.png" alt="">
-		</div>
-	</div>
-	<!-- <Carousel autoplay="5000">
-		{#each partners as partner, index (index)}
-		<div class="parners-nav-item">
-			<img src={partner.img} alt="">
-		</div>
-		{/each}
-		<div class="parners-nav-button-left" slot="left-control">
-			<img src="/icons/ArrowUpRight.svg" alt="">
-		</div>
-		<div class="parners-nav-button-right" slot="right-control">
-			<img src="/icons/ArrowUpRight.svg" alt="">
-		</div>
-	</Carousel> -->
-</div>
+{/if}
 
 <style>
 	.top {
