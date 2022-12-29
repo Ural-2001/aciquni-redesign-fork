@@ -1,3 +1,57 @@
+<script>
+	import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+	const courses = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				courses {
+					id
+					name
+					description
+					shortDescription
+					image
+					tags
+					lessonsCount
+				}
+			}
+		`,
+	});
+
+    const recommendedCourses = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				recommendedCourses {
+					id
+					name
+					description
+					shortDescription
+					image
+					tags
+					lessonsCount
+				}
+			}
+		`,
+	});
+
+    const teachers = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				teachers {
+					id
+					firstName
+					lastName
+					information
+					position
+					imageCropped
+				}
+			}
+		`,
+	});
+</script>
+
 <div class="container top-section">
     <div class="breadcrumbs">
         <a href="/">баш</a>
@@ -8,135 +62,43 @@
     </div>
     <h2 class="page-title"><span class="courses-category">мәдәният</span> курслары</h2>    
 </div>
+
 <div class="section container courses">
-    <div>
-        <div class="courses-cards">
-            <div class="course-card">
-                <img src="/img/courses/1.png" alt="">
-                <a href="/courses/1" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
+    {#if $courses.fetching}
+        <p>Loading...</p>
+    {:else if $courses.error}
+        <p>Oh no... {$courses.error.message}</p>
+    {:else if $courses.data.courses.length > 0}
+        <div>
+            <div class="courses-cards">
+                {#each $courses.data.courses as course}
+                    <div class="course-card">
+                        <img src="/img/courses/1.png" alt="">
+                        <a href="/courses/1" class="course-card-button">
+                            <img src="/icons/ArrowUpRight.svg" alt="">
+                        </a>
+                        <p class="course-card-title">{course?.name}: {course?.shortDescription}</p>
+                        <div class="course-card-info">
+                            {#each course.tags as tag}
+								<div>
+									<span>{tag?.name}</span>
+								</div>
+							{/each}
+							<div>
+								<span>{course.lessonsCount} дәрес</span>
+							</div>
+                        </div>
                     </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
+                {/each}
             </div>
-            <div class="course-card">
-                <img src="/img/courses/2.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="/img/courses/3.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="/img/courses/4.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="/img/courses/5.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="/img/courses/6.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="/img/courses/7.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-            <div class="course-card">
-                <img src="/img/courses/8.png" alt="">
-                <a href="" class="course-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-                <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                <div class="course-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
+            <!-- <a href="/" class="all-courses-button">
+                Тагын 9 курс арасыннан 154
+                <img src="/icons/ArrowsClockwise.svg" alt="">
+            </a> -->
         </div>
-        <a href="/" class="all-courses-button">
-            Тагын 9 курс арасыннан 154
-            <img src="/icons/ArrowsClockwise.svg" alt="">
-        </a>
-    </div>
+    {:else}
+        <p>Пока курсов нет</p>
+    {/if}
     <div class="filter-sections">
         <div class="categories filter-section">
             <span class="title">Категория</span>
@@ -192,61 +154,34 @@
                 <span>Карау саннары</span>
             </label>
         </div>
-        <div class="teachers filter-section">
-            <span class="title">Укытучылар</span>
-            <hr>
-            <label class="filter-item filter-item-teacher" for="teacher1">
-                <input type="checkbox" id="teacher1" name="teacher">
-                <span class="checkmark checkmark-teacher" style="
-                    background-image: url(/img/teachers/yoldiz.png);
-                ">
-                </span>
-                <span>Йолдыз Миңнуллина</span>
-            </label>
-            <label class="filter-item filter-item-teacher" for="teacher2">
-                <input type="checkbox" id="teacher2" name="teacher">
-                <span class="checkmark checkmark-teacher" style="
-                    background-image: url(/img/teachers/fayaz.png);
-                ">
-                </span>
-                <span>Фаяз Хуҗин</span>
-            </label>
-            <label class="filter-item filter-item-teacher" for="teacher3">
-                <input type="checkbox" id="teacher3" name="teacher">
-                <span class="checkmark checkmark-teacher" style="
-                    background-image: url(/img/teachers/damir.png);
-                ">
-                </span>
-                <span>Дамир Исхаков</span>
-            </label>
-            <label class="filter-item filter-item-teacher" for="teacher4">
-                <input type="checkbox" id="teacher4" name="teacher">
-                <span class="checkmark checkmark-teacher" style="
-                    background-image: url(/img/teachers/halisa.png);
-                ">
-                </span>
-                <span>Халисә Кузьмина</span>
-            </label>
-            <label class="filter-item filter-item-teacher" for="teacher5">
-                <input type="checkbox" id="teacher5" name="teacher">
-                <span class="checkmark checkmark-teacher" style="
-                    background-image: url(/img/teachers/yoldiz.png);
-                ">
-                </span>
-                <span>Илнур Миргалиев</span>
-            </label>
-            <label class="filter-item filter-item-teacher" for="teacher6">
-                <input type="checkbox" id="teacher6" name="teacher">
-                <span class="checkmark checkmark-teacher" style="
-                    background-image: url(/img/teachers/yoldiz.png);
-                ">
-                </span>
-                <span>Резедә Сәләхова</span>
-            </label>
-            <div class="show-all-categories">Барысын да күрсәтү</div>
-        </div>
+        {#if $teachers.fetching}
+            <p>Loading...</p>
+        {:else if $teachers.error}
+            <p>Oh no... {$teachers.error.message}</p>
+        {:else}
+            <div class="teachers filter-section">
+                <span class="title">Укытучылар</span>
+                <hr>
+                {#each $teachers.data.teachers as teacher}
+                    <label class="filter-item filter-item-teacher" for="teacher1">
+                        <input type="checkbox" id="teacher1" name="teacher">
+                        <span class="checkmark checkmark-teacher" style="
+                            background-image: url(/img/teachers/yoldiz.png);
+                        ">
+                        </span>
+                        <span>{teacher.firstName} {teacher.firstName}</span>
+                    </label>
+                {/each}
+                <div class="show-all-categories">Барысын да күрсәтү</div>
+            </div>
+        {/if}
     </div>
 </div>
+{#if $recommendedCourses.fetching}
+    <p>Loading...</p>
+{:else if $recommendedCourses.error}
+    <p>Oh no... {$recommendedCourses.error.message}</p>
+{:else if $recommendedCourses.data.recommendedCourses.length > 0}
 <div class="courses-foryou-section container">
     <div class="courses-foryou-nav">
         <h3>сезнең өчен курслар</h3>
@@ -260,65 +195,32 @@
         </div>
     </div>
     <div class="courses-foryou">
-        <div class="course-foryou-card">
-            <div>
-                <img src="/img/courses/course3.png" alt="">
-                <a href="" class="course-foryou-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="course-foryou-card-right">
-                <p class="course-foryou-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-foryou-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
+        {#each $recommendedCourses.data.recommendedCourses as course}
+            <div class="course-foryou-card">
+                <div>
+                    <img src="/img/courses/course3.png" alt="">
+                    <a href="" class="course-foryou-card-button">
+                        <img src="/icons/ArrowUpRight.svg" alt="">
+                    </a>
+                </div>
+                <div class="course-foryou-card-right">
+                    <p class="course-foryou-card-title">{course?.name}: {course?.shortDescription}</p>
+                    <div class="course-foryou-card-info">
+                        {#each course.tags as tag}
+                            <div>
+                                <span>{tag?.name}</span>
+                            </div>
+                        {/each}
+                        <div>
+                            <span>{course.lessonsCount} дәрес</span>
+                        </div>
                     </div>
                 </div>
             </div>
-		</div>
-        <div class="course-foryou-card">
-            <div>
-                <img src="/img/courses/course1.png" alt="">
-                <a href="" class="course-foryou-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="course-foryou-card-right">
-                <p class="course-foryou-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-foryou-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-		</div>
-        <div class="course-foryou-card">
-            <div>
-                <img src="/img/courses/course2.png" alt="">
-                <a href="" class="course-foryou-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="course-foryou-card-right">
-                <p class="course-foryou-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-foryou-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-		</div>
+        {/each}
     </div>
 </div>
+{/if}
 
 <style>
     .top-section {
