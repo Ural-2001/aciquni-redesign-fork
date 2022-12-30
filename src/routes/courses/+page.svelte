@@ -74,7 +74,7 @@
                 {#each $courses.data.courses as course}
                     <div class="course-card">
                         <img src="/img/courses/1.png" alt="">
-                        <a href="/courses/1" class="course-card-button">
+                        <a href={`/courses/${course.id}`} class="course-card-button">
                             <img src="/icons/ArrowUpRight.svg" alt="">
                         </a>
                         <p class="course-card-title">{course?.name}: {course?.shortDescription}</p>
@@ -199,7 +199,7 @@
             <div class="course-foryou-card">
                 <div>
                     <img src="/img/courses/course3.png" alt="">
-                    <a href="" class="course-foryou-card-button">
+                    <a href={course.id} class="course-foryou-card-button">
                         <img src="/icons/ArrowUpRight.svg" alt="">
                     </a>
                 </div>
