@@ -199,7 +199,7 @@
             <div class="course-foryou-card">
                 <div>
                     <img src="/img/courses/course3.png" alt="">
-                    <a href={course.id} class="course-foryou-card-button">
+                    <a href={`courses/${course.id}`} class="course-foryou-card-button">
                         <img src="/icons/ArrowUpRight.svg" alt="">
                     </a>
                 </div>

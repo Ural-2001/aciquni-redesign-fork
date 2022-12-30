@@ -1,3 +1,41 @@
+<script>
+	import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+    const recommendedCourses = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				recommendedCourses {
+					id
+					name
+					description
+					shortDescription
+					image
+					tags
+					lessonsCount
+				}
+			}
+		`,
+	});
+
+    const teachers = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				teachers {
+					id
+					firstName
+					lastName
+					information
+					position
+					imageCropped
+				}
+			}
+		`,
+	});
+</script>
+
+
 <div class="container top-section">
     <div class="breadcrumbs">
         <a href="/">баш</a>
@@ -34,41 +72,54 @@
     </div>
 </div>
 <div class="container">
-    <div class="teachers">
-        <a href="/teachers/1" class="teacher">
-            <img src="/img/teachers/yoldiz.png" alt="">
-            <div class="teacher-info">
-                <span class="name">Йолдыз <br> Миңнуллина</span>
-                <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+    {#if $teachers.fetching}
+        <p>Loading...</p>
+    {:else if $teachers.error}
+        <p>Oh no... {$teachers.error.message}</p>
+    {:else if $teachers.data.teachers.length > 0}
+        <div class="teachers">
+            <a href="/teachers/1" class="teacher">
+                <img src="/img/teachers/yoldiz.png" alt="">
+                <div class="teacher-info">
+                    <span class="name">Йолдыз <br> Миңнуллина</span>
+                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+                </div>
+            </a>
+            <div class="teacher">
+                <img src="/img/teachers/halisa.png" alt="">
+                <div class="teacher-info">
+                    <span class="name">Йолдыз <br> Миңнуллина</span>
+                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+                </div>
             </div>
+            <div class="teacher">
+                <img src="/img/teachers/fayaz.png" alt="">
+                <div class="teacher-info">
+                    <span class="name">Йолдыз <br> Миңнуллина</span>
+                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+                </div>
+            </div>
+            <div class="teacher">
+                <img src="/img/teachers/damir.png" alt="">
+                <div class="teacher-info">
+                    <span class="name">Йолдыз <br> Миңнуллина</span>
+                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
+                </div>
+            </div>
+        </div>
+        <a href="/" class="all-courses-button">
+            Тагын 12 мөгалимнәр арасыннан 45
+            <img src="/icons/ArrowsClockwise.svg" alt="">
         </a>
-        <div class="teacher">
-            <img src="/img/teachers/halisa.png" alt="">
-            <div class="teacher-info">
-                <span class="name">Йолдыз <br> Миңнуллина</span>
-                <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-            </div>
-        </div>
-        <div class="teacher">
-            <img src="/img/teachers/fayaz.png" alt="">
-            <div class="teacher-info">
-                <span class="name">Йолдыз <br> Миңнуллина</span>
-                <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-            </div>
-        </div>
-        <div class="teacher">
-            <img src="/img/teachers/damir.png" alt="">
-            <div class="teacher-info">
-                <span class="name">Йолдыз <br> Миңнуллина</span>
-                <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-            </div>
-        </div>
-    </div>
-    <a href="/" class="all-courses-button">
-        Тагын 12 мөгалимнәр арасыннан 45
-        <img src="/icons/ArrowsClockwise.svg" alt="">
-    </a>
+    {:else}
+        <p>Пока учителей нет</p>
+    {/if}
 </div>
+{#if $recommendedCourses.fetching}
+    <p>Loading...</p>
+{:else if $recommendedCourses.error}
+    <p>Oh no... {$recommendedCourses.error.message}</p>
+{:else if $recommendedCourses.data.recommendedCourses.length > 0}
 <div class="courses-foryou-section container">
     <div class="courses-foryou-nav">
         <h3>сезнең өчен курслар</h3>
@@ -82,65 +133,32 @@
         </div>
     </div>
     <div class="courses-foryou">
-        <div class="course-foryou-card">
-            <div>
-                <img src="/img/courses/course3.png" alt="">
-                <a href="" class="course-foryou-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="course-foryou-card-right">
-                <p class="course-foryou-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-foryou-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
+        {#each $recommendedCourses.data.recommendedCourses as course}
+            <div class="course-foryou-card">
+                <div>
+                    <img src="/img/courses/course3.png" alt="">
+                    <a href={`courses/${course.id}`} class="course-foryou-card-button">
+                        <img src="/icons/ArrowUpRight.svg" alt="">
+                    </a>
+                </div>
+                <div class="course-foryou-card-right">
+                    <p class="course-foryou-card-title">{course?.name}: {course?.shortDescription}</p>
+                    <div class="course-foryou-card-info">
+                        {#each course.tags as tag}
+                            <div>
+                                <span>{tag?.name}</span>
+                            </div>
+                        {/each}
+                        <div>
+                            <span>{course.lessonsCount} дәрес</span>
+                        </div>
                     </div>
                 </div>
             </div>
-		</div>
-        <div class="course-foryou-card">
-            <div>
-                <img src="/img/courses/course1.png" alt="">
-                <a href="" class="course-foryou-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="course-foryou-card-right">
-                <p class="course-foryou-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-foryou-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-		</div>
-        <div class="course-foryou-card">
-            <div>
-                <img src="/img/courses/course2.png" alt="">
-                <a href="" class="course-foryou-card-button">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="course-foryou-card-right">
-                <p class="course-foryou-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-foryou-card-info">
-                    <div>
-                        <span>Әдәбият</span>
-                    </div>
-                    <div>
-                        <span>12 дәрес</span>
-                    </div>
-                </div>
-            </div>
-		</div>
+        {/each}
     </div>
 </div>
+{/if}
 
 <style>
     .top-section {
