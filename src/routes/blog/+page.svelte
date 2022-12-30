@@ -1,3 +1,52 @@
+<script>
+	import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+	const articlePosts = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				articlePosts {
+                    id
+                    title
+                    body
+                    tags {
+                        id
+                        title
+                    }
+                    datePub
+                    viewCount
+                    image
+                    cropping
+                    croppingGrid
+                    status
+                }
+			}
+		`,
+	});
+
+    const videoPosts = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				videoPosts {
+                    id
+                    title
+                    videoLink
+                    description
+                    tags {
+                        id
+                        title
+                    }
+                    datePub
+                    viewCount
+                    status
+                }
+			}
+		`,
+	});
+</script>
+
+
 <div class="container top-section">
     <div class="breadcrumbs">
         <a href="/">баш</a>
@@ -64,64 +113,47 @@
                 Барлык мәкаләләр
             </a>
         </div>
-        <div class="articles">
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
+        {#if $articlePosts.fetching}
+            <p>Loading...</p>
+        {:else if $articlePosts.error}
+            <p>Oh no... {$articlePosts.error.message}</p>
+        {:else if $articlePosts.data.articlePosts.length > 0}
+            <div class="articles">
+                {#each $articlePosts.data.articlePosts as articlePost}
+                    <a href={`/articles/${articlePost.id}`}  class="article">
+                        <img src="/img/blog/articles/1.png" alt="">
+                        <span class="article-title">
+                            {articlePost.title}
+                        </span>
+                        <p class="article-description">
+                            articlePost.description
+                        </p>
+                        <div class="article-tags">
+                            {#each articlePost.tags as tag}
+                                <div class="article-tag">{tag.title}</div>
+                            {/each}
+                            <div class="article-date">{articlePost.datePub}</div>
+                        </div>
+                    </a>
+                {/each}
+                <div class="article">
+                    <img src="/img/blog/articles/1.png" alt="">
+                    <span class="article-title">
+                        Татар әдәбияты һәм суфичылык
+                    </span>
+                    <p class="article-description">
+                        Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
+                    </p>
+                    <div class="article-tags">
+                        <div class="article-tag">Тәрбия</div>
+                        <div class="article-tag">Тел</div>
+                        <div class="article-date">2019 елның 7 ноябре</div>
+                    </div>
                 </div>
             </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-        </div>
+        {:else}
+            <p>Пока постов нет</p>
+        {/if}
         <a href="/articles" class="show-all-button">
             Барлык мәкаләләр
             <img src="/icons/ArrowUpRight.svg" alt="">
@@ -134,76 +166,53 @@
                 Барлык видеолар
             </a>
         </div>
-        <div class="articles">
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <a href="/videos/1" class="video-play-button">
-                    <img src="/icons/Play.svg" alt="">
-                </a>
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
+        {#if $videoPosts.fetching}
+            <p>Loading...</p>
+        {:else if $videoPosts.error}
+            <p>Oh no... {$videoPosts.error.message}</p>
+        {:else if $videoPosts.data.videoPosts.length > 0}
+            <div class="articles">
+                {#each $videoPosts.data.videoPosts as videoPost}
+                    <div class="article">
+                        <img src="/img/blog/articles/1.png" alt="">
+                        <a href={`/videos/${videoPost.id}`} class="video-play-button">
+                            <img src="/icons/Play.svg" alt="">
+                        </a>
+                        <span class="article-title">
+                            {videoPost.title}
+                        </span>
+                        <p class="article-description">
+                            {videoPost.description}
+                        </p>
+                        <div class="article-tags">
+                            {#each videoPost.tags as tag}
+                                <div class="article-tag">{tag.title}</div>
+                            {/each}
+                            <div class="article-date">{videoPost.datePub}</div>
+                        </div>
+                    </div>
+                {/each}
+                <div class="article">
+                    <img src="/img/blog/articles/1.png" alt="">
+                    <a href="/videos/1" class="video-play-button">
+                        <img src="/icons/Play.svg" alt="">
+                    </a>
+                    <span class="article-title">
+                        Татар әдәбияты һәм суфичылык
+                    </span>
+                    <p class="article-description">
+                        Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
+                    </p>
+                    <div class="article-tags">
+                        <div class="article-tag">Тәрбия</div>
+                        <div class="article-tag">Тел</div>
+                        <div class="article-date">2019 елның 7 ноябре</div>
+                    </div>
                 </div>
             </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <a href="/videos/1" class="video-play-button">
-                    <img src="/icons/Play.svg" alt="">
-                </a>
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <a href="/videos/1" class="video-play-button">
-                    <img src="/icons/Play.svg" alt="">
-                </a>
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <a href="/videos/1" class="video-play-button">
-                    <img src="/icons/Play.svg" alt="">
-                </a>
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-        </div>
+        {:else}
+            <p>Пока видео постов нет</p>
+        {/if}
         <a href="/videos" class="show-all-button">
             Барлык видеолар
             <img src="/icons/ArrowUpRight.svg" alt="">
