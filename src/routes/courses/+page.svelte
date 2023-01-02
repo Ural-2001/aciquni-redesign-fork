@@ -50,6 +50,8 @@
 			}
 		`,
 	});
+
+    $: teachersShowingAmount = 6;
 </script>
 
 <div class="container top-section">
@@ -162,7 +164,7 @@
             <div class="filter-section">
                 <span class="title">Укытучылар</span>
                 <hr>
-                {#each $teachers.data.teachers as teacher}
+                {#each $teachers.data.teachers.slice(0, $teachers.data.teachers.length >= 6 ? teachersShowingAmount : $teachers.data.teachers.length) as teacher}
                     <label class="filter-item filter-item-teacher" for={`teacher${teacher.id}`}>
                         <input type="checkbox" id={`teacher${teacher.id}`} name="teacher">
                         <span class="checkmark checkmark-teacher" style="
@@ -172,7 +174,13 @@
                         <span>{teacher.firstName} {teacher.firstName}</span>
                     </label>
                 {/each}
-                <div class="show-all-categories">Барысын да күрсәтү</div>
+                {#if $teachers.data.teachers.length > 6}
+                    {#if teachersShowingAmount === 6}
+                        <div on:click={()=>teachersShowingAmount = $teachers.data.teachers.length} class="show-all-categories">Барысын да күрсәтү</div>
+                    {:else if teachersShowingAmount > 6}
+                        <div on:click={()=>teachersShowingAmount = 6} class="show-all-categories">Азрак күрсәтү</div>
+                    {/if}
+                {/if}
             </div>
         {/if}
     </div>
