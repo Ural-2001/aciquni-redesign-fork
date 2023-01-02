@@ -69,7 +69,7 @@
     {:else if $courses.error}
         <p>Oh no... {$courses.error.message}</p>
     {:else if $courses.data.courses.length > 0}
-        <div>
+        <div style="width: 90%;">
             <div class="courses-cards">
                 {#each $courses.data.courses as course}
                     <div class="course-card">
@@ -159,12 +159,12 @@
         {:else if $teachers.error}
             <p>Oh no... {$teachers.error.message}</p>
         {:else}
-            <div class="teachers filter-section">
+            <div class="filter-section">
                 <span class="title">Укытучылар</span>
                 <hr>
                 {#each $teachers.data.teachers as teacher}
-                    <label class="filter-item filter-item-teacher" for="teacher1">
-                        <input type="checkbox" id="teacher1" name="teacher">
+                    <label class="filter-item filter-item-teacher" for={`teacher${teacher.id}`}>
+                        <input type="checkbox" id={`teacher${teacher.id}`} name="teacher">
                         <span class="checkmark checkmark-teacher" style="
                             background-image: url(/img/teachers/yoldiz.png);
                         ">
