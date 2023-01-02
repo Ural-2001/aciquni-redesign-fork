@@ -5,23 +5,6 @@
 	import Carousel from '$lib/components/carousel/Carousel.svelte';
 	import { queryStore, gql, getContextClient } from '@urql/svelte';
 
-	const courses = queryStore({
-		client: getContextClient(),
-		query: gql`
-			query {
-				courses {
-					id
-					name
-					description
-					shortDescription
-					image
-					tags
-					lessonsCount
-				}
-			}
-		`,
-	});
-
 	const mainPage = queryStore({
 		client: getContextClient(),
 		query: gql`
@@ -29,6 +12,16 @@
 				mainPage {
 					firstNumber
 					secondNumber
+					selectedCourses {
+						id
+						name
+						description
+						shortDescription
+						image
+						tags
+						lessonsCount
+					}
+					description
 				}
 			}
 		`,
@@ -37,8 +30,8 @@
 	const teachers = queryStore({
 		client: getContextClient(),
 		query: gql`
-			query {
-				teachers {
+			query ($limit: Int) {
+				teachers (limit: $limit) {
 					id
 					firstName
 					lastName
@@ -48,6 +41,7 @@
 				}
 			}
 		`,
+		variables: { limit: 4 }
 	});
 	// let randomTeachers = $teachers.data.teachers
 
@@ -116,10 +110,10 @@
 	<p>Loading...</p>
 {:else if $mainPage.error}
 	<p>Oh no... {$mainPage.error.message}</p>
-{:else}
+{:else if $mainPage.data.mainPage.firstNumber && $mainPage.data.mainPage.secondNumber && $mainPage.data.mainPage.description}
 <div class="section container description">
 	<p class="description-text">
-		Ачык Университет – озак көтелгән тулы татар телле университет булдыруга зур адым. Киләчәктә милли университет булдыруга рәсми мөмкинлекләр тудырылгач, Ачык Университет аның өчен нигез булачак. Тулырак
+		{$mainPage.data.mainPage.description}
 	</p>
 	<div class="numbers">
 		<div class="students">
@@ -162,15 +156,15 @@
 	</div>
 </div>
 
-{#if $courses.fetching}
+{#if $mainPage.fetching}
 	<p>Loading...</p>
-{:else if $courses.error}
-	<p>Oh no... {$courses.error.message}</p>
-{:else if $courses.data.courses.length > 0}
+{:else if $mainPage.error}
+	<p>Oh no... {$mainPage.error.message}</p>
+{:else if $mainPage.data.mainPage.selectedCourses.length > 0}
 	<div class="section container courses">
 		<h2>яңа онлайн курслар</h2>
 			<div class="courses-cards">
-				{#each $courses.data.courses as course}
+				{#each $mainPage.data.mainPage.selectedCourses as course}
 					<div class="course-card">
 						<img src="/img/courses/1.png" alt="">
 						<a href="" class="course-card-button">
@@ -417,7 +411,7 @@
 		position: absolute;
 		z-index: 1;
 		margin-top: -247px; 
-		margin-left: 430px;
+		margin-left: 417px;
 	}
 	.courses h2 {
 		font-size: 52px;
