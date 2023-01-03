@@ -170,7 +170,7 @@
 						<a href="" class="course-card-button">
 							<img src="/icons/ArrowUpRight.svg" alt="">
 						</a>
-						<p class="course-card-title">{course?.name}: {course?.shortDescription}</p>
+						<p class="course-card-title">{course?.name}</p>
 						<div class="course-card-info">
 							{#each course.tags as tag}
 								<div>

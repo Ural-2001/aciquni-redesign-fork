@@ -1,22 +1,28 @@
 <script>
 	import { queryStore, gql, getContextClient } from '@urql/svelte';
 
-	const courses = queryStore({
-		client: getContextClient(),
-		query: gql`
-			query {
-				courses {
-					id
-					name
-					description
-					shortDescription
-					image
-					tags
-					lessonsCount
-				}
-			}
-		`,
-	});
+    $: teachersShowingAmount = 6;
+    $: teachersIds = [];
+
+    const client = getContextClient();
+    const query = gql`
+        query ($tags: [String], $teachersIds: [ID]) {
+            courses (tags: $tags teachersIds: $teachersIds) {
+                id
+                name
+                description
+                shortDescription
+                image
+                tags
+                lessonsCount
+            }
+        }
+    `
+    $: courses = queryStore({
+        client,
+        query,
+        variables: { teachersIds: teachersIds }
+    });
 
     const recommendedCourses = queryStore({
 		client: getContextClient(),
@@ -50,8 +56,6 @@
 			}
 		`,
 	});
-
-    $: teachersShowingAmount = 6;
 </script>
 
 <div class="container top-section">
@@ -70,7 +74,7 @@
         <p>Loading...</p>
     {:else if $courses.error}
         <p>Oh no... {$courses.error.message}</p>
-    {:else if $courses.data.courses.length > 0}
+    {:else if $courses.data.courses?.length > 0}
         <div style="width: 90%;">
             <div class="courses-cards">
                 {#each $courses.data.courses as course}
@@ -79,7 +83,7 @@
                         <a href={`/courses/${course.id}`} class="course-card-button">
                             <img src="/icons/ArrowUpRight.svg" alt="">
                         </a>
-                        <p class="course-card-title">{course?.name}: {course?.shortDescription}</p>
+                        <p class="course-card-title">{course?.name}</p>
                         <div class="course-card-info">
                             {#each course.tags as tag}
 								<div>
@@ -166,7 +170,17 @@
                 <hr>
                 {#each $teachers.data.teachers.slice(0, $teachers.data.teachers.length >= 6 ? teachersShowingAmount : $teachers.data.teachers.length) as teacher}
                     <label class="filter-item filter-item-teacher" for={`teacher${teacher.id}`}>
-                        <input type="checkbox" id={`teacher${teacher.id}`} name="teacher">
+                        <input
+                            on:change={(e) => {
+                                e.target.checked ? teachersIds = [...teachersIds, parseInt(teacher.id)] : teachersIds.splice(teachersIds.indexOf(teacher.id), 1);
+                                console.log(teachersIds);
+                                courses = queryStore({
+                                    client,
+                                    query,
+                                    variables: { teachersIds: teachersIds }
+                                });
+                            }}
+                            type="checkbox" id={`teacher${teacher.id}`} name="teacher">
                         <span class="checkmark checkmark-teacher" style="
                             background-image: url(/img/teachers/yoldiz.png);
                         ">
@@ -203,7 +217,7 @@
         </div>
     </div>
     <div class="courses-foryou">
-        {#each $recommendedCourses.data.recommendedCourses as course}
+        {#each $recommendedCourses.data.recommendedCourses.slice(0,3) as course}
             <div class="course-foryou-card">
                 <div>
                     <img src="/img/courses/course3.png" alt="">
@@ -212,7 +226,7 @@
                     </a>
                 </div>
                 <div class="course-foryou-card-right">
-                    <p class="course-foryou-card-title">{course?.name}: {course?.shortDescription}</p>
+                    <p class="course-foryou-card-title">{course?.name}</p>
                     <div class="course-foryou-card-info">
                         {#each course.tags as tag}
                             <div>
