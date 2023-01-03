@@ -27,7 +27,7 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"@fontsource/golos-ui": "^4.5.3",
-		"@urql/svelte": "^3.0.3",
+		"@urql/svelte": "3.0.3",
 		"bootstrap": "^5.2.0",
 		"cookie": "^0.4.1",
 		"graphql": "^16.6.0",

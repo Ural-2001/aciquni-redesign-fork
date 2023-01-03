@@ -1,4 +1,5 @@
 <script>
+    import { mutationStore, gql, getContextClient } from '@urql/svelte';
     import { onMount } from 'svelte';
 
     let closePopup;
@@ -6,6 +7,37 @@
 
     let hasAccount = true;
     let changeSection;
+
+    let login = 'main_admin';
+    let password = 'TatarKala2035';
+
+    let result;
+    let client = getContextClient();
+    const loginFunc = async () => {
+        result = await mutationStore({
+            client,
+            query: gql`
+                mutation ($login: String!, $password: String!) {
+                    login(login: $login, password: $password) {
+                        ok
+                        token
+                        user {
+                        id
+                        username
+                        firstName
+                        lastName
+                        email
+                        isActive
+                        dateJoined
+                        phoneNumber
+                        }
+                        errors
+                    }
+                }
+            `,
+            variables: { login, password },
+        });        
+    };
 
     onMount(() => {
         let loginPopup = document.getElementById('loginPopup');
@@ -42,81 +74,94 @@
                 </div>
             </div>
             {#if hasAccount}
-            <form class="login-form">
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="email">Электрон почта</label>
-                        <input type="text" id="email" placeholder="name@mail.com">
+                <form class="login-form">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="email">Электрон почта</label>
+                            <input type="text" bind:value={login} id="email" placeholder="name@mail.com">
+                        </div>
+                        <img src="./icons/user.svg" alt="">
                     </div>
-                    <img src="./icons/user.svg" alt="">
-                </div>
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="password">Сезнең пароль</label>
-                        <input type="text" id="password" placeholder="****">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="password">Сезнең пароль</label>
+                            <input type="password" bind:value={password} id="password" placeholder="****">
+                        </div>
+                        <img src="./icons/lockOpen.svg" alt="">
                     </div>
-                    <img src="./icons/lockOpen.svg" alt="">
-                </div>
-                <div class="popup-bottom">
-                    <button type="submit" class="button submit-button">
-                        Керү
-                        <img src="./icons/ArrowUpRightWhite.svg" alt="">
-                    </button>
-                    <span on:click={openPasswordResetPopup} class="forgot-password">Пароль онытылдымы?</span>
-                </div>
-            </form>
+                    <div class="popup-bottom">
+                        <button
+                            on:click|preventDefault={() => {
+                                loginFunc()
+                                function isGot() {
+                                    if ($result.error)
+                                        console.log($result.error)
+                                    if ($result.data) {
+                                        console.log($result.data)
+                                        localStorage.setItem('user', JSON.stringify($result.data.login.user));
+                                    }
+                                }
+                                setTimeout(isGot, 1000);
+                            }}
+                            type="submit" class="button submit-button">
+                            Керү
+                            <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                        </button>
+                        <span on:click={openPasswordResetPopup} class="forgot-password">Пароль онытылдымы?</span>
+                    </div>
+                </form>
             {:else}
-            <form class="login-form">
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="name">Исемегез</label>
-                        <input type="text" id="name" value="Александр">
+                <form class="login-form">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="name">Исемегез</label>
+                            <input type="text" id="name" value="Александр">
+                        </div>
                     </div>
-                </div>
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="phone">Телефон номеры</label>
-                        <input type="tel" id="phone" value="+7 999 156-19-92">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="phone">Телефон номеры</label>
+                            <input type="tel" id="phone" value="+7 999 156-19-92">
+                        </div>
                     </div>
-                </div>
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="email">Электрон почта</label>
-                        <input type="email" id="email" value="alexkama@mail.com">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="email">Электрон почта</label>
+                            <input type="email" id="email" value="alexkama@mail.com">
+                        </div>
                     </div>
-                </div>
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="password">Туган көнегез</label>
-                        <input type="date" id="password" value="26.10.1904">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="password">Туган көнегез</label>
+                            <input type="date" id="password" value="26.10.1904">
+                        </div>
+                        <img src="./icons/Calendar.svg" alt="">
                     </div>
-                    <img src="./icons/Calendar.svg" alt="">
-                </div>
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="password1">Пароль уйлап табыгыз</label>
-                        <input type="password" id="password" placeholder="****">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="password1">Пароль уйлап табыгыз</label>
+                            <input type="password" id="password" placeholder="****">
+                        </div>
+                        <img src="./icons/Eye.svg" alt="">
                     </div>
-                    <img src="./icons/Eye.svg" alt="">
-                </div>
-                <div class="form-input">
-                    <div class="form-input-field">
-                        <label for="password2">Парольне кабатлагыз</label>
-                        <input type="password" id="password2" placeholder="****">
+                    <div class="form-input">
+                        <div class="form-input-field">
+                            <label for="password2">Парольне кабатлагыз</label>
+                            <input type="password" id="password2" placeholder="****">
+                        </div>
+                        <img src="./icons/EyeSlash.svg" alt="">
                     </div>
-                    <img src="./icons/EyeSlash.svg" alt="">
-                </div>
-                <div class="check-terms">
-                    <input type="checkbox" id="check-terms">
-                    <label for="check-terms">Принимаю условия обработки пользовательских данных</label>
-                </div>
-                <div class="popup-bottom">
-                    <button type="submit" class="button submit-button">
-                        Теркәү
-                        <img src="./icons/ArrowUpRightWhite.svg" alt="">
-                    </button>
-                </div>
-            </form>
+                    <div class="check-terms">
+                        <input type="checkbox" id="check-terms">
+                        <label for="check-terms">Принимаю условия обработки пользовательских данных</label>
+                    </div>
+                    <div class="popup-bottom">
+                        <button type="submit" class="button submit-button">
+                            Теркәү
+                            <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                        </button>
+                    </div>
+                </form>
             {/if}
         </div> 
         <div>
@@ -194,7 +239,7 @@
         border-radius: 25px;
         border: 1px solid var(--text-tertiary-color);
         padding: 8px 20px;
-        background: url(./MagnifyingGlass.svg) no-repeat scroll 95% 50%;
+        /* background: url(./MagnifyingGlass.svg) no-repeat scroll 95% 50%; */
         font-size: 14px;
         width: 350px;
         margin-bottom: 15px;
