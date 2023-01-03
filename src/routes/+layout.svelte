@@ -7,15 +7,17 @@
 	import PasswordReset from '../lib/popups/password/PasswordReset.svelte';
 	import GetSertificate from '../lib/popups/sertificate/GetSertificate.svelte';
 	import { createClient, setContextClient } from '@urql/svelte';
+	import { browser } from '$app/environment';
 
 	const client = createClient({
 		url: 'http://82.146.54.209/graphql/',
-		// fetchOptions: () => {
-		// 	const token = getToken();
-		// 	return {
-		// 		headers: { authorization: token ? `Bearer ${token}` : '' },
-		// 	};
-		// },
+		fetchOptions: () => {
+			let token = browser ? (window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')).token : '') : '';
+
+			return {
+				headers: { authorization: `token ${token}` },
+			};
+		},
 	});
 	setContextClient(client);
 </script>

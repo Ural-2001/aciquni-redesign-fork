@@ -22,14 +22,14 @@
                         ok
                         token
                         user {
-                        id
-                        username
-                        firstName
-                        lastName
-                        email
-                        isActive
-                        dateJoined
-                        phoneNumber
+                            id
+                            username
+                            firstName
+                            lastName
+                            email
+                            isActive
+                            dateJoined
+                            phoneNumber
                         }
                         errors
                     }
@@ -98,7 +98,7 @@
                                         console.log($result.error)
                                     if ($result.data) {
                                         console.log($result.data)
-                                        localStorage.setItem('user', JSON.stringify($result.data.login.user));
+                                        localStorage.setItem('user', JSON.stringify($result.data.login));
                                     }
                                 }
                                 setTimeout(isGot, 1000);
