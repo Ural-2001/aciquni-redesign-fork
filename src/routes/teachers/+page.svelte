@@ -87,13 +87,6 @@
                     </div>
                 </a>
             {/each}
-            <div class="teacher">
-                <img src="/img/teachers/damir.png" alt="">
-                <div class="teacher-info">
-                    <span class="name">Йолдыз <br> Миңнуллина</span>
-                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-                </div>
-            </div>
         </div>
         <a href="/" class="all-courses-button">
             Тагын 12 мөгалимнәр арасыннан 45

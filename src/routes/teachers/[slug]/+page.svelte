@@ -1,101 +1,135 @@
-<div class="container top-section">
-    <div class="breadcrumbs">
-        <a href="/">баш</a>
-        <img src="/icons/CaretLeft.svg" alt="">
-        <a href="">мөгалимнәр</a>
-        <img src="/icons/CaretLeft.svg" alt="">
-        <a href="">гөлназ жиһангирова</a>
+<script>
+    import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
+    import { queryStore, gql, getContextClient } from '@urql/svelte';
+    import { page } from '$app/stores';
+
+    const id = parseInt($page.params.slug);
+
+	const teacher = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query ($teacherId: ID!){
+                teacher(teacherId: $teacherId) {
+                    id
+                    firstName
+                    lastName
+                    patronymic
+                    image
+                    imageCropped
+                    imageCroppedTeacherPage
+                    information
+                    position
+                }
+            }
+		`,
+        variables: { teacherId: id }
+	});
+</script>
+
+{#if $teacher.fetching}
+<p>Loading...</p>
+{:else if $teacher.error}
+<p>Oh no... {$teacher.error.message}</p>
+{:else}
+    <div class="container top-section">
+        <div class="breadcrumbs">
+            <a href="/">баш</a>
+            <img src="/icons/CaretLeft.svg" alt="">
+            <a href="">мөгалимнәр</a>
+            <img src="/icons/CaretLeft.svg" alt="">
+            <a href="">{teacher.firstName} {teacher.lastName}</a>
+        </div>
     </div>
-</div>
-<div class="container">
-    <div style="width: 75%;">
-        <div class="teacher-card">
-            <div class="teacher-info">
-                <h1 class="teacher-name">Гөлназ Җиһангирова</h1>
-                <p class="teacher-occupation">
-                    Музыка белгече, Әүхәдиев исемендәге музыка көллияте укытучысы.
+    <div class="container">
+        <div style="width: 75%;">
+            <div class="teacher-card">
+                <div class="teacher-info">
+                    <h1 class="teacher-name">Гөлназ Җиһангирова</h1>
+                    <p class="teacher-occupation">
+                        Музыка белгече, Әүхәдиев исемендәге музыка көллияте укытучысы.
+                    </p>
+                </div>
+                <div class="teacher-photo">
+                    <img class="teacher-photo-img" src="/img/teachers/yoldiz.png" alt="">
+                    <div class="teacher-courses">
+                        <div style="display: flex; justify-content: flex-end;">
+                            <img src="/icons/GraduationCapPurple.svg" alt="">
+                        </div> 
+                        <div style="display: flex; flex-direction: column;">
+                            <span class="teacher-courses-number">42</span>
+                            <span class="teacher-courses-text">курслар</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="biography">
+                <h3>биография</h3>
+                <p>
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
                 </p>
+                <a href="">
+                    <img src="/icons/ArrowsClockwisePurple.svg" alt="">
+                    Барысын да күрсәтү
+                </a>
             </div>
-            <div class="teacher-photo">
-                <img class="teacher-photo-img" src="/img/teachers/yoldiz.png" alt="">
-                <div class="teacher-courses">
-                    <div style="display: flex; justify-content: flex-end;">
-                        <img src="/icons/GraduationCapPurple.svg" alt="">
-                    </div> 
-                    <div style="display: flex; flex-direction: column;">
-                        <span class="teacher-courses-number">42</span>
-                        <span class="teacher-courses-text">курслар</span>
+            <hr>
+            <div>
+                <h2 style="margin-left: 42px;">курслар</h2>
+                <div class="courses-cards">
+                    <div class="course-card">
+                        <img src="/img/courses/1.png" alt="">
+                        <a href="" class="course-card-button">
+                            <img src="/icons/ArrowUpRight.svg" alt="">
+                        </a>
+                        <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+                        <div class="course-card-info">
+                            <div>
+                                <span>Әдәбият</span>
+                            </div>
+                            <div>
+                                <span>12 дәрес</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <img src="/img/courses/2.png" alt="">
+                        <a href="" class="course-card-button">
+                            <img src="/icons/ArrowUpRight.svg" alt="">
+                        </a>
+                        <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+                        <div class="course-card-info">
+                            <div>
+                                <span>Әдәбият</span>
+                            </div>
+                            <div>
+                                <span>12 дәрес</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <img src="/img/courses/3.png" alt="">
+                        <a href="" class="course-card-button">
+                            <img src="/icons/ArrowUpRight.svg" alt="">
+                        </a>
+                        <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
+                        <div class="course-card-info">
+                            <div>
+                                <span>Әдәбият</span>
+                            </div>
+                            <div>
+                                <span>12 дәрес</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <a href="/" class="all-courses-button">
+                    Тагын 12 мөгалимнәр арасыннан 45
+                    <img src="/icons/ArrowsClockwise.svg" alt="">
+                </a>
             </div>
-        </div>
-        <div class="biography">
-            <h3>биография</h3>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
-            </p>
-            <a href="">
-                <img src="/icons/ArrowsClockwisePurple.svg" alt="">
-                Барысын да күрсәтү
-            </a>
-        </div>
-        <hr>
-        <div>
-            <h2 style="margin-left: 42px;">курслар</h2>
-            <div class="courses-cards">
-                <div class="course-card">
-                    <img src="/img/courses/1.png" alt="">
-                    <a href="" class="course-card-button">
-                        <img src="/icons/ArrowUpRight.svg" alt="">
-                    </a>
-                    <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                    <div class="course-card-info">
-                        <div>
-                            <span>Әдәбият</span>
-                        </div>
-                        <div>
-                            <span>12 дәрес</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <img src="/img/courses/2.png" alt="">
-                    <a href="" class="course-card-button">
-                        <img src="/icons/ArrowUpRight.svg" alt="">
-                    </a>
-                    <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                    <div class="course-card-info">
-                        <div>
-                            <span>Әдәбият</span>
-                        </div>
-                        <div>
-                            <span>12 дәрес</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <img src="/img/courses/3.png" alt="">
-                    <a href="" class="course-card-button">
-                        <img src="/icons/ArrowUpRight.svg" alt="">
-                    </a>
-                    <p class="course-card-title">Татар әдәбияты тарихы: борынгы чорлардан – яңа зама..</p>
-                    <div class="course-card-info">
-                        <div>
-                            <span>Әдәбият</span>
-                        </div>
-                        <div>
-                            <span>12 дәрес</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a href="/" class="all-courses-button">
-                Тагын 12 мөгалимнәр арасыннан 45
-                <img src="/icons/ArrowsClockwise.svg" alt="">
-            </a>
         </div>
     </div>
-</div>
+{/if}
 
 <style>
     .teacher-card {
