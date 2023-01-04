@@ -1,35 +1,42 @@
 <script>
 	import { queryStore, gql, getContextClient } from '@urql/svelte';
 
-    const videoPosts = queryStore({
-		client: getContextClient(),
-		query: gql`
-            query {
-                videoPosts {
+    let limit = 6;
+    let offset = 0;
+    let page = 1;
+    let pages = [1, 2, 3, 4, 5];
+    const client = getContextClient();
+    const VIDEO_POST_QUERY = gql`
+        query ($limit: Int, $offset: Int) {
+            videoPosts (limit: $limit, offset: $offset) {
+                id
+                title
+                slug
+                videoLink
+                tags {
                     id
                     title
-                    slug
-                    videoLink
-                    tags {
-                        id
-                        title
-                    }
-                    description
-                    datePub
-                    viewCount
-                    status
-                    comments {
+                }
+                description
+                datePub
+                viewCount
+                status
+                comments {
+                    id
+                    text
+                    replies {
                         id
                         text
-                        replies {
-                            id
-                            text
-                        }
                     }
                 }
             }
-		`,
-	});
+        }
+    `
+    $: videoPosts = queryStore({
+        client,
+        query: VIDEO_POST_QUERY,
+        variables: { limit, offset }
+    });
 </script>
 
 <div class="container top-section">
@@ -61,11 +68,11 @@
         <div class="articles-section">
             <div class="articles">
                 {#each $videoPosts.data.videoPosts as videoPost}
-                    <a href={`/videos/{videoPost.id}`} class="article">
+                    <a href={`/videos/${videoPost.id}`} class="article">
                         <img src="/img/blog/articles/1.png" alt="">
-                        <a href="/videos/1" class="video-play-button">
+                        <div class="video-play-button">
                             <img src="/icons/Play.svg" alt="">
-                        </a>
+                        </div>
                         <span class="article-title">
                             {videoPost.title}
                         </span>
@@ -80,23 +87,6 @@
                         </div>
                     </a>
                 {/each}
-                <div class="article">
-                    <img src="/img/blog/articles/1.png" alt="">
-                    <a href="/videos/1" class="video-play-button">
-                        <img src="/icons/Play.svg" alt="">
-                    </a>
-                    <span class="article-title">
-                        Татар әдәбияты һәм суфичылык
-                    </span>
-                    <p class="article-description">
-                        Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                    </p>
-                    <div class="article-tags">
-                        <div class="article-tag">Тәрбия</div>
-                        <div class="article-tag">Тел</div>
-                        <div class="article-date">2019 елның 7 ноябре</div>
-                    </div>
-                </div>
             </div>
             <div class="pagination">
                 <a href="/" class="show-all-button">
@@ -104,10 +94,19 @@
                     <img src="/icons/ArrowsClockwise.svg" alt="">
                 </a>
                 <div class="pagination-numbers">
-                    <div class="pagination-number">1</div>
-                    <div class="pagination-number active">2</div>
-                    <div class="pagination-number">3</div>
-                    <div class="pagination-number">4</div>
+                    {#each pages as i}
+                        <div 
+                            on:click={() => {
+                                page = i;
+                                offset = limit * page;
+                                queryStore({
+                                    client,
+                                    query: VIDEO_POST_QUERY,
+                                    variables: { limit, offset }
+                                });
+                            }} 
+                            class="pagination-number" class:active="{page === i}">{i}</div>
+                    {/each}
                 </div>
             </div>
         </div>
