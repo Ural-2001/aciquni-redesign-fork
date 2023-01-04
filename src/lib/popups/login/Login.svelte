@@ -164,22 +164,9 @@
                     </div>
                     <div class="form-input">
                         <div class="form-input-field">
-                            <label for="phone">Телефон номеры</label>
-                            <input type="tel" id="phone" value="+7 999 156-19-92">
-                        </div>
-                    </div>
-                    <div class="form-input">
-                        <div class="form-input-field">
                             <label for="email">Электрон почта</label>
                             <input bind:value={email} type="email" id="email" placeholder="alexkama@mail.com">
                         </div>
-                    </div>
-                    <div class="form-input">
-                        <div class="form-input-field">
-                            <label for="password">Туган көнегез</label>
-                            <input type="date" id="password" value="26.10.1904">
-                        </div>
-                        <img src="./icons/Calendar.svg" alt="">
                     </div>
                     <div class="form-input">
                         <div class="form-input-field">
