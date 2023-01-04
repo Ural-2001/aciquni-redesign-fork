@@ -125,9 +125,11 @@
                         <span class="article-title">
                             {articlePost.title}
                         </span>
-                        <p class="article-description">
-                            articlePost.description
-                        </p>
+                        {#if articlePost.body}
+                            <p class="article-description">
+                                {`${articlePost.body.substr(0, 100)}${articlePost.body.length > 100 ? '...' : ''}`}
+                            </p>
+                        {/if}
                         <div class="article-tags">
                             {#each articlePost.tags as tag}
                                 <div class="article-tag">{tag.title}</div>
