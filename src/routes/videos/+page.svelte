@@ -4,11 +4,24 @@
     let limit = 6;
     let offset = 0;
     let page = 1;
-    let pages;
+
+    let selectedTagIds = [];
+    const videoPostTags = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query{
+                videoPostTags {
+                    id
+                    title
+                }
+            }
+		`,
+	});
+
     const client = getContextClient();
     const VIDEO_POST_QUERY = gql`
-        query ($limit: Int, $offset: Int) {
-            videoPosts (limit: $limit, offset: $offset) {
+        query ($limit: Int, $offset: Int, $videoTagsIds: [ID]) {
+            videoPosts (limit: $limit, offset: $offset, videoTagsIds: $videoTagsIds) {
                 id
                 title
                 slug
@@ -36,7 +49,7 @@
     $: videoPosts = queryStore({
         client,
         query: VIDEO_POST_QUERY,
-        variables: { limit, offset }
+        variables: { limit, offset, videoTagsIds: selectedTagIds }
     });
 </script>
 
@@ -49,18 +62,37 @@
         <a href="">видео</a>
     </div>
     <h1>видео</h1>
-    <div class="themes">
-        <div class="theme active">Барча</div>
-        <div class="theme">Тарих</div>
-        <div class="theme">Музыка</div>
-        <div class="theme">Тел</div>
-        <div class="theme">Әдәбият</div>
-        <div class="theme">Ислам</div>
-        <div class="theme">Тәрбия</div>
-        <div class="theme">Кием</div>
-        <div class="theme">Фольклор</div>
-        <div class="theme">Театр</div>
-    </div>
+    {#if $videoPostTags.fetching}
+        <p>Loading...</p>
+    {:else if $videoPostTags.error}
+        <p>Oh no... {$videoPostTags.error.message}</p>
+    {:else if $videoPostTags.data.videoPostTags.length > 0}
+        <div class="themes">
+            {#each $videoPostTags.data.videoPostTags as tag}
+                <div
+                    on:click={() => {
+                        if (selectedTagIds.includes(tag.id)) {
+                            selectedTagIds.splice(selectedTagIds.indexOf(tag.id), 1) 
+                            selectedTagIds = selectedTagIds;
+                        }
+                        else {
+                            selectedTagIds = [...selectedTagIds, tag.id];
+                        }
+                        offset = 0;
+                        page = 1;
+                        queryStore({
+                            client,
+                            query: VIDEO_POST_QUERY,
+                            variables: { limit, offset, videoTagsIds: selectedTagIds }
+                        });
+                    }}
+                    class="theme" class:active={selectedTagIds.includes(tag.id)}
+                >
+                    {tag.title}
+                </div>
+            {/each}
+        </div>
+    {/if}
     {#if $videoPosts.fetching}
         <p>Loading...</p>
     {:else if $videoPosts.error}
@@ -77,14 +109,16 @@
                         <span class="article-title">
                             {videoPost.title}
                         </span>
-                        <p class="article-description">
-                            {`${videoPost.description.substr(0, 100)}${videoPost.description.length > 100 ? '...' : ''}`}
-                        </p>
+                        {#if videoPost.description}
+                            <p class="article-description">
+                                {`${videoPost.description.substr(0, 100)}${videoPost.description.length > 100 ? '...' : ''}`}
+                            </p>
+                        {/if}
                         <div class="article-tags">
                             {#each videoPost.tags as tag}
                                 <div class="article-tag">{tag.title}</div>
                             {/each}
-                            <div class="article-date"> {videoPost.datePub}</div>
+                            <div class="article-date"> {Date.parse(videoPost.datePub)}</div>
                         </div>
                     </a>
                 {/each}
@@ -103,7 +137,7 @@
                                 queryStore({
                                     client,
                                     query: VIDEO_POST_QUERY,
-                                    variables: { limit, offset }
+                                    variables: { limit, offset, videoTagsIds: selectedTagIds }
                                 });
                             }} 
                             class="pagination-number" class:active="{page === i+1}">{i+1}</div>
