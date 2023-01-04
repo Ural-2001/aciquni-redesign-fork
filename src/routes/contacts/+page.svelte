@@ -1,5 +1,29 @@
 <script>
     import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
+    import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+    const contactPage = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query{
+                contactPage {
+                    id
+                    address
+                    commentForAddress
+                    latitude
+                    longitude
+                    contact1Title
+                    contact1Name
+                    contact1Phone
+                    contact1Email
+                    contact2Title
+                    contact2Name
+                    contact2Phone
+                    contact2Email
+                }
+            }
+		`,
+	});
 </script>
 
 <div class="container top-section">
@@ -11,66 +35,78 @@
 </div>
 <div class="container">
     <h1>элемтә</h1>
-    <div class="contacts">
-        <div class="map-section">
-            <div class="map-section-info">
-                <div class="map-icon">
-                    <img src="/icons/MapTrifold.svg" alt="">
+    {#if $contactPage.fetching}
+        <p>Loading...</p>
+    {:else if $contactPage.error}
+        <p>Oh no... {$contactPage.error.message}</p>
+    {:else}
+        <div class="contacts">
+            {#if $contactPage.data.contactPage.address}
+                <div class="map-section">
+                    <div class="map-section-info">
+                        <div class="map-icon">
+                            <img src="/icons/MapTrifold.svg" alt="">
+                        </div>
+                        <div class="address">
+                            <span class="address-point">{$contactPage.data.contactPage.address}</span>
+                            <span class="address-text">{$contactPage.data.contactPage.commentForAddress}</span>
+                        </div>
+                    </div>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2242.8401332815115!2d49.12339781250517!3d55.79601382729805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x415ea9174c65a461%3A0x8328ff2829b5c18a!2sIspolnitel&#39;nyy%20Komitet%20%22Vsemirnogo%20Kongressa%20Tatar%22!5e0!3m2!1sen!2str!4v1666875311384!5m2!1sen!2str" 
+                        width="617"
+                        height="180" 
+                        style="border:0;border-radius:16px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                    >
+                    </iframe>
+                    <!-- <div style="position:relative;overflow:hidden;"> -->
+                        <!-- <a href="https://yandex.ru/maps/org/ispolkom_vsemirnogo_kongressa_tatar/234266260044/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Исполком Всемирного Конгресса татар</a>
+                        <a href="https://yandex.ru/maps/43/kazan/category/community_organization/184106274/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Общественная организация в Казани</a> -->
+                        <!-- <iframe src="https://yandex.ru/map-widget/v1/-/CCUZbSDh0A" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe> -->
+                    <!-- </div> -->
                 </div>
-                <div class="address">
-                    <span class="address-point">Казан, Карл Маркс урамы, 38/5</span>
-                    <span class="address-text">12 мин Габдулла Тукай мәйданы метро станциясеннән</span>
+            {/if}
+            {#if $contactPage.data.contactPage.contact1Title}
+                <div class="contact-card">
+                    <h6 class="contact-card-title">{$contactPage.data.contactPage.contact1Title}</h6>
+                    <div class="contact-person">
+                        <img src="/img/contacts/zehra.png" alt="">
+                        <span class="contact-name">{$contactPage.data.contactPage.contact1Name}</span>
+                    </div>
+                    <hr>
+                    <div class="contact-phone">
+                        <img src="/icons/PhonePurple.svg" alt="">
+                        <span>{$contactPage.data.contactPage.contact1Phone}</span>
+                    </div>
+                    <div class="contact-phone">
+                        <img src="/icons/mail.svg" alt="">
+                        <span>{$contactPage.data.contactPage.contact1Email}</span>
+                    </div>
                 </div>
-            </div>
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2242.8401332815115!2d49.12339781250517!3d55.79601382729805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x415ea9174c65a461%3A0x8328ff2829b5c18a!2sIspolnitel&#39;nyy%20Komitet%20%22Vsemirnogo%20Kongressa%20Tatar%22!5e0!3m2!1sen!2str!4v1666875311384!5m2!1sen!2str" 
-                width="617"
-                height="180" 
-                style="border:0;border-radius:16px;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade"
-            >
-            </iframe>
-            <!-- <div style="position:relative;overflow:hidden;"> -->
-                <!-- <a href="https://yandex.ru/maps/org/ispolkom_vsemirnogo_kongressa_tatar/234266260044/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Исполком Всемирного Конгресса татар</a>
-                <a href="https://yandex.ru/maps/43/kazan/category/community_organization/184106274/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Общественная организация в Казани</a> -->
-                <!-- <iframe src="https://yandex.ru/map-widget/v1/-/CCUZbSDh0A" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe> -->
-            <!-- </div> -->
+            {/if}
+            {#if $contactPage.data.contactPage.contact2Title}
+                <div class="contact-card">
+                    <h6 class="contact-card-title">{$contactPage.data.contactPage.contact2Title}</h6>
+                    <div class="contact-person">
+                        <img src="/img/contacts/rainur.png" alt="">
+                        <span class="contact-name">{$contactPage.data.contactPage.contact2Name}</span>
+                    </div>
+                    <hr>
+                    <div class="contact-phone">
+                        <img src="/icons/PhonePurple.svg" alt="">
+                        <span>{$contactPage.data.contactPage.contact2Phone}</span>
+                    </div>
+                    <div class="contact-phone">
+                        <img src="/icons/mail.svg" alt="">
+                        <span>{$contactPage.data.contactPage.contact2Email}</span>
+                    </div>
+                </div>
+            {/if}
         </div>
-        <div class="contact-card">
-            <h6 class="contact-card-title">Пресс-служба</h6>
-            <div class="contact-person">
-                <img src="/img/contacts/zehra.png" alt="">
-                <span class="contact-name">Зөһрә <br>Вилданова</span>
-            </div>
-            <hr>
-            <div class="contact-phone">
-                <img src="/icons/PhonePurple.svg" alt="">
-                <span>+7 999 156-1992</span>
-            </div>
-            <div class="contact-phone">
-                <img src="/icons/mail.svg" alt="">
-                <span>zohra@univer.tatar</span>
-            </div>
-        </div>
-        <div class="contact-card">
-            <h6 class="contact-card-title">Сотрудничество</h6>
-            <div class="contact-person">
-                <img src="/img/contacts/rainur.png" alt="">
-                <span class="contact-name">Райнур <br>Хәсәнов</span>
-            </div>
-            <hr>
-            <div class="contact-phone">
-                <img src="/icons/PhonePurple.svg" alt="">
-                <span>+7 999 156-1992</span>
-            </div>
-            <div class="contact-phone">
-                <img src="/icons/mail.svg" alt="">
-                <span>raynur@univer.tatar</span>
-            </div>
-        </div>
-    </div>
+    {/if}
     <div class="advice-section">
         <h2>хезмәттәшлек</h2>
         <p>Сез безгә Сезне кызыксындырган сорау буенча: укудан алып хезмәттәшлеккә кадәр яза аласыз</p>
