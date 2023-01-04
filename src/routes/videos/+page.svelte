@@ -61,7 +61,7 @@
         <div class="articles-section">
             <div class="articles">
                 {#each $videoPosts.data.videoPosts as videoPost}
-                    <div class="article">
+                    <a href={`/videos/{videoPost.id}`} class="article">
                         <img src="/img/blog/articles/1.png" alt="">
                         <a href="/videos/1" class="video-play-button">
                             <img src="/icons/Play.svg" alt="">
@@ -78,7 +78,7 @@
                             {/each}
                             <div class="article-date"> {videoPost.datePub}</div>
                         </div>
-                    </div>
+                    </a>
                 {/each}
                 <div class="article">
                     <img src="/img/blog/articles/1.png" alt="">
