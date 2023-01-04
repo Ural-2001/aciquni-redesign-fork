@@ -5,7 +5,7 @@
 		client: getContextClient(),
 		query: gql`
 			query {
-				articlePosts {
+				articlePosts (limit: 6) {
                     id
                     title
                     body
@@ -28,7 +28,7 @@
 		client: getContextClient(),
 		query: gql`
 			query {
-				videoPosts {
+				videoPosts (limit: 6) {
                     id
                     title
                     videoLink
@@ -136,20 +136,6 @@
                         </div>
                     </a>
                 {/each}
-                <div class="article">
-                    <img src="/img/blog/articles/1.png" alt="">
-                    <span class="article-title">
-                        Татар әдәбияты һәм суфичылык
-                    </span>
-                    <p class="article-description">
-                        Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                    </p>
-                    <div class="article-tags">
-                        <div class="article-tag">Тәрбия</div>
-                        <div class="article-tag">Тел</div>
-                        <div class="article-date">2019 елның 7 ноябре</div>
-                    </div>
-                </div>
             </div>
         {:else}
             <p>Пока постов нет</p>
@@ -173,7 +159,7 @@
         {:else if $videoPosts.data.videoPosts.length > 0}
             <div class="articles">
                 {#each $videoPosts.data.videoPosts as videoPost}
-                    <div class="article">
+                    <a href={`/videos/${videoPost.id}`} class="article">
                         <img src="/img/blog/articles/1.png" alt="">
                         <a href={`/videos/${videoPost.id}`} class="video-play-button">
                             <img src="/icons/Play.svg" alt="">
@@ -181,34 +167,19 @@
                         <span class="article-title">
                             {videoPost.title}
                         </span>
+                        {#if videoPost.description}
                         <p class="article-description">
-                            {videoPost.description}
+                            {`${videoPost.description.substr(0, 100)}${videoPost.description.length > 100 ? '...' : ''}`}
                         </p>
+                        {/if}
                         <div class="article-tags">
                             {#each videoPost.tags as tag}
                                 <div class="article-tag">{tag.title}</div>
                             {/each}
                             <div class="article-date">{videoPost.datePub}</div>
                         </div>
-                    </div>
-                {/each}
-                <div class="article">
-                    <img src="/img/blog/articles/1.png" alt="">
-                    <a href="/videos/1" class="video-play-button">
-                        <img src="/icons/Play.svg" alt="">
                     </a>
-                    <span class="article-title">
-                        Татар әдәбияты һәм суфичылык
-                    </span>
-                    <p class="article-description">
-                        Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                    </p>
-                    <div class="article-tags">
-                        <div class="article-tag">Тәрбия</div>
-                        <div class="article-tag">Тел</div>
-                        <div class="article-date">2019 елның 7 ноябре</div>
-                    </div>
-                </div>
+                {/each}
             </div>
         {:else}
             <p>Пока видео постов нет</p>
@@ -384,6 +355,12 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
+        text-decoration: none;
+        color: initial;
+        transition: all 0.3s;
+    }
+    .article:hover {
+        transform: scale(1.01);
     }
     .article img {
         max-width: 420px;
