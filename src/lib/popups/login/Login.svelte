@@ -39,6 +39,50 @@
         });        
     };
 
+    let email = 'test2@test.com';
+    let firstName = 'Test';
+    let lastName = 'Test';
+    let passwordReg = 'Test2035';
+    let passwordRegRepeat = 'Test2035';
+    let resultReg;
+    const regFunc = async () => {
+        resultReg = await mutationStore({
+            client,
+            query: gql`
+            mutation (
+                $email: String!,
+                $firstName: String!,
+                $lastName: String!,
+                $password: String!,
+                $passwordRepeat: String!
+                ){
+                    reg(
+                        email: $email
+                        firstName: $firstName
+                        lastName: $lastName
+                        password: $password
+                        passwordRepeat: $passwordRepeat
+                    ) {
+                        ok
+                        token
+                        user {
+                        id
+                        username
+                        firstName
+                        lastName
+                        email
+                        isActive
+                        dateJoined
+                        phoneNumber
+                        }
+                        errors
+                    }
+                }
+            `,
+            variables: { email, firstName, lastName, password: passwordReg, passwordRepeat: passwordRegRepeat }
+        });        
+    };
+
     onMount(() => {
         let loginPopup = document.getElementById('loginPopup');
         let passwordResetPopup = document.getElementById('passwordResetPopup');
@@ -115,7 +159,7 @@
                     <div class="form-input">
                         <div class="form-input-field">
                             <label for="name">Исемегез</label>
-                            <input type="text" id="name" value="Александр">
+                            <input bind:value={firstName} type="text" id="name" placeholder="Александр">
                         </div>
                     </div>
                     <div class="form-input">
@@ -127,7 +171,7 @@
                     <div class="form-input">
                         <div class="form-input-field">
                             <label for="email">Электрон почта</label>
-                            <input type="email" id="email" value="alexkama@mail.com">
+                            <input bind:value={email} type="email" id="email" placeholder="alexkama@mail.com">
                         </div>
                     </div>
                     <div class="form-input">
@@ -140,14 +184,14 @@
                     <div class="form-input">
                         <div class="form-input-field">
                             <label for="password1">Пароль уйлап табыгыз</label>
-                            <input type="password" id="password" placeholder="****">
+                            <input bind:value={passwordReg} type="password" id="password" placeholder="****">
                         </div>
                         <img src="./icons/Eye.svg" alt="">
                     </div>
                     <div class="form-input">
                         <div class="form-input-field">
                             <label for="password2">Парольне кабатлагыз</label>
-                            <input type="password" id="password2" placeholder="****">
+                            <input  bind:value={passwordRegRepeat} type="password" id="password2" placeholder="****">
                         </div>
                         <img src="./icons/EyeSlash.svg" alt="">
                     </div>
@@ -156,7 +200,20 @@
                         <label for="check-terms">Принимаю условия обработки пользовательских данных</label>
                     </div>
                     <div class="popup-bottom">
-                        <button type="submit" class="button submit-button">
+                        <button 
+                        on:click|preventDefault={() => {
+                            regFunc()
+                            function isGot() {
+                                if ($resultReg.error)
+                                    console.log($resultReg.error)
+                                if ($resultReg.data) {
+                                    console.log($resultReg.data)
+                                    localStorage.setItem('user', JSON.stringify($resultReg.data.reg));
+                                }
+                            }
+                            setTimeout(isGot, 3000);
+                        }}
+                        type="submit" class="button submit-button">
                             Теркәү
                             <img src="./icons/ArrowUpRightWhite.svg" alt="">
                         </button>
