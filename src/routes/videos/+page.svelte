@@ -4,7 +4,7 @@
     let limit = 6;
     let offset = 0;
     let page = 1;
-    let pages = [1, 2, 3, 4, 5];
+    let pages;
     const client = getContextClient();
     const VIDEO_POST_QUERY = gql`
         query ($limit: Int, $offset: Int) {
@@ -29,6 +29,7 @@
                         text
                     }
                 }
+                total
             }
         }
     `
@@ -77,7 +78,7 @@
                             {videoPost.title}
                         </span>
                         <p class="article-description">
-                            {videoPost.description}
+                            {`${videoPost.description.substr(0, 100)}${videoPost.description.length > 100 ? '...' : ''}`}
                         </p>
                         <div class="article-tags">
                             {#each videoPost.tags as tag}
@@ -94,10 +95,10 @@
                     <img src="/icons/ArrowsClockwise.svg" alt="">
                 </a>
                 <div class="pagination-numbers">
-                    {#each pages as i}
+                    {#each {length: Math.floor($videoPosts?.data?.videoPosts[0]?.total / limit)} as _, i}
                         <div 
                             on:click={() => {
-                                page = i;
+                                page = i+1;
                                 offset = limit * page;
                                 queryStore({
                                     client,
@@ -105,7 +106,7 @@
                                     variables: { limit, offset }
                                 });
                             }} 
-                            class="pagination-number" class:active="{page === i}">{i}</div>
+                            class="pagination-number" class:active="{page === i+1}">{i+1}</div>
                     {/each}
                 </div>
             </div>
@@ -181,6 +182,12 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
+        text-decoration: none;
+        color: initial;
+        transition: all 0.3s;
+    }
+    .article:hover {
+        transform: scale(1.01);
     }
     .article img {
         max-width: 420px;
