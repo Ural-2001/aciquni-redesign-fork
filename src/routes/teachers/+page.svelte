@@ -78,27 +78,15 @@
         <p>Oh no... {$teachers.error.message}</p>
     {:else if $teachers.data.teachers.length > 0}
         <div class="teachers">
-            <a href="/teachers/1" class="teacher">
-                <img src="/img/teachers/yoldiz.png" alt="">
-                <div class="teacher-info">
-                    <span class="name">Йолдыз <br> Миңнуллина</span>
-                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-                </div>
-            </a>
-            <div class="teacher">
-                <img src="/img/teachers/halisa.png" alt="">
-                <div class="teacher-info">
-                    <span class="name">Йолдыз <br> Миңнуллина</span>
-                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-                </div>
-            </div>
-            <div class="teacher">
-                <img src="/img/teachers/fayaz.png" alt="">
-                <div class="teacher-info">
-                    <span class="name">Йолдыз <br> Миңнуллина</span>
-                    <span class="occupation">шагыйрә, "Ялкын" журналында эшли.</span>
-                </div>
-            </div>
+            {#each $teachers.data.teachers as teacher}
+                <a href={`/teachers/${teacher.id}`} class="teacher">
+                    <img src="/img/teachers/damir.png" alt="">
+                    <div class="teacher-info">
+                        <span class="name">{teacher.firstName} <br> {teacher.lastName}</span>
+                        <span class="occupation">{teacher.position}</span>
+                    </div>
+                </a>
+            {/each}
             <div class="teacher">
                 <img src="/img/teachers/damir.png" alt="">
                 <div class="teacher-info">
