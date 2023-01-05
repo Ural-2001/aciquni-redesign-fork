@@ -5,50 +5,192 @@
     import ProfileFavourites from "$lib/profile/ProfileFavourites.svelte";
 
     import { onMount } from 'svelte';
+    import { queryStore, gql, getContextClient } from '@urql/svelte';
 
     let selectedPage = 'courses';
     let selectPage = (page) => {
         selectedPage = page;
     };
-    // onMount(() => {
-	// });
+
+    let isAuthenticated;
+    onMount(() => {
+        isAuthenticated = localStorage.getItem('user') ? true : false;
+	});
     
+    const me = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				me {
+					id
+					username
+					firstName
+					lastName
+					email
+					isActive
+					dateJoined
+					middleName
+					phoneNumber
+					birthDate
+					activeCourses {
+						id
+						name
+						shortDescription
+						description
+						image
+						imageCoursesAndCourse
+						imageDash
+						tags
+						chat
+						isVideo
+						videoLink
+						created
+						updated
+						isActive
+						isReady
+						totalStarted
+						totalEnded
+						totalWatches
+						queueNumber
+						isCertificated
+						lessonsCount
+						time
+						total
+					}
+					endedCourses {
+						id
+						name
+						shortDescription
+						description
+						image
+						imageCoursesAndCourse
+						imageDash
+						tags
+						chat
+						isVideo
+						videoLink
+						created
+						updated
+						isActive
+						isReady
+						totalStarted
+						totalEnded
+						totalWatches
+						queueNumber
+						isCertificated
+						lessonsCount
+						time
+						total
+					}
+					certificates {
+						id
+						course {
+							id
+							name
+						}
+						file
+						image
+						created
+					}
+					savedCourses {
+						id
+						name
+						shortDescription
+						description
+						image
+						imageCoursesAndCourse
+						imageDash
+						tags
+						chat
+						isVideo
+						videoLink
+						created
+						updated
+						isActive
+						isReady
+						totalStarted
+						totalEnded
+						totalWatches
+						queueNumber
+						isCertificated
+						lessonsCount
+						time
+						total
+					}
+					savedArticlePosts {
+						id
+						title
+						slug
+						body
+						datePub
+						viewCount
+						image
+						cropping
+						croppingGrid
+						status
+						total
+					}
+					savedVideoPosts {
+						id
+						title
+						slug
+						videoLink
+						tags {
+							id
+							title
+						}
+						description
+						datePub
+						viewCount
+						status
+						total
+					}
+				}
+			}
+		`,
+	});
 </script>
 
 <div class="container profile">
-    <ProfileCard />
-    <div class="profile-content">
-        <div class="profile-pages-links">
-            <div on:click={() => selectPage('courses')} 
-                class="profile-pages-link" class:active="{selectedPage === 'courses'}"
-            >
-                курслар
-            </div>
-            <div on:click={() => selectPage('certificates')} 
-                class="profile-pages-link" class:active="{selectedPage === 'certificates'}"
-            >
-                сертификатлар
-                <div class="profile-pages-links-notify">
-                    <span>3</span>
+    {#if $me.fetching}
+        <p>Loading...</p>
+    {:else if $me.error}
+        <p>Oh no... {$me.error.message}</p>
+    {:else}
+        <ProfileCard me={$me.data.me} />
+        <div class="profile-content">
+            <div class="profile-pages-links">
+                <div on:click={() => selectPage('courses')} 
+                    class="profile-pages-link" class:active="{selectedPage === 'courses'}"
+                >
+                    курслар
+                </div>
+                <div on:click={() => selectPage('certificates')} 
+                    class="profile-pages-link" class:active="{selectedPage === 'certificates'}"
+                >
+                    сертификатлар
+                    <div class="profile-pages-links-notify">
+                        <span>3</span>
+                    </div>
+                </div>
+                <div on:click={() => selectPage('favourites')} 
+                    class="profile-pages-link" class:active="{selectedPage === 'favourites' }"
+                >
+                    сайланма
+                    <div class="profile-pages-links-notify">
+                        <span>7</span>
+                    </div>
                 </div>
             </div>
-            <div on:click={() => selectPage('favourites')} 
-                class="profile-pages-link" class:active="{selectedPage === 'favourites' }"
-            >
-                сайланма
-                <div class="profile-pages-links-notify">
-                    <span>7</span>
-                </div>
-            </div>
+            {#if selectedPage === 'courses'}
+                <ProfileCourses me={$me.data.me} />
+            {:else if selectedPage === 'certificates'}
+                <ProfileCertificates me={$me.data.me} />
+            {:else if selectedPage === 'favourites'}
+                <ProfileFavourites me={$me.data.me} />  
+            {/if}
         </div>
-        {#if selectedPage === 'courses'}
-            <ProfileCourses />
-        {:else if selectedPage === 'certificates'}
-            <ProfileCertificates />
-        {:else if selectedPage === 'favourites'}
-            <ProfileFavourites />  
-        {/if}
-    </div>
+    {/if}
 </div>
 
 

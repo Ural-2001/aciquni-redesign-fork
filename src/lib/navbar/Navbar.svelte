@@ -3,6 +3,7 @@
 
 	let openPopup;
 
+	let isAuthenticated;
 	onMount(() => {
 		let loginPopup = document.getElementById('loginPopup');
 		let popupBackground = document.getElementById('popupBackground');
@@ -12,6 +13,8 @@
 			loginPopup.style.display = 'flex';
 			loginPopup.style.opacity = '100%';
 		};
+
+		isAuthenticated = localStorage.getItem('user') ? true : false;
 	});
 </script>
 
@@ -37,9 +40,15 @@
     </div>
 
 	<div class="login-buttons">
-		<a href="" class="button button-small" on:click={openPopup}>
-			Шәхси Кабинет
-		</a>
+		{#if isAuthenticated}
+			<a href="/profile" class="button button-small">
+				Шәхси Кабинет
+			</a>
+		{:else}
+			<a href="" class="button button-small" on:click={openPopup}>
+				Шәхси Кабинет
+			</a>
+		{/if}
 		<a href="" class="button-secondary">
 			Теркәү
 		</a>

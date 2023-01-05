@@ -1,10 +1,13 @@
+<script>
+	export let me;
+</script>
 <div class="profile-cards">
     <div class="profile-card">
         <div class="profile-card-img-info">
             <img src="/img/people/1.png" alt="">
             <div class="profile-info">
                 <span>Минем профиль</span>
-                <h1>Айрат Камалиев</h1>
+                <h1>{me.firstName} {me.lastName}</h1>
             </div>
         </div>
         <div class="settings">
@@ -20,77 +23,56 @@
                 </div>
             </div>
             <div class="courses">
-                <div class="course">
-                    <div class="course-content">
-                        <img src="/img/courses/small1.png" alt="">
-                        <div class="course-info">
-                            <p class="course-percent">30% <span class="course-percent-text">уздым</span></p>
-                            <div class="course-progress">
-                                <div class="course-progress-back">
-                                    <div class="course-progress-front" style="width: 30%;"></div>
+                {#each me.activeCourses as course}
+                    <div class="course">
+                        <div class="course-content">
+                            <img src="/img/courses/small1.png" alt="">
+                            <div class="course-info">
+                                <p class="course-percent">30% <span class="course-percent-text">уздым</span></p>
+                                <div class="course-progress">
+                                    <div class="course-progress-back">
+                                        <div class="course-progress-front" style="width: 30%;"></div>
+                                    </div>
                                 </div>
+                                <p class="course-title">
+                                    {course.name}
+                                </p>
                             </div>
-                            <p class="course-title">
-                                Татар телен укытуда заманча һәм нәтиҗәле ысуллар
-                            </p>
                         </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
-                <div class="course">
-                    <div class="course-content">
-                        <img src="/img/courses/small1.png" alt="">
-                        <div class="course-info">
-                            <p class="course-percent">60% <span class="course-percent-text">уздым</span></p>
-                            <div class="course-progress">
-                                <div class="course-progress-back">
-                                    <div class="course-progress-front" style="width: 60%;"></div>
-                                </div>
-                            </div>
-                            <p class="course-title">
-                                Татар телен укытуда заманча һәм нәтиҗәле ысуллар
-                            </p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
+                {/each}
             </div>
         </div>
         <div class="my-courses">
             <div class="my-courses-card-top">
                 <h6>Сертификатлар</h6>
-                <div class="show-all-button">
-                    Барча
-                </div>
+                {#if me.certificates.length > 0}
+                    <div class="show-all-button">
+                        Барча
+                    </div>
+                {/if}
             </div>
+            {#if me.certificates.length === 0}
+                <h6>Пока сертификатов нет(</h6>
+            {/if}
             <div class="courses">
-                <div class="course">
-                    <div class="course-content">
-                        <div class="certificate-icon">
-                            <img src="/icons/TrophyWhite.svg" alt="">
+                {#each me.certificates as certificate}
+                    <div class="course">
+                        <div class="course-content">
+                            <div class="certificate-icon">
+                                <img src="/icons/TrophyWhite.svg" alt="">
+                            </div>
+                            <div class="course-info">
+                                <p class="course-percent"><span class="course-percent-text">Сертификат · 25 март 2022</span></p>
+                                <p class="course-title">
+                                    {certificate.course.name}
+                                </p>
+                            </div>
                         </div>
-                        <div class="course-info">
-                            <p class="course-percent"><span class="course-percent-text">Сертификат · 25 март 2022</span></p>
-                            <p class="course-title">
-                                Татар телен укытуда заманча һәм нәтиҗәле ысуллар
-                            </p>
-                        </div>
+                        <hr/>
                     </div>
-                    <hr/>
-                </div>
-                <div class="course">
-                    <div class="course-content">
-                        <div class="certificate-icon">
-                            <img src="/icons/ChatTeardropText.svg" alt="">
-                        </div>
-                        <div class="course-info">
-                            <p class="course-percent"><span class="course-percent-text">Барлык сорауларга да җавап</span></p>
-                            <p class="course-title">
-                                Консультация алу
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                {/each}
             </div>
         </div>
     </div>

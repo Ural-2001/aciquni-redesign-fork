@@ -1,115 +1,91 @@
+<script>
+	export let me;
+</script>
 <div class="profile-courses">
-    <p class="profile-courses-title">Актив курслар (2)</p>
+    <p class="profile-courses-title">Актив курслар ({me.activeCourses.length})</p>
     <div class="profile-active-courses">
-        <div class="profile-active-course-card">
-            <div class="course-card-img">
-                <img src="/img/courses/1.png" alt="">
-                <a href="" class="course-card-link">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="profile-active-course-card-content">
-                <p class="course-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                <div class="course-card-status">
-                    <div class="course-card-tag">Укытучылык</div>
-                    <div class="course-card-tag">9 дәрес </div>
-                    <div class="course-card-progress-section">
-                        <div class="course-card-progress-percent">44% <span>уздым</span></div>
-                        <div class="course-card-progress-back">
-                            <div class="course-card-progress-front" style="width: 44%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card-content-links">
-                    <a href="" class="course-card-resume-button">
-                        Дәвам итәргә
-                        <div class="course-card-resume-button-info">
-                            2 модуль  ·  1 дәрес
-                        </div>
+        {#if me.activeCourses.length === 0}
+            <p>Активных курсов нет(</p>
+        {/if}
+        {#each me.activeCourses as course}
+            <div class="profile-active-course-card">
+                <div class="course-card-img">
+                    <img src="/img/courses/1.png" alt="">
+                    <a href={`/courses/${course.id}`} class="course-card-link">
+                        <img src="/icons/ArrowUpRight.svg" alt="">
                     </a>
-                    <div class="course-card-social-link">
-                        <img src="/icons/social/TelegramGreyOutline.svg" alt="">
-                        Телеграмм чат
-                    </div>
-                    <div class="course-card-social-link">
-                        <img src="/icons/XCircle.svg" alt="">
-                        Бетерү
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="profile-active-course-card">
-            <div class="course-card-img">
-                <img src="/img/courses/1.png" alt="">
-                <a href="" class="course-card-link">
-                    <img src="/icons/ArrowUpRight.svg" alt="">
-                </a>
-            </div>
-            <div class="profile-active-course-card-content">
-                <p class="course-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                <div class="course-card-status">
-                    <div class="course-card-tag">Укытучылык</div>
-                    <div class="course-card-tag">9 дәрес </div>
-                    <div class="course-card-progress-section">
-                        <div class="course-card-progress-percent">64% <span>уздым</span></div>
-                        <div class="course-card-progress-back">
-                            <div class="course-card-progress-front" style="width: 64%;"></div>
+                <div class="profile-active-course-card-content">
+                    <p class="course-card-title">{course.name}</p>
+                    <div class="course-card-status">
+                        <div class="course-card-tag">Укытучылык</div>
+                        <div class="course-card-tag">9 дәрес </div>
+                        <div class="course-card-progress-section">
+                            <div class="course-card-progress-percent">44% <span>уздым</span></div>
+                            <div class="course-card-progress-back">
+                                <div class="course-card-progress-front" style="width: 44%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-card-content-links">
+                        <a href="" class="course-card-resume-button">
+                            Дәвам итәргә
+                            <div class="course-card-resume-button-info">
+                                2 модуль  ·  1 дәрес
+                            </div>
+                        </a>
+                        <div class="course-card-social-link">
+                            <img src="/icons/social/TelegramGreyOutline.svg" alt="">
+                            Телеграмм чат
+                        </div>
+                        <div class="course-card-social-link">
+                            <img src="/icons/XCircle.svg" alt="">
+                            Бетерү
                         </div>
                     </div>
                 </div>
-                <div class="course-card-content-links">
-                    <a href="" class="course-card-resume-button">
-                        Дәвам итәргә
-                        <div class="course-card-resume-button-info">
-                            3 модуль  ·  8 дәрес
-                        </div>
-                    </a>
-                    <div class="course-card-social-link">
-                        <img src="/icons/social/TelegramGreyOutline.svg" alt="">
-                        Телеграмм чат
-                    </div>
-                    <div class="course-card-social-link">
-                        <img src="/icons/XCircle.svg" alt="">
-                        Бетерү
-                    </div>
-                </div>
             </div>
-        </div>
+        {/each}
     </div>
 </div>
 <div class="profile-courses">
-    <p class="profile-courses-title">Узган курслар (7)<p>
+    <p class="profile-courses-title">Узган курслар ({me.endedCourses.length})<p>
     <div class="profile-active-courses">
-        <div class="profile-active-course-card">
-            <div class="course-card-img">
-                <img src="/img/courses/1.png" alt="">
-                <a href="" class="course-card-link course-finished">
-                    <img src="/icons/CheckCircleBlack.svg" alt="">
-                </a>
-            </div>
-            <div class="profile-active-course-card-content">
-                <p class="course-card-title">Татар әдәбияты тарихы: яңа заман әдәбияты</p>
-                <div class="course-card-status">
-                    <div class="course-card-tag">Укытучылык</div>
-                    <div class="course-card-tag">9 дәрес </div>
-                    <div class="course-card-progress-section">
-                        <div class="course-card-progress-percent">100% <span>уздым</span></div>
-                        <div class="course-card-progress-back">
-                            <div class="course-card-progress-front" style="width: 100%; background-color: #56B954;"></div>
+        {#if me.endedCourses.length === 0}
+            <p>Вы еще не закончили ни один курс(</p>
+        {/if}
+        {#each me.endedCourses as course}
+            <div class="profile-active-course-card">
+                <div class="course-card-img">
+                    <img src="/img/courses/1.png" alt="">
+                    <a href="" class="course-card-link course-finished">
+                        <img src="/icons/CheckCircleBlack.svg" alt="">
+                    </a>
+                </div>
+                <div class="profile-active-course-card-content">
+                    <p class="course-card-title">{course.name}</p>
+                    <div class="course-card-status">
+                        <div class="course-card-tag">Укытучылык</div>
+                        <div class="course-card-tag">9 дәрес </div>
+                        <div class="course-card-progress-section">
+                            <div class="course-card-progress-percent">100% <span>уздым</span></div>
+                            <div class="course-card-progress-back">
+                                <div class="course-card-progress-front" style="width: 100%; background-color: #56B954;"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="course-card-content-links done">
-                    <a href="" class="course-card-review-button">
-                        Фикер калдыру
-                    </a>
-                    <a href="" class="course-card-certificate-button">
-                        Сертификат алу
-                    </a>
+                    <div class="course-card-content-links done">
+                        <a href="" class="course-card-review-button">
+                            Фикер калдыру
+                        </a>
+                        <a href="" class="course-card-certificate-button">
+                            Сертификат алу
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="profile-active-course-card">
+        {/each}
+        <!-- <div class="profile-active-course-card">
             <div class="course-card-img">
                 <img src="/img/courses/1.png" alt="">
                 <a href="" class="course-card-link course-finished">
@@ -138,7 +114,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 
