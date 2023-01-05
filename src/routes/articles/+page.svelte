@@ -64,7 +64,7 @@
     $: articlePosts = queryStore({
         client,
         query: ARTICLE_POSTS_QUERY,
-        variables: { limit, offset, articlePostTags: selectedTagIds }
+        variables: { limit, offset, articleTagsIds: selectedTagIds }
     });
 </script>
 
@@ -141,15 +141,15 @@
                     <img src="/icons/ArrowsClockwise.svg" alt="">
                 </a>
                 <div class="pagination-numbers">
-                    {#each {length: Math.floor($articlePosts?.data?.articlePosts[0]?.total / limit)} as _, i}
+                    {#each {length: Math.ceil($articlePosts?.data?.articlePosts[0]?.total / limit)} as _, i}
                         <div 
                             on:click={() => {
                                 page = i+1;
-                                offset = limit * page;
+                                offset = limit*page-limit;
                                 queryStore({
                                     client,
                                     query: ARTICLE_POSTS_QUERY,
-                                    variables: { limit, offset, articlePostTags: selectedTagIds }
+                                    variables: { limit, offset, articleTagsIds: selectedTagIds }
                                 });
                             }} 
                             class="pagination-number" class:active="{page === i+1}">{i+1}</div>

@@ -129,11 +129,11 @@
                     <img src="/icons/ArrowsClockwise.svg" alt="">
                 </a>
                 <div class="pagination-numbers">
-                    {#each {length: Math.floor($videoPosts?.data?.videoPosts[0]?.total / limit)} as _, i}
+                    {#each {length: Math.ceil($videoPosts?.data?.videoPosts[0]?.total / limit)} as _, i}
                         <div 
                             on:click={() => {
                                 page = i+1;
-                                offset = limit * page;
+                                offset = limit*page-limit;
                                 queryStore({
                                     client,
                                     query: VIDEO_POST_QUERY,
