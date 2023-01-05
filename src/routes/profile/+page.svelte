@@ -56,6 +56,7 @@
 						lessonsCount
 						time
 						total
+                        userProgress
 					}
 					endedCourses {
 						id
@@ -87,6 +88,7 @@
 						course {
 							id
 							name
+                            shortDescription
 						}
 						file
 						image

@@ -1,4 +1,5 @@
 <script>
+    export let me;
     let selectedPage = 'courses';
     let selectPage = (page) => {
         selectedPage = page;
@@ -14,101 +15,102 @@
             class="profile-courses-title" 
             class:active="{selectedPage === 'courses'}"
             on:click={() => selectPage('courses')} 
-        >Курслар (3)</p>
+        >Курслар ({me.savedCourses.length})</p>
         <p 
             class="profile-courses-title" 
             class:active="{selectedPage === 'articles'}"
             on:click={() => selectPage('articles')} 
-        >Мәкаләләр (7)</p>
+        >Мәкаләләр ({me.savedArticlePosts.length})</p>
         <p
             class="profile-courses-title" 
             class:active="{selectedPage === 'videos'}"
             on:click={() => selectPage('videos')} 
-        >Видео (15)</p>
+        >Видео ({me.savedVideoPosts.length})</p>
     </div>
     {#if selectedPage === 'courses'}
         <div class="profile-active-courses">
-            <div class="profile-active-course-card">
-                <div class="course-card-img">
-                    <img src="/img/courses/1.png" alt="">
-                    <a href="" class="course-card-link">
-                        <img src="/icons/ArrowUpRight.svg" alt="">
-                    </a>
-                </div>
-                <div class="profile-active-course-card-content">
-                    <p class="course-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                    <div class="course-card-status">
-                        <div class="course-card-tag">Укытучылык</div>
-                        <div class="course-card-tag">9 дәрес </div>
-                        <div class="course-card-tag">14 дәрес · 3 сәг 40 мин </div>
-                    </div>
-                    <div class="course-card-content-links">
-                        <a href="" class="course-card-review-button">
-                            Курсны башларга
-                            <img src="/icons/ArrowUpRightWhite.svg" alt="">
+            {#if me.savedCourses.length === 0}
+                <h6>Сохраненных курсов нет</h6>
+            {/if}
+            {#each me.savedCourses as course}
+                <div class="profile-active-course-card">
+                    <div class="course-card-img">
+                        <img src="/img/courses/1.png" alt="">
+                        <a href="" class="course-card-link">
+                            <img src="/icons/ArrowUpRight.svg" alt="">
                         </a>
-                        <div class="course-card-social-link">
-                            <img src="/icons/HeartFilledGrey.svg" alt="">
-                            Телеграмм чат
+                    </div>
+                    <div class="profile-active-course-card-content">
+                        <p class="course-card-title">{course.name}</p>
+                        <div class="course-card-status">
+                            {course.tags}
+                            <div class="course-card-tag">Укытучылык</div>
+                            <div class="course-card-tag">{course.lessonsCount} дәрес </div>
+                            <div class="course-card-tag">{course.lessonsCount} дәрес · {course.time} </div>
                         </div>
-                        <div class="course-card-social-link">
-                            <img src="/icons/social/TelegramGreyOutline.svg" alt="">
-                            Бетерү
+                        <div class="course-card-content-links">
+                            <a href="" class="course-card-review-button">
+                                Курсны башларга
+                                <img src="/icons/ArrowUpRightWhite.svg" alt="">
+                            </a>
+                            <div class="course-card-social-link">
+                                <img src="/icons/HeartFilledGrey.svg" alt="">
+                                Телеграмм чат
+                            </div>
+                            <div class="course-card-social-link">
+                                <img src="/icons/social/TelegramGreyOutline.svg" alt="">
+                                Бетерү
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {/each}
         </div>
     {:else if selectedPage === 'articles'}
         <div class="profile-active-articles">
-            <div class="profile-active-article-card">
-                <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
-                <div class="profile-active-article-card-content">
-                    <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                    <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
-                    <div class="article-card-status">
-                        <div class="article-card-tag">Тәрбия</div>
-                        <div class="article-card-tag">Тәрбия </div>
-                        <div class="article-card-social-link">
-                            <img src="/icons/HeartFilledGrey.svg" alt="">
-                            Сайланма әсәрләрдә
+            {#if me.savedArticlePosts.length === 0}
+                <h6>Сохраненных статей нет</h6>
+            {/if}
+            {#each me.savedArticlePosts as article}
+                <div class="profile-active-article-card">
+                    <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
+                    <div class="profile-active-article-card-content">
+                        <p class="article-card-title">{article.title}</p>
+                        <p class="article-card-description">{`${article.body.substr(0, 100)}${article.body.length > 100 ? '...' : ''}`}</p>
+                        <div class="article-card-status">
+                            <div class="article-card-tag">Тәрбия</div>
+                            <div class="article-card-tag">Тәрбия </div>
+                            <div class="article-card-social-link">
+                                <img src="/icons/HeartFilledGrey.svg" alt="">
+                                Сайланма әсәрләрдә
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="profile-active-article-card">
-                <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
-                <div class="profile-active-article-card-content">
-                    <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                    <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
-                    <div class="article-card-status">
-                        <div class="article-card-tag">Тәрбия</div>
-                        <div class="article-card-tag">Тәрбия </div>
-                        <div class="article-card-social-link">
-                            <img src="/icons/HeartFilledGrey.svg" alt="">
-                            Сайланма әсәрләрдә
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/each}
         </div>
     {:else if selectedPage === 'videos'}
         <div class="profile-active-articles">
-            <div class="profile-active-article-card">
-                <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
-                <div class="profile-active-article-card-content">
-                    <p class="article-card-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-                    <p class="article-card-description">Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...</p>
-                    <div class="article-card-status">
-                        <div class="article-card-tag">Тәрбия</div>
-                        <div class="article-card-tag">Тәрбия </div>
-                        <div class="article-card-social-link">
-                            <img src="/icons/HeartFilledGrey.svg" alt="">
-                            Сайланма әсәрләрдә
+            {#if me.savedVideoPosts.length === 0}
+                <h6>Сохраненных видео статей нет</h6>
+            {/if}
+            {#each me.savedVideoPosts as video}
+                <div class="profile-active-article-card">
+                    <img class="profile-active-article-card-img" src="/img/blog/articles/1.png" alt="">
+                    <div class="profile-active-article-card-content">
+                        <p class="article-card-title">{video.title}</p>
+                        <p class="article-card-description">{`${video.body.substr(0, 100)}${video.body.length > 100 ? '...' : ''}`}</p>
+                        <div class="article-card-status">
+                            <div class="article-card-tag">Тәрбия</div>
+                            <div class="article-card-tag">Тәрбия </div>
+                            <div class="article-card-social-link">
+                                <img src="/icons/HeartFilledGrey.svg" alt="">
+                                Сайланма әсәрләрдә
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {/each}
         </div>
     {/if}
 </div>

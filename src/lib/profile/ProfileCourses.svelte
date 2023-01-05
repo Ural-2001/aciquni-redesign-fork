@@ -19,7 +19,7 @@
                     <p class="course-card-title">{course.name}</p>
                     <div class="course-card-status">
                         <div class="course-card-tag">Укытучылык</div>
-                        <div class="course-card-tag">9 дәрес </div>
+                        <div class="course-card-tag">{course.lessonsCount} дәрес </div>
                         <div class="course-card-progress-section">
                             <div class="course-card-progress-percent">44% <span>уздым</span></div>
                             <div class="course-card-progress-back">
