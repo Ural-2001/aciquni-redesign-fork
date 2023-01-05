@@ -28,10 +28,10 @@
                         <div class="course-content">
                             <img src="/img/courses/small1.png" alt="">
                             <div class="course-info">
-                                <p class="course-percent">30% <span class="course-percent-text">уздым</span></p>
+                                <p class="course-percent">{course.userProgress > 100 ? 100 : course.userProgress}% <span class="course-percent-text">уздым</span></p>
                                 <div class="course-progress">
                                     <div class="course-progress-back">
-                                        <div class="course-progress-front" style="width: 30%;"></div>
+                                        <div class="course-progress-front" style={`width: ${course.userProgress > 100 ? 100 : course.userProgress}%;`}></div>
                                     </div>
                                 </div>
                                 <p class="course-title">

@@ -21,9 +21,9 @@
                         <div class="course-card-tag">Укытучылык</div>
                         <div class="course-card-tag">{course.lessonsCount} дәрес </div>
                         <div class="course-card-progress-section">
-                            <div class="course-card-progress-percent">44% <span>уздым</span></div>
+                            <div class="course-card-progress-percent">{course.userProgress > 100 ? 100 : course.userProgress}% <span>уздым</span></div>
                             <div class="course-card-progress-back">
-                                <div class="course-card-progress-front" style="width: 44%;"></div>
+                                <div class="course-card-progress-front" style={`width: ${course.userProgress > 100 ? 100 : course.userProgress}%;`}></div>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 15px;
+        padding: 0 13px;
         border: 1px solid #E7E7E7;
         border-radius: 24px;
         font-size: 12px;
