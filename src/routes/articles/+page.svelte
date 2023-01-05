@@ -1,3 +1,73 @@
+<script>
+	import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+    let limit = 6;
+    let offset = 0;
+    let page = 1;
+
+    let selectedTagIds = [];
+    const articlePostTags = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query{
+                articlePostTags {
+                    id
+                    title
+                }
+            }
+		`,
+	});
+
+    const client = getContextClient();
+    const ARTICLE_POSTS_QUERY = gql`
+        query ($limit: Int, $offset: Int, $articleTagsIds: [ID]){
+            articlePosts (limit: $limit, offset: $offset, articleTagsIds: $articleTagsIds) {
+                id
+                title
+                slug
+                body
+                tags {
+                    id
+                    title
+                }
+                datePub
+                viewCount
+                image
+                cropping
+                croppingGrid
+                status
+                comments {
+                    id
+                    text
+                    total
+                }
+                selectedArticles {
+                    id
+                    isRandomCourses
+                    isRandomArticles
+                    isRandomFaqs
+                    isRandomBooks
+                    description
+                    firstNumber
+                    secondNumber
+                }
+                selectedBooks {
+                    id
+                    description
+                    firstNumber
+                    secondNumber
+                }
+                total
+            }
+        }
+    `
+    $: articlePosts = queryStore({
+        client,
+        query: ARTICLE_POSTS_QUERY,
+        variables: { limit, offset, articlePostTags: selectedTagIds }
+    });
+</script>
+
 <div class="container top-section">
     <div class="breadcrumbs">
         <a href="/">баш</a>
@@ -7,90 +77,87 @@
         <a href="">мәкаләләр</a>
     </div>
     <h1>мәкаләләр</h1>
-    <div class="themes">
-        <div class="theme active">Барча</div>
-        <div class="theme">Тарих</div>
-        <div class="theme">Музыка</div>
-        <div class="theme">Тел</div>
-        <div class="theme">Әдәбият</div>
-        <div class="theme">Ислам</div>
-        <div class="theme">Тәрбия</div>
-        <div class="theme">Кием</div>
-        <div class="theme">Фольклор</div>
-        <div class="theme">Театр</div>
-    </div>
-    <div class="articles-section">
-        <div class="articles">
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
+    {#if $articlePostTags.fetching}
+        <p>Loading...</p>
+    {:else if $articlePostTags.error}
+        <p>Oh no... {$articlePostTags.error.message}</p>
+    {:else if $articlePostTags.data.articlePostTags.length > 0}
+        <div class="themes">
+            {#each $articlePostTags.data.articlePostTags as tag}
+                <div
+                    on:click={() => {
+                        if (selectedTagIds.includes(tag.id)) {
+                            selectedTagIds.splice(selectedTagIds.indexOf(tag.id), 1) 
+                            selectedTagIds = selectedTagIds;
+                        }
+                        else {
+                            selectedTagIds = [...selectedTagIds, tag.id];
+                        }
+                        offset = 0;
+                        page = 1;
+                        queryStore({
+                            client,
+                            query: ARTICLE_POSTS_QUERY,
+                            variables: { limit, offset, articlePostTags: articlePostTags }
+                        });
+                    }}
+                    class="theme" class:active={selectedTagIds.includes(tag.id)}
+                >
+                    {tag.title}
                 </div>
+            {/each}
+        </div>
+    {/if}
+    {#if $articlePosts.fetching}
+        <p>Loading...</p>
+    {:else if $articlePosts.error}
+        <p>Oh no... {$articlePosts.error.message}</p>
+    {:else if $articlePosts.data.articlePosts.length > 0}
+        <div class="articles-section">
+            <div class="articles">
+                {#each $articlePosts.data.articlePosts as articlePost}
+                    <a href={`/videos/${articlePost.id}`} class="article">
+                        <img src="/img/blog/articles/1.png" alt="">
+                        <span class="article-title">
+                            {articlePost.title}
+                        </span>
+                        {#if articlePost.description}
+                            <p class="article-description">
+                                {`${articlePost.description.substr(0, 100)}${articlePost.description.length > 100 ? '...' : ''}`}
+                            </p>
+                        {/if}
+                        <div class="article-tags">
+                            {#each articlePost.tags as tag}
+                                <div class="article-tag">{tag.title}</div>
+                            {/each}
+                            <div class="article-date">{Date.parse(articlePost.datePub)}</div>
+                        </div>
+                    </a>
+                {/each}
             </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
-                </div>
-            </div>
-            <div class="article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <span class="article-title">
-                    Татар әдәбияты һәм суфичылык
-                </span>
-                <p class="article-description">
-                    Идеологик күренеш буларак, суфичылык VIII гасырларда гарәп дөньясында туа һәм IX-XII йөзләр...
-                </p>
-                <div class="article-tags">
-                    <div class="article-tag">Тәрбия</div>
-                    <div class="article-tag">Тел</div>
-                    <div class="article-date">2019 елның 7 ноябре</div>
+            <div class="pagination">
+                <a href="/" class="show-all-button">
+                    Тагын 9 курс арасыннан 154
+                    <img src="/icons/ArrowsClockwise.svg" alt="">
+                </a>
+                <div class="pagination-numbers">
+                    {#each {length: Math.floor($articlePosts?.data?.articlePosts[0]?.total / limit)} as _, i}
+                        <div 
+                            on:click={() => {
+                                page = i+1;
+                                offset = limit * page;
+                                queryStore({
+                                    client,
+                                    query: ARTICLE_POSTS_QUERY,
+                                    variables: { limit, offset, articlePostTags: selectedTagIds }
+                                });
+                            }} 
+                            class="pagination-number" class:active="{page === i+1}">{i+1}</div>
+                    {/each}
                 </div>
             </div>
         </div>
-        <div class="pagination">
-            <a href="/" class="show-all-button">
-                Тагын 9 курс арасыннан 154
-                <img src="/icons/ArrowsClockwise.svg" alt="">
-            </a>
-            <div class="pagination-numbers">
-                <div class="pagination-number">1</div>
-                <div class="pagination-number active">2</div>
-                <div class="pagination-number">3</div>
-                <div class="pagination-number">4</div>
-            </div>
-        </div>
-    </div>
+    {/if}
     <div class="section container partners">
         <h2>өстәмә белем <br> бүлеге партнерлары</h2>
         <div class="partners-carousel">
@@ -161,6 +228,12 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
+        text-decoration: none;
+        color: initial;
+        transition: all 0.3s;
+    }
+    .article:hover {
+        transform: scale(1.01);
     }
     .article img {
         max-width: 420px;
@@ -175,8 +248,10 @@
         font-size: 14px;
         color: #999999;
         line-height: 140%;
+        margin-bottom: 0;
     }
     .article-tags {
+        margin-top: 12px;
         display: flex;
         gap: 10px;
     }
