@@ -44,6 +44,21 @@
 			}
 		`,
 	});
+
+    const blogPartners = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query {
+                blogPartners {
+                    id
+                    title
+                    logo
+                    link
+                    total
+                }
+            }
+		`,
+	});
 </script>
 
 
@@ -191,23 +206,32 @@
             <img src="/icons/ArrowUpRight.svg" alt="">
         </a>
     </div>
-    <div class="section container partners">
-        <h2>өстәмә белем <br> бүлеге партнерлары</h2>
-        <div class="partners-carousel">
-            <div>
-                <img src="/img/partners/5.png" alt="">
-            </div>
-            <div>
-                <img src="/img/partners/7.png" alt="">
-            </div>
-            <div>
-                <img src="/img/partners/6.png" alt="">
-            </div>
-            <div>
-                <img src="/img/partners/1.png" alt="">
+
+    {#if $blogPartners.fetching}
+        <p>Loading...</p>
+    {:else if $blogPartners.error}
+        <p>Oh no... {$blogPartners.error.message}</p>
+    {:else if $blogPartners.data.blogPartners.length > 0}
+        <div class="section container partners">
+            <h2>өстәмә белем <br> бүлеге партнерлары</h2>
+            <div class="partners-carousel">
+                {#each $blogPartners.data.blogPartners as blogPartner}
+                    <div>
+                        <img src="/img/partners/5.png" alt="">
+                    </div>
+                {/each}
+                <!-- <div>
+                    <img src="/img/partners/7.png" alt="">
+                </div>
+                <div>
+                    <img src="/img/partners/6.png" alt="">
+                </div>
+                <div>
+                    <img src="/img/partners/1.png" alt="">
+                </div> -->
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 
 <style>

@@ -1,170 +1,194 @@
-<div class="container top-section">
-    <div class="breadcrumbs">
-        <a href="/">баш</a>
-        <img src="/icons/CaretLeft.svg" alt="">
-        <a href="">татарча фән</a>
-        <img src="/icons/CaretLeft.svg" alt="">
-        <a href="">видео</a>
-    </div>
-</div>
-<div class="container article-tags">
-    <div class="tag">Тәрбия</div>
-    <div class="tag">Тел</div>
-    <div class="date">2019 елның 7 ноябре</div>
-</div>
-<div class="main-section container">
-    <div class="article">
-        <h1>Кәрим Тинчурин турында һәркем белергә тиешле 7 факт</h1>
-        <div class="actions">
-            <div class="like">
-                <img src="/icons/HeartStraightGrey.svg" alt="">
-                <span>Сайланма әсәрләр</span>
-            </div>
-            <div class="share">
-                <img src="/icons/PaperPlaneTilt.svg" alt="">
-                <span>Уртаклашу</span>
-            </div>
-        </div>
-        <img class="article-img" src="/img/blog/articles/1.png" alt="">
-        <p>
-            Татар театр сәнгатен Кәрим Тинчурин исеменнән башка күз алдына да китереп булмый. Ул үзенчәлекле режиссер, артист, оста хикәяче, педагог буларак та билгеле. Ә 2017 елның 15 сентябрендә күренекле шәхеснең тууына 130 ел билгеләп үтелә. К. Тинчурин иҗат иткән әсәрләр һаман да халык күңелендә яши, укыла, сәхнәдә уйнала. Талантлы драматург, олы гуманист, фәлсәфәче әдип әсәрләре безнең белән киләчәккә атлый.
-        </p>
-        <hr>
-        <h3>Беренче факт</h3>
-        <p>
-            Кәрим Тинчурин, 1917 ел
-            «Зәңгәр шәл», «Сүнгән йолдызлар», «Казан сөлгесе», «Американ», «Җилкәнсезләр» әсәрләре бар кешегә дә яхшы таныш. Г.Камал исемендәге татар дәүләт академия театры һәр театр сезонын К.Тинчуринның «Зәңгәр шәл» мелодрамасы белән ачып җибәрә. Драматург иҗатына нәтиҗә ясаганда, әсәрләренең жанр ягыннан түбәндәгечә бүленүе күрсәтелә: 12 комедия, 5 драма, 4 музыкаль драма, 1 трагедия һәм 4 әсәре башка авторлар белән берлектә языла. К.Тинчурин үзен, беренче чиратта, комедия остасы итеп таныта.
-        </p>
-        <hr>
-        <h3>Икенче факт</h3>
-        <p>
-            1910 елны беренче татар профессиональ труппасы – «Сәйяр» – җитәкчесе Габдулла Кариев белемле, бай тормыш тәҗрибәсе булган, төскә-биткә матур егетне артист итеп чакыра. Остазы җитәкчелегендә Кәрим Тинчуринның артистлык таланты тиз ачыла, әдәби иҗат белән дә шөгыльләнә башлый. 1920 еллар башында «Сәйяр» труппасының таркалуы, аның җитәкчесе Габдулла Кариевның вафат булуы һ.б.
-            сәбәпле К.Тинчуринга 1922 елны Татар дәүләт театр труппасы оештыру бурычы куела.
-        </p>
-        <hr>
-        <h3>Өченче факт</h3>
-        <p>
-            Казан урамнарында йөргән, әдәбият һәм сәнгать белән таныш булган һәркем әлеге исемне бик еш ишетә. 1988 елда Татар дәүләт драма һәм комедия театрына Тинчурин исеме бирелде. Хәзергәчә, ул безне үзенең яхшы спектакльләре белән сөендереп, «нурландырып» тора.
-        </p>
-        <div class="quote">
-            <div class="double-qoutes">
-                <img src="/icons/Quote1.svg" alt="">
-                <img src="/icons/Quote1.svg" alt="">
-            </div>
-            <p class="quote-text">
-                «Да таких, как он, святых в Арске полон базар, под прилавками пьяные валяются»
-            </p>
-            <span class="quote-author">
-                Кәрим Тинчурин
-            </span>
-        </div>
-        <p>
-            1937 елда Кәрим Тинчурин кулга алынгач, Заһидә ханымга «халык дошманы хатыны» ярлыгы тагыла. Ул төрле эшләрдә эшли, иренә тугърылык саклый. Вафаты алдыннан К. Тинчуринның үзендә саклаган истәлекле әйберләрен, кулъязмаларын, фотоларын Тинчурин театрына, шунда Тинчурин музее оештырырга васыять итә.
-        </p>
-        <hr>
-        <div class="article-author">
-            <div style="margin-bottom: 20px;">
-                <img src="/icons/UserPurple.svg" alt="">
-                <span class="author-name">Алинә Галиева <span class="author-text">язмасы</span></span>
-            </div>
-            <p class="author-link">
-                Материал һәм мәгълүматлар http://kitaphane.tatarstan.ru/tat/tinch.htm, http://tatar-inform.tatar/ чыганакларыннан алынды.
-            </p>
-            <p class="author-link">
-                Чыганак: http://giylem.tatar/archives/2361
-            </p>
-        </div>
-        <hr>
-        <div class="comments-section">
-            <h2>комментарийлар</h2>
-            <div class="comment-input">
-                <div style="width: 90%;">
-                    <img src="/img/people/1.png" alt="">
-                    <input type="text" placeholder="Сезнең комментарий">
-                </div>
-                <div class="send-comment">Җибәрү</div>
-            </div>
-            <div class="comments">
-                <div class="comment">
-                    <div class="comment-top">
-                        <div class="comment-author">
-                            <img src="/img/people/1.png" alt="">
-                            <span>Сергей Рейдер</span>
-                        </div>
-                        <div class="comment-date">
-                            <span>15 сентябрь · 13: 40</span>
-                        </div>
-                    </div>
-                    <p class="comment-text">
-                        But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the...
-                    </p>
-                    <div class="show-more-comment-text">Барысын да күрсәтү</div>
-                </div>
-                <div class="comment">
-                    <div class="comment-top">
-                        <div class="comment-author">
-                            <img src="/img/people/2.png" alt="">
-                            <span>Анна Гребенник</span>
-                        </div>
-                        <div class="comment-date">
-                            <span>15 сентябрь · 13: 40</span>
-                        </div>
-                    </div>
-                    <p class="comment-text">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 👍😭🔥
-                    </p>
-                </div>
-            </div>
-            <a href="/" class="show-more-comments">
-                Тагын 12 мөгалимнәр арасыннан 45
-                <img src="/icons/ArrowsClockwise.svg" alt="">
-            </a>
+<script>
+    import { queryStore, gql, getContextClient } from '@urql/svelte';
+    import { page } from '$app/stores';
+
+    const id = parseInt($page.params.slug);
+
+	const videoPost = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query ($videoPostId: ID!) {
+                videoPost (videoPostId: $videoPostId) {
+                    id
+                    title
+                    description
+                    slug
+                    tags {
+                        id
+                        title
+                    }
+                    videoLink
+                    datePub
+                    viewCount
+                    status
+                    comments {
+                        id
+                        text
+                        total
+                    }
+                }
+            }
+		`,
+        variables: { videoPostId: id }
+	});
+
+    const blogPartners = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query {
+                blogPartners {
+                    id
+                    title
+                    logo
+                    link
+                    total
+                }
+            }
+		`,
+	});
+</script>
+
+{#if $videoPost.fetching}
+    <p>Loading...</p>
+{:else if $videoPost.error}
+    <p>Oh no... {$videoPost.error.message}</p>
+{:else}
+    <div class="container top-section">
+        <div class="breadcrumbs">
+            <a href="/">баш</a>
+            <img src="/icons/CaretLeft.svg" alt="">
+            <a href="">татарча фән</a>
+            <img src="/icons/CaretLeft.svg" alt="">
+            <a href="">{$videoPost.data.videoPost.title}</a>
         </div>
     </div>
-    <div class="suggested-articles">
-        <h2>тәкъдим <br> итәбез</h2>
-        <div style="display: flex; flex-direction: column; gap: 60px;">
-            <div class="suggested-article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <a href="/videos/1" class="video-play-button">
-                    <img src="/icons/Play.svg" alt="">
+    <div class="container article-tags">
+        {#each $videoPost.data.videoPost.tags as tag}
+            <div class="tag">{tag.title}</div>
+        {/each}
+        <div class="date">{$videoPost.data.videoPost.datePub}</div>
+    </div>
+    <div class="main-section container">
+        <div class="article">
+            <h1>{$videoPost.data.videoPost.title}</h1>
+            <div class="actions">
+                <div class="like">
+                    <img src="/icons/HeartStraightGrey.svg" alt="">
+                    <span>Сайланма әсәрләр</span>
+                </div>
+                <div class="share">
+                    <img src="/icons/PaperPlaneTilt.svg" alt="">
+                    <span>Уртаклашу</span>
+                </div>
+            </div>
+            <img class="article-img" src="/img/blog/articles/1.png" alt="">
+            <p>
+                {$videoPost.data.videoPost.description}
+            </p>
+            <hr>
+            <div class="article-author">
+                <div style="margin-bottom: 20px;">
+                    <img src="/icons/UserPurple.svg" alt="">
+                    <span class="author-name">Алинә Галиева <span class="author-text">язмасы</span></span>
+                </div>
+                <p class="author-link">
+                    Материал һәм мәгълүматлар http://kitaphane.tatarstan.ru/tat/tinch.htm, http://tatar-inform.tatar/ чыганакларыннан алынды.
+                </p>
+                <p class="author-link">
+                    Чыганак: http://giylem.tatar/archives/2361
+                </p>
+            </div>
+            <hr>
+            <div class="comments-section">
+                <h2>комментарийлар</h2>
+                <div class="comment-input">
+                    <div style="width: 90%;">
+                        <img src="/img/people/1.png" alt="">
+                        <input type="text" placeholder="Сезнең комментарий">
+                    </div>
+                    <div class="send-comment">Җибәрү</div>
+                </div>
+                <div class="comments">
+                    {#each $videoPost.data.videoPost.comments as comment}
+                        <div class="comment">
+                            <div class="comment-top">
+                                <div class="comment-author">
+                                    <img src="/img/people/1.png" alt="">
+                                    <span>Сергей Рейдер</span>
+                                </div>
+                                <div class="comment-date">
+                                    <span>15 сентябрь · 13: 40</span>
+                                </div>
+                            </div>
+                            <p class="comment-text">
+                                {comment.text}
+                            </p>
+                            <div class="show-more-comment-text">Барысын да күрсәтү</div>
+                        </div>
+                    {/each}
+                </div>
+                <a href="/" class="show-more-comments">
+                    Тагын 12 мөгалимнәр арасыннан 45
+                    <img src="/icons/ArrowsClockwise.svg" alt="">
                 </a>
-                <h6 class="suggested-article-title">
-                    Татар әдәбияты һәм суфичылык
-                </h6>
-                <span class="suggested-article-date">
-                    2019 елның 7 ноябре
-                </span>
             </div>
-            <div class="suggested-article">
-                <img src="/img/blog/articles/1.png" alt="">
-                <h6 class="suggested-article-title">
-                    Татар әдәбияты һәм суфичылык
-                </h6>
-                <span class="suggested-article-date">
-                    2019 елның 7 ноябре
-                </span>
+        </div>
+        <div class="suggested-articles">
+            <h2>тәкъдим <br> итәбез</h2>
+            <div style="display: flex; flex-direction: column; gap: 60px;">
+                {#each $videoPost.data.videoPost.selectedArticles as selectedArticle}
+                    <div class="suggested-article">
+                        <img src="/img/blog/articles/1.png" alt="">
+                        <a href="/videos/1" class="video-play-button">
+                            <img src="/icons/Play.svg" alt="">
+                        </a>
+                        <h6 class="suggested-article-title">
+                            Татар әдәбияты һәм суфичылык
+                        </h6>
+                        <span class="suggested-article-date">
+                            2019 елның 7 ноябре
+                        </span>
+                    </div>
+                {/each}
+                <div class="suggested-article">
+                    <img src="/img/blog/articles/1.png" alt="">
+                    <h6 class="suggested-article-title">
+                        Татар әдәбияты һәм суфичылык
+                    </h6>
+                    <span class="suggested-article-date">
+                        2019 елның 7 ноябре
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="section container partners">
-    <h2>өстәмә белем <br> бүлеге партнерлары</h2>
-    <div class="partners-carousel">
-        <div>
-            <img src="/img/partners/5.png" alt="">
-        </div>
-        <div>
-            <img src="/img/partners/7.png" alt="">
-        </div>
-        <div>
-            <img src="/img/partners/6.png" alt="">
-        </div>
-        <div>
-            <img src="/img/partners/1.png" alt="">
+{/if}
+
+{#if $blogPartners.fetching}
+    <p>Loading...</p>
+{:else if $blogPartners.error}
+    <p>Oh no... {$blogPartners.error.message}</p>
+{:else if $blogPartners.data.blogPartners.length > 0}
+    <div class="section container partners">
+        <h2>өстәмә белем <br> бүлеге партнерлары</h2>
+        <div class="partners-carousel">
+            {#each $blogPartners.data.blogPartners as blogPartner}
+                <div>
+                    <img src="/img/partners/5.png" alt="">
+                </div>
+            {/each}
+            <!-- <div>
+                <img src="/img/partners/7.png" alt="">
+            </div>
+            <div>
+                <img src="/img/partners/6.png" alt="">
+            </div>
+            <div>
+                <img src="/img/partners/1.png" alt="">
+            </div> -->
         </div>
     </div>
-</div>
+{/if}
 
 <style>
     .article-tags {
