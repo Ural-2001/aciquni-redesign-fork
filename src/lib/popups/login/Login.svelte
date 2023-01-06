@@ -143,6 +143,7 @@
                                     if ($result.data) {
                                         console.log($result.data)
                                         localStorage.setItem('user', JSON.stringify($result.data.login));
+                                        window.location = '/profile';
                                     }
                                 }
                                 setTimeout(isGot, 1000);
