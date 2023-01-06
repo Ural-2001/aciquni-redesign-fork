@@ -5,7 +5,7 @@
 		client: getContextClient(),
 		query: gql`
 			query {
-				recommendedCourses {
+				recommendedCourses (limit: 3) {
 					id
 					name
 					description
@@ -18,21 +18,43 @@
 		`,
 	});
 
-    const teachers = queryStore({
-		client: getContextClient(),
-		query: gql`
-			query {
-				teachers {
-					id
-					firstName
-					lastName
-					information
-					position
-					imageCropped
-				}
-			}
-		`,
-	});
+    let limit = 6;
+    let offset = 0;
+    let page = 1;
+    let search = '';
+
+    // let selectedTagIds = [];
+    // const videoPostTags = queryStore({
+	// 	client: getContextClient(),
+	// 	query: gql`
+    //         query{
+    //             videoPostTags {
+    //                 id
+    //                 title
+    //             }
+    //         }
+	// 	`,
+	// });
+
+    const client = getContextClient();
+    const TEACHERS_QUERY = gql`
+        query ($limit: Int, $offset: Int, $search: String) {
+            teachers (limit: $limit, offset: $offset, search: $search) {
+                id
+                firstName
+                lastName
+                information
+                position
+                imageCropped
+                total
+            }
+        }
+    `
+    $: teachers = queryStore({
+        client,
+        query: TEACHERS_QUERY,
+        variables: { limit, offset, search }
+    });
 </script>
 
 
@@ -67,6 +89,7 @@
     </div>
     <div class="search">
         <input type="text" 
+        bind:value={search}
         style="background: url(/icons/MagnifyingGlass.svg) no-repeat scroll 95% 50%;"
         placeholder="Мөгалимнәр буенча эзләү">
     </div>
@@ -88,14 +111,32 @@
                 </a>
             {/each}
         </div>
-        <a href="/" class="all-courses-button">
+        <!-- <a href="/" class="all-courses-button">
             Тагын 12 мөгалимнәр арасыннан 45
             <img src="/icons/ArrowsClockwise.svg" alt="">
-        </a>
+        </a> -->
+        <div class="pagination">
+            <div class="pagination-numbers">
+                {#each {length: Math.ceil($teachers?.data?.teachers[0]?.total / limit)} as _, i}
+                    <div 
+                        on:click={() => {
+                            page = i+1;
+                            offset = limit*page-limit;
+                            queryStore({
+                                client,
+                                query: TEACHERS_QUERY,
+                                variables: { limit, offset, search }
+                            });
+                        }} 
+                        class="pagination-number" class:active="{page === i+1}">{i+1}</div>
+                {/each}
+            </div>
+        </div>
     {:else}
-        <p>Пока учителей нет</p>
+        <p style="margin-top: 20px;">Пока учителей нет</p>
     {/if}
 </div>
+
 {#if $recommendedCourses.fetching}
     <p>Loading...</p>
 {:else if $recommendedCourses.error}
@@ -123,7 +164,7 @@
                     </a>
                 </div>
                 <div class="course-foryou-card-right">
-                    <p class="course-foryou-card-title">{course?.name}: {course?.shortDescription}</p>
+                    <p class="course-foryou-card-title">{course?.name}</p>
                     <div class="course-foryou-card-info">
                         {#each course.tags as tag}
                             <div>
@@ -335,5 +376,50 @@
 	}
 	.course-foryou-card-info span {
 		margin-top: -2px;
+	}
+    .pagination {
+        margin-top: 45px;
+        display: flex;
+        align-items: center;
+    }
+    .pagination-numbers {
+        display: flex;
+        gap: 15px;
+        margin-left: 15px;
+    }
+    .pagination-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 48px;
+        width: 48px;
+        font-size: 16px;
+        border: 1px solid #E7E7E7;
+        border-radius: 124px;
+    }
+    .pagination-number:hover {
+        cursor: pointer;
+        border-color: var(--primary-color);
+    }
+    .pagination-number.active {
+        border-color: var(--primary-color);
+    }
+    .show-all-button {
+        display: flex;
+		justify-content: center;
+        align-items: center;
+		width: fit-content;
+        border: 1px solid var(--primary-color);
+        border-radius: 32px;
+        padding: 15px 35px;
+        font-size: 18px;
+	}
+	.show-all-button img {
+		margin-left: 80px;
+		width: 20px;
+	}
+	.show-all-button:hover {
+        color: var(--primary-color);
+		text-decoration: none;
 	}
 </style>
