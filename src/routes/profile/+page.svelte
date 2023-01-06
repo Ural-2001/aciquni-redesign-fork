@@ -161,6 +161,11 @@
     {:else}
         <ProfileCard me={$me.data.me} />
         <div class="profile-content">
+			{#if !$me.data.me.isActive}
+				<div class="confirm">
+					<p>На указанную почту ({$me.data.me.email}) было отправлено письмо с подтверждением <br/> <b>Подтвердите! Иначе ваш аккаунт удалиться через 2 недели</b></p>
+				</div>
+			{/if}
             <div class="profile-pages-links">
                 <div on:click={() => selectPage('courses')} 
                     class="profile-pages-link" class:active="{selectedPage === 'courses'}"
@@ -238,4 +243,15 @@
         height: 16px;
         width: 16px;
     }
+	.confirm {
+		background-color: rgb(255, 207, 207);
+		color: indianred;
+		border: 2px solid indianred;
+		border-radius: 20px;
+		padding: 10px 20px;
+		margin-bottom: 20px;
+	}
+	.confirm p {
+		margin: 0;
+	}
 </style>

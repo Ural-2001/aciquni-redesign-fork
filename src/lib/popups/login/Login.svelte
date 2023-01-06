@@ -140,7 +140,7 @@
                                 function isGot() {
                                     if ($result.error)
                                         console.log($result.error)
-                                    if ($result.data) {
+                                    if ($result.data?.login?.ok) {
                                         console.log($result.data)
                                         localStorage.setItem('user', JSON.stringify($result.data.login));
                                         window.location = '/profile';
@@ -194,9 +194,10 @@
                             function isGot() {
                                 if ($resultReg.error)
                                     console.log($resultReg.error)
-                                if ($resultReg.data) {
+                                if ($resultReg.data?.login?.ok) {
                                     console.log($resultReg.data)
                                     localStorage.setItem('user', JSON.stringify($resultReg.data.reg));
+                                    window.location = '/profile';
                                 }
                             }
                             setTimeout(isGot, 3000);
