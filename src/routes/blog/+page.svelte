@@ -59,6 +59,52 @@
             }
 		`,
 	});
+
+    const blogTopics = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query{
+                blogTopics {
+                    title
+                }
+            }
+		`,
+	});
+
+    const randomPost = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query{
+                randomPost {
+                    videoPost {
+                        id
+                        title
+                        slug
+                        tags {
+                            id
+                            title
+                        }
+                        description
+                        datePub
+                    }
+                    articlePost {
+                        id
+                        title
+                        slug
+                        body
+                        tags {
+                            id
+                            title
+                        }
+                        datePub
+                        image
+                        cropping
+                        croppingGrid
+                    }
+                }
+            }
+		`,
+	});
 </script>
 
 
@@ -68,59 +114,108 @@
         <img src="/icons/CaretLeft.svg" alt="">
         <a href="">татарча фән</a>
     </div>
-    <div class="suggestion">
-        <img src="/img/blog/suggestion/1.png" alt="">
-        <div class="suggestion-info">
-            <div class="suggestion-top">
-                <div class="suggestion-tags">
-                    <div class="suggestion-tag">
-                        Тәрбия
+
+    {#if $randomPost.fetching}
+        <p>Loading...</p>
+    {:else if $randomPost.error}
+        <p>Oh no... {$randomPost.error.message}</p>
+    {:else if $randomPost.data.randomPost.videoPost || $randomPost.data.randomPost.articlePost}
+        {#if $randomPost.data.randomPost.videoPost}
+            <div class="suggestion">
+                <img src="/img/blog/suggestion/1.png" alt="">
+                <div class="suggestion-info">
+                    <div class="suggestion-top">
+                        <div class="suggestion-tags">
+                            {#each $randomPost.data.randomPost.videoPost.tags.splice(0,1) as tag}
+                                <div class="suggestion-tag">
+                                    {tag.title}
+                                </div>
+                            {/each}
+                            <div class="suggestion-date">
+                                {$randomPost.data.randomPost.videoPost.datePub}
+                            </div>
+                        </div>
+                        <a href={`videos/${$randomPost.data.randomPost.videoPost.id}`} class="suggestion-link">
+                            <img src="/icons/ArrowUpRightWhite.svg" alt="">
+                        </a>
                     </div>
-                    <div class="suggestion-tag">
-                        Тел
+                    <div class="suggestion-title">
+                        <h2>{$randomPost.data.randomPost.videoPost.title}</h2>
                     </div>
-                    <div class="suggestion-date">
-                        2019 елның 7 ноябре
+                    <div class="suggestion-actions">
+                        <div class="suggestion-nav-dots">
+                            <div class="nav-dot nav-dot-active"></div>
+                            <div class="nav-dot"></div>
+                            <div class="nav-dot"></div>
+                        </div>
+                        <div class="suggestion-arrows">
+                            <div class="suggestion-arrow">
+                                <img src="/icons/CaretLeft.svg" alt="">
+                            </div>
+                            <div class="suggestion-arrow" style="margin-left: -10px;">
+                                <img src="/icons/CaretRight.svg" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a href="" class="suggestion-link">
-                    <img src="/icons/ArrowUpRightWhite.svg" alt="">
-                </a>
             </div>
-            <div class="suggestion-title">
-                <h2>Телләр өйрәнү баланың башын бутыймы?</h2>
+        {/if}
+        {#if $randomPost.data.randomPost.articlePost}
+            <div class="suggestion">
+                <img src="/img/blog/suggestion/1.png" alt="">
+                <div class="suggestion-info">
+                    <div class="suggestion-top">
+                        <div class="suggestion-tags">
+                            {#each $randomPost.data.randomPost.articlePost.tags.splice(0,1) as tag}
+                                <div class="suggestion-tag">
+                                    {tag.title}
+                                </div>
+                            {/each}
+                            <div class="suggestion-date">
+                                {$randomPost.data.randomPost.articlePost.datePub}
+                            </div>
+                        </div>
+                        <a href={`videos/${$randomPost.data.randomPost.articlePost.id}`} class="suggestion-link">
+                            <img src="/icons/ArrowUpRightWhite.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="suggestion-title">
+                        <h2>{$randomPost.data.randomPost.articlePost.title}</h2>
+                    </div>
+                    <div class="suggestion-actions">
+                        <div class="suggestion-nav-dots">
+                            <div class="nav-dot nav-dot-active"></div>
+                            <div class="nav-dot"></div>
+                            <div class="nav-dot"></div>
+                        </div>
+                        <div class="suggestion-arrows">
+                            <div class="suggestion-arrow">
+                                <img src="/icons/CaretLeft.svg" alt="">
+                            </div>
+                            <div class="suggestion-arrow" style="margin-left: -10px;">
+                                <img src="/icons/CaretRight.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="suggestion-actions">
-                <div class="suggestion-nav-dots">
-                    <div class="nav-dot nav-dot-active"></div>
-                    <div class="nav-dot"></div>
-                    <div class="nav-dot"></div>
-                </div>
-                <div class="suggestion-arrows">
-                    <div class="suggestion-arrow">
-                        <img src="/icons/CaretLeft.svg" alt="">
-                    </div>
-                    <div class="suggestion-arrow" style="margin-left: -10px;">
-                        <img src="/icons/CaretRight.svg" alt="">
-                    </div>
-                </div>
+        {/if}
+    {/if}
+
+    {#if $blogTopics.fetching}
+        <p>Loading...</p>
+    {:else if $blogTopics.error}
+        <p>Oh no... {$blogTopics.error.message}</p>
+    {:else if $blogTopics.data.blogTopics.length > 0}
+        <div class="themes">
+            <span>темалар</span>
+            <div class="themes-buttons">
+                {#each $blogTopics.data.blogTopics.splice(0,7) as blogTopic}
+                    <div class="theme">{blogTopic.title}</div>
+                {/each}
             </div>
         </div>
-    </div>
-    <div class="themes">
-        <span>темалар</span>
-        <div class="themes-buttons">
-            <div class="theme">Тарих</div>
-            <div class="theme">Музыка</div>
-            <div class="theme">Тел</div>
-            <div class="theme">Әдәбият</div>
-            <div class="theme">Ислам</div>
-            <div class="theme">Тәрбия</div>
-            <div class="theme">Кием</div>
-            <div class="theme">Фольклор</div>
-            <div class="theme">Театр</div>
-        </div>
-    </div>
+    {/if}
     <div class="articles-section">
         <div class="articles-section-top">
             <h2>мәкаләләр</h2>
