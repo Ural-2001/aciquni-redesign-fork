@@ -4,6 +4,7 @@
 	let openPopup;
 
 	let isAuthenticated;
+	let logoutFunc;
 	onMount(() => {
 		let loginPopup = document.getElementById('loginPopup');
 		let popupBackground = document.getElementById('popupBackground');
@@ -15,6 +16,11 @@
 		};
 
 		isAuthenticated = localStorage.getItem('user') ? true : false;
+
+		logoutFunc = () => {
+			localStorage.removeItem('user');
+			window.location = '/';
+		}
 	});
 </script>
 
@@ -44,14 +50,17 @@
 			<a href="/profile" class="button button-small">
 				Шәхси Кабинет
 			</a>
+			<a href="" on:click={() => {logoutFunc()}} class="button-secondary">
+				Чыгу
+			</a>
 		{:else}
 			<a href="" class="button button-small" on:click={openPopup}>
 				Шәхси Кабинет
 			</a>
+			<a href="" class="button-secondary">
+				Теркәү
+			</a>
 		{/if}
-		<a href="" class="button-secondary">
-			Теркәү
-		</a>
 	</div>
 
 </div>
