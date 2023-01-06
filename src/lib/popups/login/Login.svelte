@@ -194,7 +194,7 @@
                             function isGot() {
                                 if ($resultReg.error)
                                     console.log($resultReg.error)
-                                if ($resultReg.data?.login?.ok) {
+                                if ($resultReg.data?.reg?.ok) {
                                     console.log($resultReg.data)
                                     localStorage.setItem('user', JSON.stringify($resultReg.data.reg));
                                     window.location = '/profile';

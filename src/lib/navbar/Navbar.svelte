@@ -57,7 +57,7 @@
 			<a href="" class="button button-small" on:click={openPopup}>
 				Шәхси Кабинет
 			</a>
-			<a href="" class="button-secondary">
+			<a href="" class="button-secondary" on:click={openPopup}>
 				Теркәү
 			</a>
 		{/if}
