@@ -320,7 +320,7 @@
                                 courses = queryStore({
                                     client,
                                     query: COURSES_QUERY,
-                                    variables: { teachersIds: teachersIds }
+                                    variables: { limit, offset, teachersIds: teachersIds }
                                 });
                             }}
                             type="checkbox" id={`teacher${teacher.id}`} name="teacher">
