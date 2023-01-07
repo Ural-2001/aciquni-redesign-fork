@@ -3,11 +3,15 @@
 
     $: teachersShowingAmount = 6;
     $: teachersIds = [];
+    let limit = 9;
+    let offset = 0;
+    let page = 1;
+    let search = '';
 
     const client = getContextClient();
-    const query = gql`
-        query ($tags: [String], $teachersIds: [ID]) {
-            courses (tags: $tags teachersIds: $teachersIds) {
+    const COURSES_QUERY = gql`
+        query ($limit: Int, $offset: Int, $teachersIds: [ID]) {
+            courses (limit: $limit, offset: $offset, teachersIds: $teachersIds) {
                 id
                 name
                 description
@@ -15,13 +19,14 @@
                 image
                 tags
                 lessonsCount
+                total
             }
         }
     `
     $: courses = queryStore({
         client,
-        query,
-        variables: { teachersIds: teachersIds }
+        query: COURSES_QUERY,
+        variables: { limit, offset, teachersIds: teachersIds }
     });
 
     const recommendedCourses = queryStore({
@@ -96,6 +101,144 @@
                         </div>
                     </div>
                 {/each}
+            </div>
+            <div class="pagination">
+                <div class="pagination-numbers">
+                    {#if Math.ceil($courses?.data?.courses[0]?.total / limit) > 10}
+                        <div 
+                            on:click={() => {
+                                page = 1;
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: COURSES_QUERY,
+                                    variables: { limit, offset, teachersIds: teachersIds }
+                                });
+                            }}
+                            class="pagination-number" class:active="{page === 1}">1</div>
+                        <div 
+                            on:click={() => {
+                                page = 2;
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: COURSES_QUERY,
+                                    variables: { limit, offset, teachersIds: teachersIds }
+                                });
+                            }}
+                            class="pagination-number" class:active="{page === 2}">2</div>
+                        ...
+                        {#if page > 1}
+                            <div 
+                                on:click={() => {
+                                    page = page-1;
+                                    offset = limit*page-limit;
+                                    queryStore({
+                                        client,
+                                        query: COURSES_QUERY,
+                                        variables: { limit, offset, teachersIds: teachersIds }
+                                    });
+                                }}
+                                class="pagination-number" class:active="{page === page-1}">{page-1}</div>
+                            <div 
+                                class="pagination-number active"
+                            >
+                                {page}
+                            </div>
+                            <div 
+                                on:click={() => {
+                                    page = page+1;
+                                    offset = limit*page-limit;
+                                    queryStore({
+                                        client,
+                                        query: COURSES_QUERY,
+                                        variables: { limit, offset, teachersIds: teachersIds }
+                                    });
+                                }}
+                                class="pagination-number" class:active="{page === page+1}">{page+1}</div>
+                            {:else}
+                                <div 
+                                    on:click={() => {
+                                        page = Math.ceil($courses?.data?.courses[0]?.total / (limit*2))-1;
+                                        offset = limit*page-limit;
+                                        queryStore({
+                                            client,
+                                            query: COURSES_QUERY,
+                                            variables: { limit, offset, teachersIds: teachersIds }
+                                        });
+                                    }}
+                                    class="pagination-number" class:active="{page === Math.ceil($courses?.data?.courses[0]?.total / (limit*2))-1}"
+                                >
+                                    {Math.ceil($courses?.data?.courses[0]?.total / (limit*2))-1}
+                                </div>
+                                <div 
+                                    on:click={() => {
+                                        page = Math.ceil($courses?.data?.courses[0]?.total / (limit*2));
+                                        offset = limit*page-limit;
+                                        queryStore({
+                                            client,
+                                            query: COURSES_QUERY,
+                                            variables: { limit, offset, teachersIds: teachersIds }
+                                        });
+                                    }}
+                                    class="pagination-number" class:active="{page === Math.ceil($courses?.data?.courses[0]?.total / (limit*2))}"
+                                >
+                                    {Math.ceil($courses?.data?.courses[0]?.total / (limit*2))}
+                                </div>
+                                <div 
+                                    on:click={() => {
+                                        page = Math.ceil($courses?.data?.courses[0]?.total / (limit*2))+1;
+                                        offset = limit*page-limit;
+                                        queryStore({
+                                            client,
+                                            query: COURSES_QUERY,
+                                            variables: { limit, offset, teachersIds: teachersIds }
+                                        });
+                                    }}
+                                    class="pagination-number" class:active="{page === Math.ceil($courses?.data?.courses[0]?.total / (limit*2))+1}"
+                                >
+                                    {Math.ceil($courses?.data?.courses[0]?.total / (limit*2))+1}
+                                </div>
+                        {/if}
+                        ...
+                        <div 
+                            on:click={() => {
+                                page = Math.ceil($courses?.data?.courses[0]?.total / limit)-1;
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: COURSES_QUERY,
+                                    variables: { limit, offset, teachersIds: teachersIds }
+                                });
+                            }}
+                            class="pagination-number" class:active="{page === Math.ceil($courses?.data?.courses[0]?.total / limit)-1}">{Math.ceil($courses?.data?.courses[0]?.total / limit)-1}</div>
+                        <div 
+                            on:click={() => {
+                                page = Math.ceil($courses?.data?.courses[0]?.total / limit);
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: COURSES_QUERY,
+                                    variables: { limit, offset, teachersIds: teachersIds }
+                                });
+                            }}
+                            class="pagination-number" class:active="{page === Math.ceil($courses?.data?.courses[0]?.total / limit)}">{Math.ceil($courses?.data?.courses[0]?.total / limit)}</div>
+                    {:else}
+                    {#each {length: Math.ceil($courses?.data?.courses[0]?.total / limit)} as _, i}
+                            <div 
+                                on:click={() => {
+                                    page = i+1;
+                                    offset = limit*page-limit;
+                                    queryStore({
+                                        client,
+                                        query: COURSES_QUERY,
+                                        variables: { limit, offset, teachersIds: teachersIds }
+                                    });
+                            }} 
+                            class="pagination-number" class:active="{page === i+1}">{i+1}</div>
+                    {/each}
+                    {/if}
+                </div>
             </div>
             <!-- <a href="/" class="all-courses-button">
                 Тагын 9 курс арасыннан 154
@@ -510,5 +653,50 @@
 	}
 	.course-foryou-card-info span {
 		margin-top: -2px;
+	}
+    .pagination {
+        margin-top: 45px;
+        display: flex;
+        align-items: center;
+    }
+    .pagination-numbers {
+        display: flex;
+        gap: 15px;
+        margin-left: 15px;
+    }
+    .pagination-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 48px;
+        width: 48px;
+        font-size: 16px;
+        border: 1px solid #E7E7E7;
+        border-radius: 124px;
+    }
+    .pagination-number:hover {
+        cursor: pointer;
+        border-color: var(--primary-color);
+    }
+    .pagination-number.active {
+        border-color: var(--primary-color);
+    }
+    .show-all-button {
+        display: flex;
+		justify-content: center;
+        align-items: center;
+		width: fit-content;
+        border: 1px solid var(--primary-color);
+        border-radius: 32px;
+        padding: 15px 35px;
+        font-size: 18px;
+	}
+	.show-all-button img {
+		margin-left: 80px;
+		width: 20px;
+	}
+	.show-all-button:hover {
+        color: var(--primary-color);
+		text-decoration: none;
 	}
 </style>
