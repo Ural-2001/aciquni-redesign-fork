@@ -1,23 +1,53 @@
+<script>
+    import { onMount } from 'svelte';
+
+    export let course;
+
+    let limit = 3;
+   
+    // onMount(() => {
+    //     let acc = document.getElementsByClassName("course-module-button");
+
+    //     showAll = () => {
+    //         isShowAll
+    //     }
+	// });
+</script>
+
 <div class="course-teachers">
-    <a href="" class="course-teacher">
-        <img src="/img/teachers/almaz.png" alt="">
-        <div class="teacher-info">
-            <p class="teacher-name">Алмаз Хәмидуллин</p>
-            <p class="teacher-occupation">“Унбер” лицее диркторы, Global Teacher Prize 2021 халы...</p>
-        </div>
-    </a>
-    <a href="" class="course-teacher">
-        <img src="/img/teachers/almaz.png" alt="">
-        <div class="teacher-info">
-            <p class="teacher-name">Алмаз Хәмидуллин</p>
-            <p class="teacher-occupation">“Унбер” лицее диркторы, Global Teacher Prize 2021 халы...</p>
-        </div>
-    </a>
+    {#each course.teachers.slice(0, course.teachers.length >= 3 ? limit : course.teachers.length) as teacher}
+        <a href={`teacher/${teacher.id}`} class="course-teacher">
+            <img src="/img/teachers/almaz.png" alt="">
+            <div class="teacher-info">
+                <p class="teacher-name">{teacher.firstName} {teacher.lastName}</p>
+                <p class="teacher-occupation">
+                    {teacher.position}
+                </p>
+            </div>
+        </a>
+    {/each}
 </div>
-<a href="" class="show-all-teachers">
-    <img src="/icons/ArrowsClockwisePurple.svg" alt="">
-    Барысын да күрсәтү
-</a>
+{#if course.teachers.length > 3}
+    {#if limit === 3}
+        <a href=""
+            on:click={() => {
+                limit = course.teachers.length;
+            }}
+        class="show-all-teachers">
+            <img src="/icons/ArrowsClockwisePurple.svg" alt="">
+            Барысын да күрсәтү
+        </a>
+    {:else if limit > 3}
+        <a href=""
+            on:click={() => {
+                limit = 3;
+            }}
+        class="show-all-teachers">
+            <img src="/icons/ArrowsClockwisePurple.svg" alt="">
+            Азрак күрсәтү
+        </a>
+    {/if}
+{/if}
 
 <style>
     .course-teachers {
