@@ -10,8 +10,8 @@
 
     const client = getContextClient();
     const COURSES_QUERY = gql`
-        query ($limit: Int, $offset: Int, $teachersIds: [ID]) {
-            courses (limit: $limit, offset: $offset, teachersIds: $teachersIds) {
+        query ($limit: Int, $offset: Int, $teachersIds: [ID], $search: String) {
+            courses (limit: $limit, offset: $offset, teachersIds: $teachersIds, search: $search) {
                 id
                 name
                 description
@@ -26,7 +26,7 @@
     $: courses = queryStore({
         client,
         query: COURSES_QUERY,
-        variables: { limit, offset, teachersIds: teachersIds }
+        variables: { limit, offset, teachersIds: teachersIds, search }
     });
 
     const recommendedCourses = queryStore({
@@ -71,7 +71,13 @@
         <img src="/icons/CaretLeft.svg" alt="">
         <a href="">мәдәният</a>
     </div>
-    <h2 class="page-title"><span class="courses-category">мәдәният</span> курслары</h2>    
+    <h2 class="page-title"><span class="courses-category">мәдәният</span> курслары</h2> 
+    <div class="search">
+        <input type="text" 
+        bind:value={search}
+        style="background: url(/icons/MagnifyingGlass.svg) no-repeat scroll 95% 50%;"
+        placeholder="Курслар буенча эзләү">
+    </div>   
 </div>
 
 <div class="section container courses">
@@ -388,6 +394,16 @@
 {/if}
 
 <style>
+    .search {
+        margin-top: 15px;
+    }
+    .search input{
+        border-radius: 25px;
+        border: 1px solid #D3D3D3;
+        padding: 8px 20px;
+        font-size: 14px;
+        width: 350px;
+    }
     .top-section {
         margin-bottom: 30px;
     }
