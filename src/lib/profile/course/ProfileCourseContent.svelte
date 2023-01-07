@@ -1,5 +1,7 @@
 <script>
     import { onMount } from 'svelte';
+
+    export let course;
     
     let openAccordion;
     onMount(() => {
@@ -18,170 +20,53 @@
 </script>
 
 <div class="course-modules">
-    <div class="course-module">
-        <div on:click={() => openAccordion(0)} class="course-module-button">
-            <img class="course-module-finished-icon" src="/icons/CheckCircleWhite.svg" alt="">
-            <span>Беренче модуль</span>
-            <div class="course-module-info">
-                <div class="course-module-info-lessons">
-                    6 дәрес · 1 сәг 15 мин
-                </div>
-                <div class="course-module-info-progress">
-                    78/90 балл
-                </div>
-            </div>
-        </div>
-        <div class="course-module-content">
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-finished-time">
-                    <img src="/icons/CheckCircleWhite.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда телгә</p>
-                </div>
-                <div class="course-module-lesson-unfinished">
-                    <p>Дәвам итәргә</p>
-                    <div class="course-module-lesson-unfinished-time">
-                        <p>24 мин</p>
+    {#each course.modules as module, i}
+        <div class="course-module">
+            <div on:click={() => openAccordion(i)} class="course-module-button">
+                {#if module.userModuleEndedStatus}
+                    <img class="course-module-finished-icon" src="/icons/CheckCircleWhite.svg" alt="">
+                {/if}
+                <span>{module.name}</span>
+                <div class="course-module-info">
+                    <div class="course-module-info-lessons">
+                        {module.lessons?.length} дәрес · 1 сәг 15 мин
+                    </div>
+                    <div class="course-module-info-progress">
+                        78/90 балл
                     </div>
                 </div>
             </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-not-started">
-                    <img src="/icons/ClockGrey.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-not-started">
-                    <img src="/icons/ClockGrey.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="course-module">
-        <div on:click={() => openAccordion(1)} class="course-module-button">Икенче модуль</div>
-        <div class="course-module-content">
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-finished-time">
-                    <img src="/icons/CheckCircleWhite.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда телгә</p>
-                </div>
-                <div class="course-module-lesson-unfinished">
-                    <p>Дәвам итәргә</p>
-                    <div class="course-module-lesson-unfinished-time">
-                        <p>24 мин</p>
+            <div class="course-module-content">
+                {#each module.lessons as lesson, i}
+                    <hr>
+                    <div class="course-module-lesson">
+                        <div class="course-module-lesson-text">
+                            <img src="/icons/Note.svg" alt="">
+                            <p>{lesson.name}</p>
+                        </div>
+                        {#if lesson.userLessonStartedStatus && i === lesson.length - 1}
+                            <div class="course-module-lesson-unfinished">
+                                <p>Дәвам итәргә</p>
+                                <div class="course-module-lesson-unfinished-time">
+                                    <p>24 мин</p>
+                                </div>
+                            </div>
+                        {:else if lesson.userLessonStartedStatus}
+                            <div class="course-module-lesson-finished-time">
+                                <img src="/icons/CheckCircleWhite.svg" alt="">
+                                <p>15 мин</p>
+                            </div>
+                        {:else}
+                            <div class="course-module-lesson-not-started">
+                                <img src="/icons/ClockGrey.svg" alt="">
+                                <p>15 мин</p>
+                            </div>
+                        {/if}
                     </div>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-not-started">
-                    <img src="/icons/ClockGrey.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-not-started">
-                    <img src="/icons/ClockGrey.svg" alt="">
-                    <p>15 мин</p>
-                </div>
+                {/each}
             </div>
         </div>
-    </div>
-    <div class="course-module">
-        <div on:click={() => openAccordion(2)} class="course-module-button">Өченче модуль</div>
-        <div class="course-module-content">
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-finished-time">
-                    <img src="/icons/CheckCircleWhite.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда телгә</p>
-                </div>
-                <div class="course-module-lesson-unfinished">
-                    <p>Дәвам итәргә</p>
-                    <div class="course-module-lesson-unfinished-time">
-                        <p>24 мин</p>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-not-started">
-                    <img src="/icons/ClockGrey.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-            <hr>
-            <div class="course-module-lesson">
-                <div class="course-module-lesson-text">
-                    <img src="/icons/Note.svg" alt="">
-                    <p>Инглиз телен укытуда балаларда</p>
-                </div>
-                <div class="course-module-lesson-not-started">
-                    <img src="/icons/ClockGrey.svg" alt="">
-                    <p>15 мин</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    {/each}
 </div>
 
 <style>

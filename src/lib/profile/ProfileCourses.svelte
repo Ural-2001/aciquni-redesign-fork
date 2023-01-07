@@ -11,7 +11,7 @@
             <div class="profile-active-course-card">
                 <div class="course-card-img">
                     <img src="/img/courses/1.png" alt="">
-                    <a href={`/courses/${course.id}`} class="course-card-link">
+                    <a href={`/profile/course/${course.id}`} class="course-card-link">
                         <img src="/icons/ArrowUpRight.svg" alt="">
                     </a>
                 </div>
