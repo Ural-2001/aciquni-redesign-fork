@@ -117,19 +117,140 @@
         </a> -->
         <div class="pagination">
             <div class="pagination-numbers">
-                {#each {length: Math.ceil($teachers?.data?.teachers[0]?.total / limit)} as _, i}
+                {#if Math.ceil($teachers?.data?.teachers[0]?.total / limit) > 10}
                     <div 
                         on:click={() => {
-                            page = i+1;
+                            page = 1;
                             offset = limit*page-limit;
                             queryStore({
                                 client,
                                 query: TEACHERS_QUERY,
                                 variables: { limit, offset, search }
                             });
+                        }}
+                        class="pagination-number" class:active="{page === 1}">1</div>
+                    <div 
+                        on:click={() => {
+                            page = 2;
+                            offset = limit*page-limit;
+                            queryStore({
+                                client,
+                                query: TEACHERS_QUERY,
+                                variables: { limit, offset, search }
+                            });
+                        }}
+                        class="pagination-number" class:active="{page === 2}">2</div>
+                    ...
+                    {#if page > 1}
+                        <div 
+                            on:click={() => {
+                                page = page-1;
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: TEACHERS_QUERY,
+                                    variables: { limit, offset, search }
+                                });
+                            }}
+                            class="pagination-number" class:active="{page === page-1}">{page-1}</div>
+                        <div 
+                            class="pagination-number active"
+                        >
+                            {page}
+                        </div>
+                        <div 
+                            on:click={() => {
+                                page = page+1;
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: TEACHERS_QUERY,
+                                    variables: { limit, offset, search }
+                                });
+                            }}
+                            class="pagination-number" class:active="{page === page+1}">{page+1}</div>
+                        {:else}
+                            <div 
+                                on:click={() => {
+                                    page = Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))-1;
+                                    offset = limit*page-limit;
+                                    queryStore({
+                                        client,
+                                        query: TEACHERS_QUERY,
+                                        variables: { limit, offset, search }
+                                    });
+                                }}
+                                class="pagination-number" class:active="{page === Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))-1}"
+                            >
+                                {Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))-1}
+                            </div>
+                            <div 
+                                on:click={() => {
+                                    page = Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2));
+                                    offset = limit*page-limit;
+                                    queryStore({
+                                        client,
+                                        query: TEACHERS_QUERY,
+                                        variables: { limit, offset, search }
+                                    });
+                                }}
+                                class="pagination-number" class:active="{page === Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))}"
+                            >
+                                {Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))}
+                            </div>
+                            <div 
+                                on:click={() => {
+                                    page = Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))+1;
+                                    offset = limit*page-limit;
+                                    queryStore({
+                                        client,
+                                        query: TEACHERS_QUERY,
+                                        variables: { limit, offset, search }
+                                    });
+                                }}
+                                class="pagination-number" class:active="{page === Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))+1}"
+                            >
+                                {Math.ceil($teachers?.data?.teachers[0]?.total / (limit*2))+1}
+                            </div>
+                    {/if}
+                    ...
+                    <div 
+                        on:click={() => {
+                            page = Math.ceil($teachers?.data?.teachers[0]?.total / limit)-1;
+                            offset = limit*page-limit;
+                            queryStore({
+                                client,
+                                query: TEACHERS_QUERY,
+                                variables: { limit, offset, search }
+                            });
+                        }}
+                        class="pagination-number" class:active="{page === Math.ceil($teachers?.data?.teachers[0]?.total / limit)-1}">{Math.ceil($teachers?.data?.teachers[0]?.total / limit)-1}</div>
+                    <div 
+                        on:click={() => {
+                            page = Math.ceil($teachers?.data?.teachers[0]?.total / limit);
+                            offset = limit*page-limit;
+                            queryStore({
+                                client,
+                                query: TEACHERS_QUERY,
+                                variables: { limit, offset, search }
+                            });
+                        }}
+                        class="pagination-number" class:active="{page === Math.ceil($teachers?.data?.teachers[0]?.total / limit)}">{Math.ceil($teachers?.data?.teachers[0]?.total / limit)}</div>
+                {:else}
+                {#each {length: Math.ceil($teachers?.data?.teachers[0]?.total / limit)} as _, i}
+                        <div 
+                            on:click={() => {
+                                page = i+1;
+                                offset = limit*page-limit;
+                                queryStore({
+                                    client,
+                                    query: TEACHERS_QUERY,
+                                    variables: { limit, offset, search }
+                                });
                         }} 
                         class="pagination-number" class:active="{page === i+1}">{i+1}</div>
                 {/each}
+                {/if}
             </div>
         </div>
     {:else}
