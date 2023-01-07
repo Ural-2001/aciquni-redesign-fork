@@ -1,5 +1,5 @@
 <script>
-    import { queryStore, gql, getContextClient } from '@urql/svelte';
+    import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
     import { page } from '$app/stores';
 
     const id = parseInt($page.params.slug);
@@ -24,6 +24,14 @@
                     comments {
                         id
                         text
+                        userProfile {
+                            user {
+                                id
+                                username
+                                firstName
+                                lastName
+                            }
+                        }
                         total
                     }
                 }
@@ -46,6 +54,67 @@
             }
 		`,
 	});
+
+    let resultAddComment;
+    let text;
+    let client = getContextClient();
+    const addComment = async () => {
+        resultAddComment = await mutationStore({
+            client,
+            query: gql`
+            mutation (
+                $videoPostId: ID,
+                $text: String!,
+                ){
+                    addBlogComment(
+                        videoPostId: $videoPostId
+                        text: $text
+                    ) {
+                        ok
+                        blogComment {
+                        id
+                        createdAt
+                        updatedAt
+                        parent {
+                            id
+                            text
+                        }
+                        post {
+                            id
+                        }
+                        video {
+                            id
+                            title
+                        }
+                        userProfile {
+                            user {
+                                id
+                                username
+                                firstName
+                                lastName
+                            }
+                        }
+                        text
+                        replies {
+                            text
+                            userProfile {
+                            user {
+                                id
+                                username
+                                firstName
+                                lastName
+                            }
+                            }
+                        }
+                        total
+                        }
+                        errors
+                    }
+                }
+            `,
+            variables: { videoPostId: id, text }
+        });        
+    };
 </script>
 
 {#if $videoPost.fetching}
@@ -104,9 +173,14 @@
                 <div class="comment-input">
                     <div style="width: 90%;">
                         <img src="/img/people/1.png" alt="">
-                        <input type="text" placeholder="Сезнең комментарий">
+                        <input bind:value={text} type="text" placeholder="Сезнең комментарий">
                     </div>
-                    <div class="send-comment">Җибәрү</div>
+                    <div class="send-comment"
+                        on:click={() => {
+                            addComment(text);
+                            text = '';
+                        }}
+                    >Җибәрү</div>
                 </div>
                 <div class="comments">
                     {#each $videoPost.data.videoPost.comments as comment}
@@ -114,7 +188,7 @@
                             <div class="comment-top">
                                 <div class="comment-author">
                                     <img src="/img/people/1.png" alt="">
-                                    <span>Сергей Рейдер</span>
+                                    <span>{comment.userProfile.user.firstName} {comment.userProfile.user.lastName}</span>
                                 </div>
                                 <div class="comment-date">
                                     <span>15 сентябрь · 13: 40</span>
@@ -136,7 +210,7 @@
         <div class="suggested-articles">
             <h2>тәкъдим <br> итәбез</h2>
             <div style="display: flex; flex-direction: column; gap: 60px;">
-                {#each $videoPost.data.videoPost.selectedArticles as selectedArticle}
+                <!-- {#each $videoPost.data.videoPost.selectedArticles as selectedArticle}
                     <div class="suggested-article">
                         <img src="/img/blog/articles/1.png" alt="">
                         <a href="/videos/1" class="video-play-button">
@@ -149,7 +223,7 @@
                             2019 елның 7 ноябре
                         </span>
                     </div>
-                {/each}
+                {/each} -->
                 <div class="suggested-article">
                     <img src="/img/blog/articles/1.png" alt="">
                     <h6 class="suggested-article-title">
