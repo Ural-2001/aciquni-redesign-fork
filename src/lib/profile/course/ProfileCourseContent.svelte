@@ -39,7 +39,7 @@
             <div class="course-module-content">
                 {#each module.lessons as lesson, i}
                     <hr>
-                    <div class="course-module-lesson">
+                    <a href={`/lesson/${lesson.id}`} class="course-module-lesson">
                         <div class="course-module-lesson-text">
                             <img src="/icons/Note.svg" alt="">
                             <p>{lesson.name}</p>
@@ -62,7 +62,7 @@
                                 <p>15 мин</p>
                             </div>
                         {/if}
-                    </div>
+                        </a>
                 {/each}
             </div>
         </div>
@@ -141,6 +141,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        text-decoration: none;
+    }
+    .course-module-lesson:hover {
+        color: var(--primary-color);
     }
     .course-module-lesson-text {
         display: flex;

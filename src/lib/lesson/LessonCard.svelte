@@ -1,21 +1,25 @@
+<script>
+    export let lesson;
+</script>
+
 <div class="lesson-cards">
     <div class="lesson-card-coursename">
-        <a href="/profile" class="lesson-card-go-back">
+        <a href={`/profile/course/${lesson.module.course.id}`} class="lesson-card-go-back">
             <img src="/icons/CaretLeftWhite.svg" alt="">
         </a>
-        <h2>Татар телен укытуда заманча һәм нәтиҗәле ысуллар</h2>
+        <h2>{lesson.module.course.name}</h2>
     </div>
     <div class="lesson-card">
         <div class="course">
             <div class="lesson-card-top">
-                <h6>Икенче модуль</h6>
-                <p>44% уздым</p>
+                <h6>{lesson.module.name}</h6>
+                <p>{44}% уздым</p>
                 <div class="progress-bar-back">
                     <div class="progress-bar-front" style="width: 44%;"></div>
                 </div>
             </div>
             <div class="lessons">
-                <a href="" class="lesson">
+                <!-- <a href="" class="lesson">
                     1. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
                     <img class="lesson-finished-icon" src="/icons/CheckCircleWhite.svg" alt="">
                 </a>
@@ -24,31 +28,29 @@
                     <div class="lesson-active-icon">
                         Актив
                     </div>
-                </a>
-                <a href="" class="lesson">
-                    3. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
-                    <div class="lesson-duration-icon">
-                        15 мин
-                    </div>
-                </a>
-                <a href="" class="lesson">
-                    3. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
-                    <div class="lesson-duration-icon">
-                        15 мин
-                    </div>
-                </a>
-                <a href="" class="lesson">
-                    3. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
-                    <div class="lesson-duration-icon">
-                        15 мин
-                    </div>
-                </a>
-                <a href="" class="lesson">
-                    3. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
-                    <div class="lesson-duration-icon">
-                        15 мин
-                    </div>
-                </a>
+                </a> -->
+                {#each lesson.module.lessons as moduleLesson, i}
+                    {#if moduleLesson.id === lesson.id}
+                        <a href={`/lesson/${moduleLesson.id}`} class="lesson active">
+                            {i+1}. {moduleLesson.name}
+                            <div class="lesson-active-icon">
+                                Актив
+                            </div>
+                        </a>
+                    {:else if moduleLesson.userLessonStartedStatus}
+                        <a href={`/lesson/${moduleLesson.id}`} class="lesson">
+                            {i+1}. {moduleLesson.name}
+                            <img class="lesson-finished-icon" src="/icons/CheckCircleWhite.svg" alt="">
+                        </a>
+                    {:else}
+                        <a href={`/lesson/${moduleLesson.id}`} class="lesson">
+                            {i+1}. {moduleLesson.name}
+                            <div class="lesson-duration-icon">
+                                {moduleLesson.time}
+                            </div>
+                        </a>
+                    {/if}
+                {/each}
             </div>
         </div>
     </div>
@@ -127,6 +129,7 @@
     }
     .lesson {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         font-size: 12px;
         line-height: 14px;
