@@ -319,7 +319,7 @@
                                 console.log(teachersIds);
                                 courses = queryStore({
                                     client,
-                                    query,
+                                    query: COURSES_QUERY,
                                     variables: { teachersIds: teachersIds }
                                 });
                             }}
