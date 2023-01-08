@@ -57,6 +57,14 @@
 						time
 						total
                         userProgress
+						getUserLastLesson  {
+							id
+							queueNumber
+							module {
+								id
+								queueNumber
+							}
+						}
 					}
 					endedCourses {
 						id

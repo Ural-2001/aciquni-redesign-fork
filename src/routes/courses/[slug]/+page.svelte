@@ -1,6 +1,6 @@
 <script>
     import ButtonArrowLong from '$lib/components/button/ButtonArrowLong.svelte';
-    import { queryStore, gql, getContextClient } from '@urql/svelte';
+    import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
     import { page } from '$app/stores';
 
     const id = parseInt($page.params.slug);
@@ -65,6 +65,28 @@
 			}
 		`,
 	});
+
+    let resultStartCourse;
+    let client = getContextClient();
+    const startCourse = async () => {
+        resultStartCourse = await mutationStore({
+            client,
+            query: gql`
+            mutation (
+                $courseId: ID!,
+                ){
+                    startCourse(
+                        courseId: $courseId
+                    ) {
+                        ok
+                        errors
+                    }
+                }
+            `,
+            variables: { courseId: id }
+        });   
+        window.location = `/profile/course/${id}`;     
+    };
 </script>
 
 {#if $course.fetching}
@@ -107,7 +129,14 @@
                 {$course.data.course.shortDescription}
             </p>
             <div class="start-course">
-                <ButtonArrowLong text={'Курсны башларга'}/>
+                <!-- <ButtonArrowLong action={() => {startCourse(); window.location = `/profile/course/${id}`}} text={'Курсны башларга'}/> -->
+                <div class="button" on:click={() => startCourse()} style="background-color: var(--primary-color);
+                    color: white;
+                    padding: 15px 30px 18px 30px;
+                    border-radius: 50px; cursor: pointer">
+                    <span>{'Курсны башларга'}</span>
+                    <img src="../icons/ArrowUpRightWhite.svg" alt="">
+                </div>
                 <div class="total-students">
                     <span class="total-students-number">{$course.data.course.totalStarted}</span>
                     <span class="total-students-text">студентлар саны</span>

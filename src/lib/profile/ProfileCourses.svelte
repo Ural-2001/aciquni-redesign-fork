@@ -28,10 +28,10 @@
                         </div>
                     </div>
                     <div class="course-card-content-links">
-                        <a href="" class="course-card-resume-button">
+                        <a href={`lesson/${course.getUserLastLesson.id}`} class="course-card-resume-button">
                             Дәвам итәргә
                             <div class="course-card-resume-button-info">
-                                2 модуль  ·  1 дәрес
+                                {course.getUserLastLesson.module.queueNumber} модуль  ·  {course.getUserLastLesson.queueNumber} дәрес
                             </div>
                         </a>
                         <div class="course-card-social-link">

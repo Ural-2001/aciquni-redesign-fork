@@ -1,11 +1,12 @@
 <script>
 	export let text;
+	export let action;
 </script>
 
-<a href="/" class="button">
+<div class="button" on:click={action}>
 	<span>{text}</span>
     <img src="../icons/ArrowUpRightWhite.svg" alt="">
-</a>
+</div>
 
 <style>
     .button {
