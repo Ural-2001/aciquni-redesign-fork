@@ -237,6 +237,7 @@
                         </span>
                         {#if articlePost.body}
                             <p class="article-description">
+                            <!-- <p class="article-description" contenteditable bind:innerHTML={articlePost.description}> -->
                                 {`${articlePost.body.substr(0, 100)}${articlePost.body.length > 100 ? '...' : ''}`}
                             </p>
                         {/if}
@@ -281,6 +282,7 @@
                         </span>
                         {#if videoPost.description}
                         <p class="article-description">
+                        <!-- <p class="article-description" contenteditable bind:innerHTML={videoPost.description}> -->
                             {`${videoPost.description.substr(0, 100)}${videoPost.description.length > 100 ? '...' : ''}`}
                         </p>
                         {/if}

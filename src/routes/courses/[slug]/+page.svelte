@@ -143,9 +143,7 @@
                 </div>
             </div>
             <p class="course-description-title">курсның тасвирламасы</p>
-            <p class="course-description">
-                {$course.data.course.description}
-            </p>
+            <div class="course-description" contenteditable bind:innerHTML={$course.data.course.description}></div>
             <div class="teachers">
                 <p>мөгаллимнәр</p>
                 <div class="teachers-block">

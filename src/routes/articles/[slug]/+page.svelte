@@ -139,7 +139,7 @@
         <div class="breadcrumbs">
             <a href="/">баш</a>
             <img src="/icons/CaretLeft.svg" alt="">
-            <a href="">татарча фән</a>
+            <a href="/blog">татарча фән</a>
             <img src="/icons/CaretLeft.svg" alt="">
             <a href="#">{$articlePost.data.articlePost.title}</a>
         </div>
@@ -164,9 +164,7 @@
                 </div>
             </div>
             <img class="article-img" src="/img/blog/articles/1.png" alt="">
-            <p>
-                {$articlePost.data.articlePost.body}
-            </p>
+            <div contenteditable bind:innerHTML={$articlePost.data.articlePost.body}></div>
             <!-- <hr>
             <h3>Беренче факт</h3>
             <p>
