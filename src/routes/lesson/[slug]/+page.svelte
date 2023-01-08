@@ -7,7 +7,7 @@
     import LessonTestQuestion from "$lib/lesson/LessonTestQuestion.svelte";
 
     import { onMount } from 'svelte';
-    import { queryStore, gql, getContextClient } from '@urql/svelte';
+    import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
     import { page } from '$app/stores';
 
     const id = parseInt($page.params.slug);
@@ -95,6 +95,53 @@
 		`,
         variables: { lessonId: id }
 	});
+
+    let resultAddComment;
+    let text;
+    let client = getContextClient();
+    const addComment = async () => {
+        resultAddComment = await mutationStore({
+            client,
+            query: gql`
+            mutation (
+                $lessonId: ID,
+                $text: String!,
+                ){
+                    addLessonComment(
+                        lessonId: $lessonId
+                        text: $text
+                    ) {
+                        ok
+                        errors
+                        lessonComment {
+                            id
+                            createdAt
+                            updatedAt
+                            parent {
+                                id
+                            }
+                            lesson {
+                                id
+                            }
+                            profile {
+                                user {
+                                    id
+                                    username
+                                    firstName
+                                    lastName
+                                }
+                            }
+                            text
+                            replies {
+                                id
+                            }
+                        }
+                    }
+                }
+            `,
+            variables: { lessonId: id, text }
+        });        
+    };
     
 </script>
 
@@ -172,9 +219,14 @@
                 <div class="comment-input">
                     <div style="width: 90%;">
                         <img src="/img/people/1.png" alt="">
-                        <input type="text" placeholder="Сезнең комментарий">
+                        <input bind:value={text} type="text" placeholder="Сезнең комментарий">
                     </div>
-                    <div class="send-comment">Җибәрү</div>
+                    <div class="send-comment" 
+                        on:click={() => {
+                            addComment();
+                            text = '';
+                        }}
+                    >Җибәрү</div>
                 </div>
                 <div class="comments">
                     {#each $lesson.data.lesson.comments as comment}
