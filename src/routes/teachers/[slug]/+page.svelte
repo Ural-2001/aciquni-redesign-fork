@@ -76,9 +76,7 @@
             </div>
             <div class="biography">
                 <h3>биография</h3>
-                <p>
-                    {$teacher.data.teacher.information}
-                </p>
+                <div contenteditable bind:innerHTML={$teacher.data.teacher.information}></div>
                 <a href="">
                     <img src="/icons/ArrowsClockwisePurple.svg" alt="">
                     Барысын да күрсәтү
