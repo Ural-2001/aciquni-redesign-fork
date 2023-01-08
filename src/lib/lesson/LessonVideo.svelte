@@ -1,17 +1,42 @@
+<script>
+    import { onMount } from 'svelte';
+
+    export let lesson;
+
+    let openPlayer;
+    let isPlayerOpened = false;
+
+    // onMount(() => {
+    //     openPlayer =
+	// });
+</script>
+
 <div class="lesson-video">
-    <a href="" class="lesson-video-play-btn">
-        <div class="lesson-video-play-btn-img">
-            <img src="/icons/Play.svg" alt="">
-        </div>
-        <div class="lesson-video-play-btn-text">
-            <p>дәресне <br> карый <br> башларга</p>
-            <div class="lesson-video-play-btn-duration">
-                <img src="/icons/ClockWhite.svg" alt="">
-                15 мин
+    {#if !isPlayerOpened}
+        <a href="" on:click={() => isPlayerOpened = !isPlayerOpened} class="lesson-video-play-btn">
+            <div class="lesson-video-play-btn-img">
+                <img src="/icons/Play.svg" alt="">
             </div>
-        </div>
-    </a>
-    <img src="/img/lesson/1.png" alt="">
+            <div class="lesson-video-play-btn-text">
+                <p>дәресне <br> карый <br> башларга</p>
+                <div class="lesson-video-play-btn-duration">
+                    <img src="/icons/ClockWhite.svg" alt="">
+                    {lesson.time}
+                </div>
+            </div>
+        </a>
+        <img src="/img/lesson/1.png" alt="">
+    {:else}
+        <iframe 
+            class="player"
+            height="400"
+            src={lesson.link}
+            title="YouTube video player"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
+    {/if}
 </div>
 <div class="lesson-materials-section">
     <h2>дәрес материаллары</h2>
@@ -358,4 +383,8 @@
         color: var(--primary-color);
 		text-decoration: none;
 	}
+    .player {
+        width: 100%;
+        border-radius: 20px;
+    }
 </style>

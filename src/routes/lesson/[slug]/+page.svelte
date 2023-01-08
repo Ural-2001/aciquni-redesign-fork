@@ -16,6 +16,7 @@
     let selectPage = (page) => {
         selectedPage = page;
     };
+
     // onMount(() => {
 	// });
 
@@ -100,24 +101,36 @@
                     Алдагы дәрес
                 </div>
                 <div class="lesson-lessons">
-                    <div class="lesson-number finished">
-                        <img src="/icons/CheckCircleBlack.svg" alt="">
-                    </div>
-                    <div class="lesson-number active">2</div>
-                    <div class="lesson-number">3</div>
-                    <div class="lesson-number">4</div>
-                    <div class="lesson-number">5</div>
-                    <div class="lesson-number">6</div>
-                    <div class="lesson-number test">Тест</div>
+                    {#each $lesson.data.lesson.module.lessons as moduleLesson, i}
+                        {#if moduleLesson.id  === $lesson.data.lesson.id}
+                            <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson-number active">
+                                {i+1}
+                            </a>
+                        {:else if moduleLesson.userLessonStartedStatus}
+                            <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson-number finished">
+                                <img src="/icons/CheckCircleBlack.svg" alt="">
+                            </a>
+                        {:else}
+                            <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson-number">
+                                {i+1}
+                            </a>
+                        {/if}
+                    {/each}
+                    <!-- <div class="lesson-number test">Тест</div> -->
                 </div>
                 <div class="lesson-right">
                     Киләсе дәрес
                     <img src="/icons/CaretRightWhite.svg" alt="">
                 </div>
             </div>
-            <LessonText lesson={$lesson.data.lesson} />
-            <!-- <LessonVideo lesson={$lesson.data.lesson} /> -->
-            <!-- <LessonPresentation lesson={$lesson.data.lesson} /> -->
+            {#if $lesson.data.lesson.type === 'MP4'}
+                <LessonVideo lesson={$lesson.data.lesson} />
+            <!-- {:else if $lesson.type === 'MP3'} -->
+            {:else if $lesson.data.lesson.type === 'PRES'}
+                <LessonPresentation lesson={$lesson.data.lesson} />
+            {:else if $lesson.data.lesson.type === 'TEXT'}
+                <LessonText lesson={$lesson.data.lesson} />
+            {/if}
             <!-- <LessonTestBegin lesson={$lesson.data.lesson} /> -->
             <!-- <LessonTestQuestion lesson={$lesson.data.lesson} /> -->
         </div>
