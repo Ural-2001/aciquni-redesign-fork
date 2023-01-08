@@ -182,6 +182,7 @@
                             link
                             text
                             userLessonStartedStatus
+                            time
                         }
                         userModuleStartedStatus
                         userModuleEndedStatus

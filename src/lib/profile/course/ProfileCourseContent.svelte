@@ -44,22 +44,22 @@
                             <img src="/icons/Note.svg" alt="">
                             <p>{lesson.name}</p>
                         </div>
-                        {#if lesson.userLessonStartedStatus && i === lesson.length - 1}
+                        {#if lesson.userLessonStartedStatus && i === module.lessons.length - 1}
                             <div class="course-module-lesson-unfinished">
                                 <p>Дәвам итәргә</p>
                                 <div class="course-module-lesson-unfinished-time">
-                                    <p>24 мин</p>
+                                    <p>{lesson.time}</p>
                                 </div>
                             </div>
                         {:else if lesson.userLessonStartedStatus}
                             <div class="course-module-lesson-finished-time">
                                 <img src="/icons/CheckCircleWhite.svg" alt="">
-                                <p>15 мин</p>
+                                <p>{lesson.time}</p>
                             </div>
                         {:else}
                             <div class="course-module-lesson-not-started">
                                 <img src="/icons/ClockGrey.svg" alt="">
-                                <p>15 мин</p>
+                                <p>{lesson.time}</p>
                             </div>
                         {/if}
                         </a>
