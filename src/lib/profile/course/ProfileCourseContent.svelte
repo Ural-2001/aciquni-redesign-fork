@@ -62,8 +62,17 @@
                                 <p>{lesson.time}</p>
                             </div>
                         {/if}
-                        </a>
+                    </a>
                 {/each}
+                {#if module.quiz}
+                    <hr>
+                    <a href={`/quiz/${module.quiz.id}`} class="course-module-lesson">
+                        <div class="course-module-lesson-text">
+                            <img src="/icons/Note.svg" alt="">
+                            <p>{module.quiz.title}</p>
+                        </div>
+                    </a>
+                {/if}
             </div>
         </div>
     {/each}

@@ -20,84 +20,68 @@
     // onMount(() => {
 	// });
 
-    const lesson = queryStore({
+    const quiz = queryStore({
 		client: getContextClient(),
 		query: gql`
-            query ($lessonId: ID!) {
-                lesson (lessonId: $lessonId) {
+            query ($quizId: ID!) {
+                quiz (quizId: $quizId) {
                     id
-                    type
-                    name
-                    link
-                    text
+                    title
                     description
+                    course {
+                        id
+                        name
+                        shortDescription
+                        description
+                        image
+                        imageCoursesAndCourse
+                        imageDash
+                        tags
+                        chat
+                        isVideo
+                        videoLink
+                        created
+                        updated
+                        isActive
+                        isReady
+                        totalStarted
+                        totalEnded
+                        totalWatches
+                        queueNumber
+                        isCertificated
+                        lessonsCount
+                        time
+                        total
+                        userProgress
+                        userLastModule
+                        userLastLesson
+                    }
                     module {
                         id
                         name
-                        course {
-                            id
-                            name
-                            userProgress  
-                        }
                         queueNumber
+                        userModuleStartedStatus
+                        userModuleEndedStatus
+                        userProgress
                         lessons {
                             id
                             name
                             time
                             userLessonStartedStatus
                         }
-                        quiz {
-                            id
-                            title
-                        }
-                        userModuleStartedStatus
-                        userModuleEndedStatus
-                        userProgress
                     }
-                    teachers {
-                        id
-                        firstName
-                        lastName
-                        patronymic
-                        image
-                        imageCropped
-                        imageCroppedTeacherPage
-                        information
-                        position
-                        total
-                    }
-                    resources {
-                        id
-                        name
-                        link
-                        file
-                        isLink
-                        image
-                    }
-                    comments {
-                        id
-                        createdAt
-                        updatedAt
-                        profile {
-                            user {
-                                id
-                                username
-                                firstName
-                                lastName
-                            }
-                        }
-                        text
-                    }
-                    minutesLearn
-                    minutesLearnMessage
-                    queueNumber
-                    userLessonStartedStatus
-                    time
-                    nextLessonId
+                    url
+                    randomOrder
+                    maxQuestions
+                    answersAtEnd
+                    singleAttempt
+                    passMark
+                    successText
+                    failText
                 }
             }
 		`,
-        variables: { lessonId: id }
+        variables: { quizId: id }
 	});
 
     let resultAddComment;
@@ -150,112 +134,17 @@
 </script>
 
 <div class="container lesson-page">
-    {#if $lesson.fetching}
+    {#if $quiz.fetching}
         <p>Loading...</p>
-    {:else if $lesson.error}
-        <p>Oh no... {$lesson.error.message}</p>
+    {:else if $quiz.error}
+        <p>Oh no... {$quiz.error.message}</p>
     {:else}
-        <LessonCard lesson={$lesson.data.lesson} />
+        <LessonCard quiz={$quiz.data.quiz} isQuiz={true} />
         <div class="lesson">
-            <h1>{$lesson.data.lesson.name}</h1>
-            <p class="lesson-info">{$lesson.data.lesson.time}  ·  Лектор {$lesson.data.lesson.teachers[0].firstName} {$lesson.data.lesson.teachers[0].lastName}</p>
-            <div class="lesson-nav">
-                <div class="lesson-left">
-                    <img src="/icons/CaretLeft.svg" alt="">
-                    Алдагы дәрес
-                </div>
-                <div class="lesson-lessons">
-                    {#each $lesson.data.lesson.module.lessons as moduleLesson, i}
-                        {#if moduleLesson.id  === $lesson.data.lesson.id}
-                            <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson-number active">
-                                {i+1}
-                            </a>
-                        {:else if moduleLesson.userLessonStartedStatus}
-                            <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson-number finished">
-                                <img src="/icons/CheckCircleBlack.svg" alt="">
-                            </a>
-                        {:else}
-                            <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson-number">
-                                {i+1}
-                            </a>
-                        {/if}
-                    {/each}
-                    <!-- <div class="lesson-number test">Тест</div> -->
-                </div>
-                <a data-sveltekit-reload href={`/lesson/${$lesson.data.lesson.nextLessonId}`} class="lesson-right">
-                    Киләсе дәрес
-                    <img src="/icons/CaretRightWhite.svg" alt="">
-                </a>
-            </div>
-            {#if $lesson.data.lesson.type === 'MP4'}
-                <LessonVideo lesson={$lesson.data.lesson} />
-            <!-- {:else if $lesson.type === 'MP3'} -->
-            {:else if $lesson.data.lesson.type === 'PRES'}
-                <LessonPresentation lesson={$lesson.data.lesson} />
-            {:else if $lesson.data.lesson.type === 'TEXT'}
-                <LessonText lesson={$lesson.data.lesson} />
-            {/if}
-            <!-- <LessonTestBegin lesson={$lesson.data.lesson} /> -->
+            <h1>{$quiz.data.quiz.title}</h1>
+            <!-- <p class="lesson-info">{$quiz.data.quiz.time}  ·  Лектор {$lesson.data.lesson.teachers[0].firstName} {$lesson.data.lesson.teachers[0].lastName}</p> -->
+            <LessonTestBegin lesson={$quiz.data.quiz} />
             <!-- <LessonTestQuestion lesson={$lesson.data.lesson} /> -->
-            {#if $lesson.data.lesson.resources.length > 0}
-                <div class="lesson-materials-section">
-                    <h2>дәрес материаллары</h2>
-                    <div class="lesson-materials">
-                        {#each $lesson.data.lesson.resources as material}
-                            <div class="lesson-material">
-                                <div class="lesson-material-info-section">
-                                    <img src="/icons/Note.svg" alt="">
-                                    <div class="lesson-material-info">
-                                        <p class="lesson-material-title">{material.name}</p>
-                                        <p class="lesson-material-file-size">Файл PDF  ·   kb</p>
-                                    </div>
-                                </div>
-                                <a href={material.link} target="_blank" class="download-button">
-                                    <img src="/icons/DownloadWhite.svg" alt="">
-                                </a>
-                            </div> 
-                        {/each}              
-                    </div>
-                </div>
-            {/if}
-            <div class="comments-section">
-                <h2>комментарийлар</h2>
-                <div class="comment-input">
-                    <div style="width: 90%;">
-                        <img src="/img/people/1.png" alt="">
-                        <input bind:value={text} type="text" placeholder="Сезнең комментарий">
-                    </div>
-                    <div class="send-comment" 
-                        on:click={() => {
-                            addComment();
-                            text = '';
-                        }}
-                    >Җибәрү</div>
-                </div>
-                <div class="comments">
-                    {#each $lesson.data.lesson.comments as comment}
-                        <div class="comment">
-                            <div class="comment-top">
-                                <div class="comment-author">
-                                    <img src="/img/people/1.png" alt="">
-                                    <span>{comment.profile.user.firstName} {comment.profile.user.lastName}</span>
-                                </div>
-                                <div class="comment-date">
-                                    <span>{comment.createdAt}</span>
-                                </div>
-                            </div>
-                            <p class="comment-text">
-                                {comment.text}
-                            </p>
-                            <div class="show-more-comment-text">Барысын да күрсәтү</div>
-                        </div>
-                    {/each}
-                </div>
-                <a href="#" class="show-more-comments">
-                    Тагын 12 мөгалимнәр арасыннан 45
-                    <img src="/icons/ArrowsClockwise.svg" alt="">
-                </a>
-            </div>
         </div>
     {/if}
 </div>

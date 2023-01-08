@@ -184,6 +184,10 @@
                             userLessonStartedStatus
                             time
                         }
+                        quiz {
+                            id
+                            title
+                        }
                         userModuleStartedStatus
                         userModuleEndedStatus
                     }
