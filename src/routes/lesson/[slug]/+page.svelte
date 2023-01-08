@@ -37,6 +37,7 @@
                         course {
                             id
                             name
+                            userProgress  
                         }
                         queueNumber
                         lessons {
@@ -47,6 +48,7 @@
                         }
                         userModuleStartedStatus
                         userModuleEndedStatus
+                        userProgress
                     }
                     teachers {
                         id
@@ -60,19 +62,30 @@
                         position
                         total
                     }
+                    resources {
+                        id
+                        name
+                        link
+                        file
+                        isLink
+                        image
+                    }
+                    comments {
+                        id
+                        createdAt
+                        updatedAt
+                        profile {
+                            user {
+                                id
+                                username
+                                firstName
+                                lastName
+                            }
+                        }
+                        text
+                    }
                     minutesLearn
                     minutesLearnMessage
-                    usersStarted {
-                        id
-                        user {
-                            id
-                            firstName
-                            lastName
-                        }
-                        birthDate
-                        middleName
-                        phoneNumber
-                    }
                     queueNumber
                     userLessonStartedStatus
                     time
@@ -118,10 +131,10 @@
                     {/each}
                     <!-- <div class="lesson-number test">Тест</div> -->
                 </div>
-                <div class="lesson-right">
+                <a data-sveltekit-reload href={`/lesson/${$lesson.data.lesson.nextLessonId}`} class="lesson-right">
                     Киләсе дәрес
                     <img src="/icons/CaretRightWhite.svg" alt="">
-                </div>
+                </a>
             </div>
             {#if $lesson.data.lesson.type === 'MP4'}
                 <LessonVideo lesson={$lesson.data.lesson} />
@@ -133,6 +146,60 @@
             {/if}
             <!-- <LessonTestBegin lesson={$lesson.data.lesson} /> -->
             <!-- <LessonTestQuestion lesson={$lesson.data.lesson} /> -->
+            {#if $lesson.data.lesson.resources.length > 0}
+                <div class="lesson-materials-section">
+                    <h2>дәрес материаллары</h2>
+                    <div class="lesson-materials">
+                        {#each $lesson.data.lesson.resources as material}
+                            <div class="lesson-material">
+                                <div class="lesson-material-info-section">
+                                    <img src="/icons/Note.svg" alt="">
+                                    <div class="lesson-material-info">
+                                        <p class="lesson-material-title">{material.name}</p>
+                                        <p class="lesson-material-file-size">Файл PDF  ·   kb</p>
+                                    </div>
+                                </div>
+                                <a href={material.link} target="_blank" class="download-button">
+                                    <img src="/icons/DownloadWhite.svg" alt="">
+                                </a>
+                            </div> 
+                        {/each}              
+                    </div>
+                </div>
+            {/if}
+            <div class="comments-section">
+                <h2>комментарийлар</h2>
+                <div class="comment-input">
+                    <div style="width: 90%;">
+                        <img src="/img/people/1.png" alt="">
+                        <input type="text" placeholder="Сезнең комментарий">
+                    </div>
+                    <div class="send-comment">Җибәрү</div>
+                </div>
+                <div class="comments">
+                    {#each $lesson.data.lesson.comments as comment}
+                        <div class="comment">
+                            <div class="comment-top">
+                                <div class="comment-author">
+                                    <img src="/img/people/1.png" alt="">
+                                    <span>{comment.profile.user.firstName} {comment.profile.user.lastName}</span>
+                                </div>
+                                <div class="comment-date">
+                                    <span>{comment.createdAt}</span>
+                                </div>
+                            </div>
+                            <p class="comment-text">
+                                {comment.text}
+                            </p>
+                            <div class="show-more-comment-text">Барысын да күрсәтү</div>
+                        </div>
+                    {/each}
+                </div>
+                <a href="#" class="show-more-comments">
+                    Тагын 12 мөгалимнәр арасыннан 45
+                    <img src="/icons/ArrowsClockwise.svg" alt="">
+                </a>
+            </div>
         </div>
     {/if}
 </div>
@@ -186,6 +253,7 @@
         color: white;
         border-radius: 50px;
         cursor: pointer;
+        text-decoration: none;
     }
     .lesson-lessons {
         display: flex;
@@ -218,4 +286,156 @@
     .lesson-number.test {
         padding: 0 25px;
     }
+    .lesson-materials-section {
+        margin-top: 50px;
+    }
+    .lesson-materials {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .lesson-material {
+        border: 1px solid #E7E7E7;
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 18px;
+    }
+    .lesson-material-info-section {
+        display: flex;
+        gap: 15px;
+    }
+    .lesson-material-info {
+        display: flex;
+        flex-direction: column;
+    }
+    .lesson-material-info p{
+        margin: 0;
+        line-height: 20px;
+    }
+    .lesson-material-title {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .lesson-material-file-size {
+        font-size: 12px;
+        color: #B4B4B4;
+    }
+    .download-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--primary-color);
+        border-radius: 50px;
+    }
+    .comments-section {
+        margin-top: 50px;
+    }
+    .comments-section h2{
+        font-size: 32px;
+    }
+    .comment-input {
+        border: 1px solid #E7E7E7;
+        border-radius: 30px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .comment-input div {
+        display: flex;
+        align-items: center;
+    }
+    .comment-input img {
+        width: 48px;
+    }
+    .comment-input input {
+        border: none;
+        margin-left: 20px;
+        font-size: 16px;
+        width: inherit;
+    }
+    .comment-input input:focus {
+        outline: none;
+    }
+    .send-comment {
+        background: var(--primary-color);
+        border-radius: 24px;
+        color: white;
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+    .send-comment:hover {
+        cursor: pointer;
+    }
+    .comments {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .comment {
+        display: flex;
+        border-radius: 20px;
+        background-color: #F7F7F5;
+        display: flex;
+        flex-direction: column;
+        padding: 25px 30px;
+    }
+    .comment-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .comment-top img{
+        width: 28px;
+    }
+    .comment-author{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .comment-date{
+        font-size: 12px;
+        color: #9A9DA8;
+    }
+    .comment-text {
+        margin-top: 12px;
+        font-size: 16px;
+        line-height: 140%;
+        margin-bottom: 0px;
+    }
+    .show-more-comment-text {
+        font-size: 12px;
+        color: var(--primary-color);
+        margin-top: 5px;
+    }
+    .show-more-comment-text:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .show-more-comments {
+        display: flex;
+		justify-content: center;
+        align-items: center;
+		width: fit-content;
+        border: 1px solid var(--primary-color);
+        border-radius: 32px;
+        padding: 18px 37px;
+        font-size: 18px;
+        margin-top: 45px;
+	}
+	.show-more-comments img {
+		margin-left: 80px;
+		width: 20px;
+	}
+	.show-more-comments:hover {
+        color: var(--primary-color);
+		text-decoration: none;
+	}
 </style>

@@ -13,37 +13,27 @@
         <div class="course">
             <div class="lesson-card-top">
                 <h6>{lesson.module.name}</h6>
-                <p>{44}% уздым</p>
+                <p>{lesson.module.userProgress}% уздым</p>
                 <div class="progress-bar-back">
-                    <div class="progress-bar-front" style="width: 44%;"></div>
+                    <div class="progress-bar-front" style={`width: ${lesson.module.userProgress}%;`}></div>
                 </div>
             </div>
             <div class="lessons">
-                <!-- <a href="" class="lesson">
-                    1. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
-                    <img class="lesson-finished-icon" src="/icons/CheckCircleWhite.svg" alt="">
-                </a>
-                <a href="" class="lesson active">
-                    2. Инглиз телен укытуда балаларда телгә мәхәббәт уя...
-                    <div class="lesson-active-icon">
-                        Актив
-                    </div>
-                </a> -->
                 {#each lesson.module.lessons as moduleLesson, i}
                     {#if moduleLesson.id === lesson.id}
-                        <a href={`/lesson/${moduleLesson.id}`} class="lesson active">
+                        <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson active">
                             {i+1}. {moduleLesson.name}
                             <div class="lesson-active-icon">
                                 Актив
                             </div>
                         </a>
                     {:else if moduleLesson.userLessonStartedStatus}
-                        <a href={`/lesson/${moduleLesson.id}`} class="lesson">
+                        <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson">
                             {i+1}. {moduleLesson.name}
                             <img class="lesson-finished-icon" src="/icons/CheckCircleWhite.svg" alt="">
                         </a>
                     {:else}
-                        <a href={`/lesson/${moduleLesson.id}`} class="lesson">
+                        <a data-sveltekit-reload href={`/lesson/${moduleLesson.id}`} class="lesson">
                             {i+1}. {moduleLesson.name}
                             <div class="lesson-duration-icon">
                                 {moduleLesson.time}
