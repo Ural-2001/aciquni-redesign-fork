@@ -5,7 +5,7 @@
 <div class="course-description">
     <hr>
     <!-- <p class="description-title">{course.description}</p> -->
-    <p>{course.description}</p>
+    <div contenteditable bind:innerHTML={course.description}></div>
 </div>
 
 <style>
