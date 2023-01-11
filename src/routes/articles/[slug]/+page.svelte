@@ -129,6 +129,22 @@
             variables: { articlePostId: id, text }
         });        
     };
+
+    let resultDeleteComment;
+    const deleteComment = async (commentId) => {
+        resultDeleteComment = await mutationStore({
+            client,
+            query: gql`
+            mutation ($commentId: ID!){
+                deleteBlogComment(commentId: $commentId) {
+                    ok
+                    errors
+                }
+            }
+            `,
+            variables: { commentId }
+        });        
+    };
 </script>
 
 {#if $articlePost.fetching}
@@ -236,6 +252,16 @@
                                 </div>
                                 <div class="comment-date">
                                     <span>15 сентябрь · 13: 40</span>
+                                    {#if comment.userProfile.user.id === JSON.parse(localStorage.getItem('user')).user.id}
+                                        <div
+                                            on:click={() => {
+                                                deleteComment(comment.id);
+                                            }}
+                                            style="cursor: pointer"
+                                        >
+                                            <img src="/icons/delete.png" alt="" style="width: 15px;">
+                                        </div>
+                                    {/if}
                                 </div>
                             </div>
                             <p class="comment-text">
@@ -473,6 +499,9 @@
         font-weight: 600;
     }
     .comment-date{
+        display: flex;
+        align-items: center;
+        gap: 20px;
         font-size: 12px;
         color: #9A9DA8;
     }
