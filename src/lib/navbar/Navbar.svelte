@@ -24,7 +24,7 @@
 	});
 </script>
 
-<div class="container navibar">
+<div class="container-xl navibar">
 	<div class="left-links">
 		<a href="/courses" class="button-secondary courses-button">
             <img src="../icons/CirclesFour.svg" alt="">

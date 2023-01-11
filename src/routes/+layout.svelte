@@ -2,6 +2,7 @@
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import '../app.scss';
+	import '../app.postcss';
 	import AdvicePopup from '../lib/popups/advice/AdvicePopup.svelte';
 	import Login from '../lib/popups/login/Login.svelte';
 	import PasswordReset from '../lib/popups/password/PasswordReset.svelte';

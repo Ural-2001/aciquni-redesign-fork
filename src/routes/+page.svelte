@@ -111,7 +111,7 @@
 {:else if $mainPage.error}
 	<p>Oh no... {$mainPage.error.message}</p>
 {:else if $mainPage.data.mainPage.firstNumber && $mainPage.data.mainPage.secondNumber && $mainPage.data.mainPage.description}
-<div class="section container description">
+<div class="section container-xl description">
 	<p class="description-text">
 		{$mainPage.data.mainPage.description}
 	</p>
@@ -130,7 +130,7 @@
 </div>
 {/if}
 
-<div class="section container topics">
+<div class="section container-xl topics">
 	<div class="topics-left">
 		<h2>укыту юнәлешләре</h2>
 		<div class="topics-buttons">

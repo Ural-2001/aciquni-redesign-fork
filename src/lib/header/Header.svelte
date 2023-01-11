@@ -2,7 +2,7 @@
 	import Navbar from '$lib/navbar/Navbar.svelte';
 </script>
 
-<header class="container">
+<header class="container-xl">
 	<div class="left-links">
 		<a href="/courses" class="button-header">
 			Тарих

@@ -1,6 +1,7 @@
 <script>
     import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
     import { page } from '$app/stores';
+    import { Alert, Skeleton } from 'flowbite-svelte';
 
     const id = parseInt($page.params.slug);
 
@@ -131,11 +132,11 @@
 </script>
 
 {#if $articlePost.fetching}
-    <p>Loading...</p>
+<Skeleton />
 {:else if $articlePost.error}
     <p>Oh no... {$articlePost.error.message}</p>
 {:else}
-    <div class="container top-section">
+    <div class="container-xl top-section">
         <div class="breadcrumbs">
             <a href="/">баш</a>
             <img src="/icons/CaretLeft.svg" alt="">
@@ -144,13 +145,13 @@
             <a href="#">{$articlePost.data.articlePost.title}</a>
         </div>
     </div>
-    <div class="container article-tags">
+    <div class="container-xl article-tags">
         {#each $articlePost.data.articlePost.tags as tag}
             <div class="tag">{tag.title}</div>
         {/each}
         <div class="date">{$articlePost.data.articlePost.datePub}</div>
     </div>
-    <div class="main-section container">
+    <div class="main-section container-xl">
         <div class="article">
             <h1>{$articlePost.data.articlePost.title}</h1>
             <div class="actions">
