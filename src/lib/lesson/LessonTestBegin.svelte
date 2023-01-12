@@ -1,6 +1,22 @@
+<script>
+	import { createEventDispatcher } from 'svelte';
+
+    export let quiz;
+
+	const dispatch = createEventDispatcher();
+
+	function startQuiz() {
+		dispatch('startQuiz');
+	}
+
+    function resumeQuiz() {
+		dispatch('resumeQuiz');
+	}
+</script>
+
 <div class="test">
     <div class="test-top">
-        <h1>Икенче модуль буенча тест</h1>
+        <h1>{quiz.title}</h1>
         <div class="close-test">
             <img src="/icons/XCircle.svg" alt="">
             Тестны башка вакытта үтәргә
@@ -8,14 +24,21 @@
     </div>
     <div class="test-begin-card">
         <span>Заманча татар шигърияте</span>
-        <h2>Бу "Заманча татар шигърияте, прозасы" модуле буенча тест. Әгәр дә сез 60% сорауга дөрес җавап бирсәгез, сезгә киләсе модуль ачылачак!</h2>
+        <h2>Бу "{quiz.module.name}" модуле буенча тест. Әгәр дә сез 60% сорауга дөрес җавап бирсәгез, сезгә киләсе модуль ачылачак!</h2>
         <div class="test-begin-button-section">
-            <div class="test-begin-button">
-                Тестны башларга
-                <img src="/icons/CaretRightWhite.svg" alt="">
-            </div>
+            {#if quiz.isUserStarted}
+                <div class="test-begin-button" on:click={resumeQuiz}>
+                    Дэвам итергэ
+                    <img src="/icons/CaretRightWhite.svg" alt="">
+                </div>
+            {:else}
+                <div class="test-begin-button" on:click={startQuiz}>
+                    Тестны башларга
+                    <img src="/icons/CaretRightWhite.svg" alt="">
+                </div>
+            {/if}
             <div class="test-questions-count">
-                Бу тест 7 сораудан тора
+                Бу тест {quiz.maxQuestions} сораудан тора
                 <img src="/icons/ChatTeardropTextPurple.svg" alt="">
             </div>
         </div>

@@ -78,56 +78,343 @@
                     passMark
                     successText
                     failText
+                    isUserStarted
                 }
             }
 		`,
         variables: { quizId: id }
 	});
 
-    let resultAddComment;
-    let text;
+    let resultStartQuiz;
     let client = getContextClient();
-    const addComment = async () => {
-        resultAddComment = await mutationStore({
+    const startQuiz = async () => {
+        resultStartQuiz = await mutationStore({
             client,
             query: gql`
-            mutation (
-                $lessonId: ID,
-                $text: String!,
-                ){
-                    addLessonComment(
-                        lessonId: $lessonId
-                        text: $text
-                    ) {
-                        ok
-                        errors
-                        lessonComment {
+            mutation ($quizId: ID,) {
+                startQuiz(quizId: $quizId) {
+                    ok
+                    firstQuestionId
+                    sitting {
+                        id
+                        quiz {
                             id
-                            createdAt
-                            updatedAt
-                            parent {
-                                id
-                            }
-                            lesson {
-                                id
-                            }
-                            profile {
-                                user {
-                                    id
-                                    username
-                                    firstName
-                                    lastName
-                                }
-                            }
-                            text
-                            replies {
-                                id
-                            }
                         }
+                        questionOrder
+                        questionList
+                        complete
+                        end
+                        totalQuestionsCount
+                        wrongAnswersCount
+                        rightAnswersCount
+                        userScore
+                        passingScore
+                        isUserPassed
+                        text
+                        currentQuestionNumber
+                        userProgressInQuiz
+                        currentQuestionType
+                        multiSelectQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            correctAnswer
+                            answersList {
+                            id
+                            content
+                            }
+                        } 
+                        sqQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            questionPtr {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            mcquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                            }
+                            sqquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            multiselectquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                                correctAnswer
+                            }
+                            rationquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            }
+                            userAnswer
+                            answermcSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            content
+                            serialNumber
+                            }
+                            answersList(quizId: "_____") {
+                            id
+                            content
+                            }
+                        } 
+                        rationQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                            answerrationSet {
+                            ration
+                            }
+                            rationList {
+                            ration
+                            }
+                            answersList {
+                            id
+                            content
+                            }
+                        } 
+                        mCQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            answermcsingleSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                            }
+                            content
+                            correct
+                            }
+                            answersList(quizId: "_____") {
+                            id
+                            content
+                            }
+                        } 
                     }
+                    errors
                 }
-            `,
-            variables: { lessonId: id, text }
+            }`,
+            variables: { quizId: id }
+        });        
+    };
+
+    let resultResumeQuiz;
+    const resumeQuiz = () => {
+        resultResumeQuiz = queryStore({
+            client,
+            query: gql`
+            query ($quizId: ID!) {
+                quizSitting(quizId: $quizId) {
+                    id
+                    quiz {
+                        id
+                        title
+                    }
+                    questionOrder
+                    questionList
+                    complete
+                    end
+                    totalQuestionsCount
+                    wrongAnswersCount
+                    rightAnswersCount
+                    userScore
+                    passingScore
+                    isUserPassed
+                    text
+                    currentQuestionNumber
+                    userProgressInQuiz
+                    currentQuestionType
+                    multiSelectQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        answerOrder
+                        correctAnswer
+                        answersList {
+                        id
+                        content
+                        }
+                    } 
+                    sqQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        questionPtr {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        mcquestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                        }
+                        sqquestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                        }
+                        multiselectquestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            correctAnswer
+                        }
+                        rationquestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                        }
+                        }
+                        userAnswer
+                        answermcSet {
+                        id
+                        question {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                        }
+                        content
+                        serialNumber
+                        }
+                        answersList(quizId: "_____") {
+                        id
+                        content
+                        }
+                    } 
+                    rationQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        userAnswer
+                        answerrationSet {
+                        ration
+                        }
+                        rationList {
+                        ration
+                        }
+                        answersList {
+                        id
+                        content
+                        }
+                    } 
+                    mCQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        answerOrder
+                        answermcsingleSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                            }
+                            content
+                            correct
+                        }
+                        answersList(quizId: "_____") {
+                            id
+                            content
+                        }
+                    } 
+                }
+            }`,
+            variables: { quizId: id }
         });        
     };
     
@@ -141,10 +428,12 @@
     {:else}
         <LessonCard quiz={$quiz.data.quiz} isQuiz={true} />
         <div class="lesson">
-            <h1>{$quiz.data.quiz.title}</h1>
-            <!-- <p class="lesson-info">{$quiz.data.quiz.time}  ·  Лектор {$lesson.data.lesson.teachers[0].firstName} {$lesson.data.lesson.teachers[0].lastName}</p> -->
-            <LessonTestBegin lesson={$quiz.data.quiz} />
-            <!-- <LessonTestQuestion lesson={$lesson.data.lesson} /> -->
+            <!-- <h1>{$quiz.data.quiz.course.name}</h1> -->
+            {#if $resultResumeQuiz?.data}
+                <LessonTestQuestion quizSitting={$resultResumeQuiz.data.quizSitting} />
+            {:else}
+                <LessonTestBegin quiz={$quiz.data.quiz} on:startQuiz={startQuiz} on:resumeQuiz={resumeQuiz}/>
+            {/if}
         </div>
     {/if}
 </div>

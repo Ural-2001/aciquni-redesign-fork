@@ -1,383 +1,482 @@
 <script>
     import CircleProgressBar from '$lib/components/CircleProgressBar/CircleProgressBar.svelte'
-	
+	import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
+
 	const progress = 0.57;
+
+    export let quizSitting;
+
+    let mcAnswer;
+    let quizId;
+    let answerQuestionResult;
+    let client = getContextClient();
+    const answerQuestion = async (answers, quizId) => {
+        answerQuestionResult = await mutationStore({
+            client,
+            query: gql`
+            mutation ($answers: [String], $quizId: ID) {
+                answerQuestion(answers: $answers, quizId: $quizId) {
+                    ok
+                    sitting {
+                        id
+                        quiz {
+                            id
+                        }
+                        questionOrder
+                        questionList
+                        complete
+                        end
+                        totalQuestionsCount
+                        wrongAnswersCount
+                        rightAnswersCount
+                        userScore
+                        passingScore
+                        isUserPassed
+                        text
+                        currentQuestionNumber
+                        userProgressInQuiz
+                        currentQuestionType
+                        multiSelectQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            correctAnswer
+                            answersList {
+                            id
+                            content
+                            }
+                        } 
+                        sqQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            questionPtr {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            mcquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                            }
+                            sqquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            multiselectquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                                correctAnswer
+                            }
+                            rationquestion {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            }
+                            userAnswer
+                            answermcSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            content
+                            serialNumber
+                            }
+                            answersList(quizId: "_____") {
+                            id
+                            content
+                            }
+                        } 
+                        rationQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                            answerrationSet {
+                            ration
+                            }
+                            rationList {
+                            ration
+                            }
+                            answersList {
+                            id
+                            content
+                            }
+                        } 
+                        mCQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            answermcsingleSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                            }
+                            content
+                            correct
+                            }
+                            answersList(quizId: "_____") {
+                            id
+                            content
+                            }
+                        } 
+                    }
+                    errors
+                }
+            }`,
+            variables: { answers, quizId }
+        });        
+    };
 </script>
 
 <div class="test">
     <div class="test-top">
-        <h1>Икенче модуль буенча тест</h1>
+        <h1>{quizSitting.quiz.title}</h1>
         <div class="close-test">
             <img src="/icons/XCircle.svg" alt="">
             Тестны башка вакытта үтәргә
         </div>
     </div>
-    <div class="test-begin-card finished">
-        <span>Бүлек буенча йомгаклау тестына сораулар</span>
-        <div class="questions-nav">
-            <div class="questions-nav-item passed">
-                <p>1</p>
-            </div>
-            <div class="questions-nav-item passed">
-                2
-            </div>
-            <div class="questions-nav-item passed">
-                3
-            </div>
-            <div class="questions-nav-item passed">
-                4
-            </div>
-            <div class="questions-nav-item passed">
-                5
-            </div>
-            <div class="questions-nav-item active">
-                6
-            </div>
-            <div class="questions-nav-item">
-                7
-            </div>
-            <div class="questions-nav-item">
-                8
-            </div>
-            <div class="questions-nav-item">
-                9
-            </div>
-            <div class="questions-nav-item">
-                10
-            </div>
-            <div class="questions-nav-item">
-                11
-            </div>
-            <div class="questions-nav-item">
-                Результат
-            </div>
-        </div>
-        <h2>Яхшы! Сез барлык сорауларга да җавап бирдегез 🔥</h2>
-        <div class="result-info">
-            <div class="points">
-                <div class="points-number">
-                    <span class="number">54</span>
-                    <span class="text">Вы набрали баллов</span>
+    {#if quizSitting.complete}
+        <div class="test-begin-card finished">
+            <span>Бүлек буенча йомгаклау тестына сораулар</span>
+            <div class="questions-nav">
+                <div class="questions-nav-item passed">
+                    <p>1</p>
                 </div>
-                <div class="points-number">
-                    <span class="number">90</span>
-                    <span class="text">Проходной балл</span>
+                <div class="questions-nav-item passed">
+                    2
+                </div>
+                <div class="questions-nav-item passed">
+                    3
+                </div>
+                <div class="questions-nav-item passed">
+                    4
+                </div>
+                <div class="questions-nav-item passed">
+                    5
+                </div>
+                <div class="questions-nav-item active">
+                    6
+                </div>
+                <div class="questions-nav-item">
+                    7
+                </div>
+                <div class="questions-nav-item">
+                    8
+                </div>
+                <div class="questions-nav-item">
+                    9
+                </div>
+                <div class="questions-nav-item">
+                    10
+                </div>
+                <div class="questions-nav-item">
+                    11
+                </div>
+                <div class="questions-nav-item">
+                    Результат
                 </div>
             </div>
-            <div class="grapgh">
-                <CircleProgressBar progress={progress} />
-                <img src="/icons/CheckCircleBlack.svg" alt="">
-                <span class="true-number">7</span>
-                <span class="false-number">4</span>
-            </div>
-            <div class="question-amounts">
-                <div class="question-amount">
-                    <div class="number">11</div>
-                    <span class="text">Барлык сораулар</span>
-                </div>
-                <div class="question-amount">
-                    <div class="number">4</div>
-                    <span class="text">Дөрестүгел җаваплар</span>
-                </div>
-                <div class="question-amount">
-                    <div class="number">7</div>
-                    <span class="text">Дөрес җаваплар</span>
-                </div>
-            </div>
-        </div>
-        <div class="test-bottom finished">
-            <div class="test-begin-button">
-                Киләсе бүлек
-            </div>
-            <div class="test-begin-button again">
-                Тестны кабат узарга
-            </div>
-        </div>
-    </div>
-    <div class="test-begin-card">
-        <span>Бүлек буенча йомгаклау тестына сораулар</span>
-        <div class="questions-nav">
-            <div class="questions-nav-item passed">
-                <p>1</p>
-            </div>
-            <div class="questions-nav-item passed">
-                2
-            </div>
-            <div class="questions-nav-item passed">
-                3
-            </div>
-            <div class="questions-nav-item passed">
-                4
-            </div>
-            <div class="questions-nav-item passed">
-                5
-            </div>
-            <div class="questions-nav-item active">
-                6
-            </div>
-            <div class="questions-nav-item">
-                7
-            </div>
-            <div class="questions-nav-item">
-                8
-            </div>
-            <div class="questions-nav-item">
-                9
-            </div>
-            <div class="questions-nav-item">
-                10
-            </div>
-            <div class="questions-nav-item">
-                11
-            </div>
-            <div class="questions-nav-item">
-                Результат
-            </div>
-        </div>
-        <h2>Что было написано над входом на кухню в доме Пифии — программы, которая помогала людям в борьбе с машинами?</h2>
-        <hr>
-        <div class="question">
-            <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-            <div class="question-answers">
-                <label class="question-answers" for="answer1">
-                    <input type="checkbox" id="answer1" name="answers">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Memento mori — «Помни о смерти»</span>
-                </label>
-            </div>
-            <div class="question-answers">
-                <label class="question-answers" for="answer2">
-                    <input type="checkbox" id="answer2" name="answers">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Homo quisque fortūnae faber — «Каждый человек — творец своей судьбы»</span>
-                </label>
-            </div>
-            <div class="question-answers">
-                <label class="question-answers" for="answer3">
-                    <input type="checkbox" id="answer3" name="answers">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Temet nosce — «Познай себя»</span>
-                </label>
-            </div>
-            <div class="question-answers">
-                <label class="question-answers" for="answer4">
-                    <input type="checkbox" id="answer4" name="answers">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Җавапыгызны языгыз</span>
-                </label>
-            </div>
-        </div>
-        <div class="my-answer">
-            <input type="text" placeholder="Минем вариант...">
-        </div>
-        <div class="test-bottom">
-            <div class="test-begin-button">
-                Киләсе сорау
-                <img src="/icons/CaretRightWhite.svg" alt="">
-            </div>
-            <div class="test-progress">
-                <div class="test-progress-top">
-                    <div>
-                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
-                    </div> 
-                    <div>
-                        <p><span>6</span>/11</p>
+            <h2>Яхшы! Сез барлык сорауларга да җавап бирдегез 🔥</h2>
+            <div class="result-info">
+                <div class="points">
+                    <div class="points-number">
+                        <span class="number">54</span>
+                        <span class="text">Вы набрали баллов</span>
+                    </div>
+                    <div class="points-number">
+                        <span class="number">90</span>
+                        <span class="text">Проходной балл</span>
                     </div>
                 </div>
-                <div class="progress-line-back">
-                    <div class="progress-line-front" style="width: 53%;"></div>
+                <div class="grapgh">
+                    <CircleProgressBar progress={progress} />
+                    <img src="/icons/CheckCircleBlack.svg" alt="">
+                    <span class="true-number">7</span>
+                    <span class="false-number">4</span>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="test-begin-card">
-        <h2>Один вариант</h2>
-        <hr>
-        <div class="question">
-            <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-            <div class="question-answers">
-                <label class="question-answers" for="answer11">
-                    <input type="radio" id="answer11" name="answers1">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Memento mori — «Помни о смерти»</span>
-                </label>
-            </div>
-            <div class="question-answers">
-                <label class="question-answers" for="answer12">
-                    <input type="radio" id="answer12" name="answers1">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Homo quisque fortūnae faber — «Каждый человек — творец своей судьбы»</span>
-                </label>
-            </div>
-            <div class="question-answers">
-                <label class="question-answers" for="answer13">
-                    <input type="radio" id="answer13" name="answers1">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Temet nosce — «Познай себя»</span>
-                </label>
-            </div>
-            <div class="question-answers">
-                <label class="question-answers" for="answer14">
-                    <input type="radio" id="answer14" name="answers1">
-                    <span class="checkmark"></span>
-                    <span style="padding-left: 40px;">Җавапыгызны языгыз</span>
-                </label>
-            </div>
-        </div>
-        <div class="my-answer">
-            <input type="text" placeholder="Минем вариант...">
-        </div>
-        <div class="test-bottom">
-            <div class="test-begin-button">
-                Киләсе сорау
-                <img src="/icons/CaretRightWhite.svg" alt="">
-            </div>
-            <div class="test-progress">
-                <div class="test-progress-top">
-                    <div>
-                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
-                    </div> 
-                    <div>
-                        <p><span>6</span>/11</p>
+                <div class="question-amounts">
+                    <div class="question-amount">
+                        <div class="number">11</div>
+                        <span class="text">Барлык сораулар</span>
+                    </div>
+                    <div class="question-amount">
+                        <div class="number">4</div>
+                        <span class="text">Дөрестүгел җаваплар</span>
+                    </div>
+                    <div class="question-amount">
+                        <div class="number">7</div>
+                        <span class="text">Дөрес җаваплар</span>
                     </div>
                 </div>
-                <div class="progress-line-back">
-                    <div class="progress-line-front" style="width: 53%;"></div>
+            </div>
+            <div class="test-bottom finished">
+                <div class="test-begin-button">
+                    Киләсе бүлек
+                </div>
+                <div class="test-begin-button again">
+                    Тестны кабат узарга
                 </div>
             </div>
         </div>
-    </div>
-    <div class="test-begin-card">
-        <h2>Выбор последовательности</h2>
-        <hr>
-        <div class="question">
-            <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-            <div class="question-answers-select">
-                <div class="question-select">
-                    <select name="select" id="select1">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    <label class="select-label" for="select1">
-                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
-                    </label>
+    {:else}
+        <div class="test-begin-card">
+            {#if quizSitting.currentQuestionType === 'MCQuestion'}
+                <h2>Один вариант</h2>
+                <hr>
+                <div class="question">
+                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                    {#each quizSitting.mCQuestion.answermcsingleSet as questionAnswer}
+                        <div class="question-answers">
+                            <label class="question-answers" for={`answer${questionAnswer.id}`}>
+                                <input type="radio" id={`answer${questionAnswer.id}`} name="answers" bind:value={mcAnswer}>
+                                <span class="checkmark"></span>
+                                <span style="padding-left: 40px;">{questionAnswer.content}</span>
+                            </label>
+                        </div>
+                    {/each}
                 </div>
-                <div class="question-select">
-                    <select name="select" id="select2">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    <label class="select-label" for="select2">
-                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
-                    </label>
+                <div class="my-answer">
+                    <input type="text" placeholder="Минем вариант...">
                 </div>
-                <div class="question-select">
-                    <select name="select" id="select3">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    <label class="select-label" for="select3">
-                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="test-bottom">
-            <div class="test-begin-button">
-                Киләсе сорау
-                <img src="/icons/CaretRightWhite.svg" alt="">
-            </div>
-            <div class="test-progress">
-                <div class="test-progress-top">
-                    <div>
-                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
-                    </div> 
-                    <div>
-                        <p><span>6</span>/11</p>
+            {:else if quizSitting.currentQuestionType === 'multiSelectQuestion'}
+                <span>Бүлек буенча йомгаклау тестына сораулар</span>
+                <div class="questions-nav">
+                    <div class="questions-nav-item passed">
+                        <p>1</p>
+                    </div>
+                    <div class="questions-nav-item passed">
+                        2
+                    </div>
+                    <div class="questions-nav-item passed">
+                        3
+                    </div>
+                    <div class="questions-nav-item passed">
+                        4
+                    </div>
+                    <div class="questions-nav-item passed">
+                        5
+                    </div>
+                    <div class="questions-nav-item active">
+                        6
+                    </div>
+                    <div class="questions-nav-item">
+                        7
+                    </div>
+                    <div class="questions-nav-item">
+                        8
+                    </div>
+                    <div class="questions-nav-item">
+                        9
+                    </div>
+                    <div class="questions-nav-item">
+                        10
+                    </div>
+                    <div class="questions-nav-item">
+                        11
+                    </div>
+                    <div class="questions-nav-item">
+                        Результат
                     </div>
                 </div>
-                <div class="progress-line-back">
-                    <div class="progress-line-front" style="width: 53%;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="test-begin-card">
-        <h2>Соотнесение двух последовательностей</h2>
-        <hr>
-        <div class="question">
-            <span class="questions-title">Дөрес пунктларны берләштер</span>
-            <div class="question-answers-select">
-                <div class="question-select">
-                    <select name="select" id="select1">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    <label class="select-label" for="select1">
-                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
-                    </label>
-                </div>
-                <div class="question-select">
-                    <select name="select" id="select2">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    <label class="select-label" for="select2">
-                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
-                    </label>
-                </div>
-                <div class="question-select">
-                    <select name="select" id="select3">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    <label class="select-label" for="select3">
-                        <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
-                    </label>
-                </div>
-            </div>
-            <hr>
-            <div class="question-select-variants">
-                <div class="question-select-variant">
-                    <div class="question-select-variant-number">1</div>
-                    <span>Memento mori — «Помни о смерти»</span>
-                </div>
-                <div class="question-select-variant">
-                    <div class="question-select-variant-number">2</div>
-                    <span>Memento mori — «Помни о смерти»</span>
-                </div>
-                <div class="question-select-variant">
-                    <div class="question-select-variant-number">3</div>
-                    <span>Memento mori — «Помни о смерти»</span>
-                </div>
-            </div>
-        </div>
-        <div class="test-bottom">
-            <div class="test-begin-button">
-                Киләсе сорау
-                <img src="/icons/CaretRightWhite.svg" alt="">
-            </div>
-            <div class="test-progress">
-                <div class="test-progress-top">
-                    <div>
-                        <p class="percent"><span>54%</span> сорауларга җавап бирдем</p>
-                    </div> 
-                    <div>
-                        <p><span>6</span>/11</p>
+                <h2>Что было написано над входом на кухню в доме Пифии — программы, которая помогала людям в борьбе с машинами?</h2>
+                <hr>
+                <div class="question">
+                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                    <div class="question-answers">
+                        <label class="question-answers" for="answer1">
+                            <input type="checkbox" id="answer1" name="answers">
+                            <span class="checkmark"></span>
+                            <span style="padding-left: 40px;">Memento mori — «Помни о смерти»</span>
+                        </label>
+                    </div>
+                    <div class="question-answers">
+                        <label class="question-answers" for="answer2">
+                            <input type="checkbox" id="answer2" name="answers">
+                            <span class="checkmark"></span>
+                            <span style="padding-left: 40px;">Homo quisque fortūnae faber — «Каждый человек — творец своей судьбы»</span>
+                        </label>
+                    </div>
+                    <div class="question-answers">
+                        <label class="question-answers" for="answer3">
+                            <input type="checkbox" id="answer3" name="answers">
+                            <span class="checkmark"></span>
+                            <span style="padding-left: 40px;">Temet nosce — «Познай себя»</span>
+                        </label>
+                    </div>
+                    <div class="question-answers">
+                        <label class="question-answers" for="answer4">
+                            <input type="checkbox" id="answer4" name="answers">
+                            <span class="checkmark"></span>
+                            <span style="padding-left: 40px;">Җавапыгызны языгыз</span>
+                        </label>
                     </div>
                 </div>
-                <div class="progress-line-back">
-                    <div class="progress-line-front" style="width: 53%;"></div>
+                <div class="my-answer">
+                    <input type="text" placeholder="Минем вариант...">
+                </div>
+            {:else if quizSitting.currentQuestionType === 'rationQuestion'}
+                <h2>Выбор последовательности</h2>
+                <hr>
+                <div class="question">
+                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                    <div class="question-answers-select">
+                        <div class="question-select">
+                            <select name="select" id="select1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label class="select-label" for="select1">
+                                <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                            </label>
+                        </div>
+                        <div class="question-select">
+                            <select name="select" id="select2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label class="select-label" for="select2">
+                                <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                            </label>
+                        </div>
+                        <div class="question-select">
+                            <select name="select" id="select3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label class="select-label" for="select3">
+                                <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {:else if quizSitting.currentQuestionType === 'multiSelectQuestion'}
+                <h2>Соотнесение двух последовательностей</h2>
+                <hr>
+                <div class="question">
+                    <span class="questions-title">Дөрес пунктларны берләштер</span>
+                    <div class="question-answers-select">
+                        <div class="question-select">
+                            <select name="select" id="select1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label class="select-label" for="select1">
+                                <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                            </label>
+                        </div>
+                        <div class="question-select">
+                            <select name="select" id="select2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label class="select-label" for="select2">
+                                <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                            </label>
+                        </div>
+                        <div class="question-select">
+                            <select name="select" id="select3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label class="select-label" for="select3">
+                                <span style="padding-left: 10px;">Memento mori — «Помни о смерти»</span>
+                            </label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="question-select-variants">
+                        <div class="question-select-variant">
+                            <div class="question-select-variant-number">1</div>
+                            <span>Memento mori — «Помни о смерти»</span>
+                        </div>
+                        <div class="question-select-variant">
+                            <div class="question-select-variant-number">2</div>
+                            <span>Memento mori — «Помни о смерти»</span>
+                        </div>
+                        <div class="question-select-variant">
+                            <div class="question-select-variant-number">3</div>
+                            <span>Memento mori — «Помни о смерти»</span>
+                        </div>
+                    </div>
+                </div>
+            {/if}
+            <div class="test-bottom">
+                <div class="test-begin-button" on:click={answerQuestion([mcAnswer], quizSitting.quiz.id)}>
+                    Киләсе сорау
+                    <img src="/icons/CaretRightWhite.svg" alt="">
+                </div>
+                <div class="test-progress">
+                    <div class="test-progress-top">
+                        <div>
+                            <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                        </div> 
+                        <div>
+                            <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
+                        </div>
+                    </div>
+                    <div class="progress-line-back">
+                        <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {/if}
 </div>
 
 <style>
