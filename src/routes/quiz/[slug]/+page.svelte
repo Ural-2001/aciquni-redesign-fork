@@ -123,9 +123,9 @@
                             hidden
                             answerOrder
                             correctAnswer
-                            answersList {
-                            id
-                            content
+                            answersList (quizId: $quizId) {
+                                id
+                                content
                             }
                         } 
                         sqQuestion {
@@ -135,69 +135,24 @@
                             content
                             explanation
                             hidden
-                            questionPtr {
-                            id
-                            figure
-                            imageCropped
-                            content
-                            explanation
-                            hidden
-                            mcquestion {
-                                id
-                                figure
-                                imageCropped
-                                content
-                                explanation
-                                hidden
-                                answerOrder
-                            }
-                            sqquestion {
-                                id
-                                figure
-                                imageCropped
-                                content
-                                explanation
-                                hidden
-                                userAnswer
-                            }
-                            multiselectquestion {
-                                id
-                                figure
-                                imageCropped
-                                content
-                                explanation
-                                hidden
-                                answerOrder
-                                correctAnswer
-                            }
-                            rationquestion {
-                                id
-                                figure
-                                imageCropped
-                                content
-                                explanation
-                                hidden
-                                userAnswer
-                            }
-                            }
                             userAnswer
                             answermcSet {
-                            id
-                            question {
                                 id
-                                figure
-                                imageCropped
+                                question {
+                                    id
+                                    figure
+                                    imageCropped
+                                    content
+                                    explanation
+                                    hidden
+                                    userAnswer
+                                }
                                 content
-                                explanation
-                                hidden
-                                userAnswer
+                                serialNumber
                             }
-                            content
-                            serialNumber
-                            }
-                            answersList(quizId: "_____") {
-                            id
-                            content
+                            answersList(quizId: $quizId) {
+                                id
+                                content
                             }
                         } 
                         rationQuestion {
@@ -214,9 +169,9 @@
                             rationList {
                             ration
                             }
-                            answersList {
-                            id
-                            content
+                            answersList (quizId: $quizId) {
+                                id
+                                content
                             }
                         } 
                         mCQuestion {
@@ -241,9 +196,9 @@
                             content
                             correct
                             }
-                            answersList(quizId: "_____") {
-                            id
-                            content
+                            answersList(quizId: $quizId) {
+                                id
+                                content
                             }
                         } 
                     }
@@ -264,7 +219,6 @@
                     id
                     quiz {
                         id
-                        title
                     }
                     questionOrder
                     questionList
@@ -289,9 +243,9 @@
                         hidden
                         answerOrder
                         correctAnswer
-                        answersList {
-                        id
-                        content
+                        answersList (quizId: $quizId) {
+                            id
+                            content
                         }
                     } 
                     sqQuestion {
@@ -301,69 +255,24 @@
                         content
                         explanation
                         hidden
-                        questionPtr {
-                        id
-                        figure
-                        imageCropped
-                        content
-                        explanation
-                        hidden
-                        mcquestion {
-                            id
-                            figure
-                            imageCropped
-                            content
-                            explanation
-                            hidden
-                            answerOrder
-                        }
-                        sqquestion {
-                            id
-                            figure
-                            imageCropped
-                            content
-                            explanation
-                            hidden
-                            userAnswer
-                        }
-                        multiselectquestion {
-                            id
-                            figure
-                            imageCropped
-                            content
-                            explanation
-                            hidden
-                            answerOrder
-                            correctAnswer
-                        }
-                        rationquestion {
-                            id
-                            figure
-                            imageCropped
-                            content
-                            explanation
-                            hidden
-                            userAnswer
-                        }
-                        }
                         userAnswer
                         answermcSet {
-                        id
-                        question {
                             id
-                            figure
-                            imageCropped
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
                             content
-                            explanation
-                            hidden
-                            userAnswer
+                            serialNumber
                         }
-                        content
-                        serialNumber
-                        }
-                        answersList(quizId: "_____") {
-                        id
-                        content
+                        answersList(quizId: $quizId) {
+                            id
+                            content
                         }
                     } 
                     rationQuestion {
@@ -380,9 +289,9 @@
                         rationList {
                         ration
                         }
-                        answersList {
-                        id
-                        content
+                        answersList (quizId: $quizId) {
+                            id
+                            content
                         }
                     } 
                     mCQuestion {
@@ -394,20 +303,20 @@
                         hidden
                         answerOrder
                         answermcsingleSet {
+                        id
+                        question {
                             id
-                            question {
-                                id
-                                figure
-                                imageCropped
-                                content
-                                explanation
-                                hidden
-                                answerOrder
-                            }
+                            figure
+                            imageCropped
                             content
-                            correct
+                            explanation
+                            hidden
+                            answerOrder
                         }
-                        answersList(quizId: "_____") {
+                        content
+                        correct
+                        }
+                        answersList(quizId: $quizId) {
                             id
                             content
                         }
@@ -431,6 +340,8 @@
             <!-- <h1>{$quiz.data.quiz.course.name}</h1> -->
             {#if $resultResumeQuiz?.data}
                 <LessonTestQuestion quizSitting={$resultResumeQuiz.data.quizSitting} />
+            <!-- {:else if $resultStartQuiz?.data?.startQuiz?.sitting}
+                <LessonTestQuestion quizSitting={$resultStartQuiz.data.startQuiz.sitting} /> -->
             {:else}
                 <LessonTestBegin quiz={$quiz.data.quiz} on:startQuiz={startQuiz} on:resumeQuiz={resumeQuiz}/>
             {/if}
