@@ -7,6 +7,7 @@
     export let quizSitting;
 
     let mcAnswer;
+    let multipleAnswers = [];
     let quizId;
     let answerQuestionResult;
     let client = getContextClient();
@@ -302,44 +303,29 @@
                         Результат
                     </div>
                 </div>
-                <h2>Что было написано над входом на кухню в доме Пифии — программы, которая помогала людям в борьбе с машинами?</h2>
+                <h2>{quizSitting.multiSelectQuestion.content}</h2>
                 <hr>
                 <div class="question">
                     <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-                    <div class="question-answers">
-                        <label class="question-answers" for="answer1">
-                            <input type="checkbox" id="answer1" name="answers">
-                            <span class="checkmark"></span>
-                            <span style="padding-left: 40px;">Memento mori — «Помни о смерти»</span>
-                        </label>
-                    </div>
-                    <div class="question-answers">
-                        <label class="question-answers" for="answer2">
-                            <input type="checkbox" id="answer2" name="answers">
-                            <span class="checkmark"></span>
-                            <span style="padding-left: 40px;">Homo quisque fortūnae faber — «Каждый человек — творец своей судьбы»</span>
-                        </label>
-                    </div>
-                    <div class="question-answers">
-                        <label class="question-answers" for="answer3">
-                            <input type="checkbox" id="answer3" name="answers">
-                            <span class="checkmark"></span>
-                            <span style="padding-left: 40px;">Temet nosce — «Познай себя»</span>
-                        </label>
-                    </div>
-                    <div class="question-answers">
-                        <label class="question-answers" for="answer4">
-                            <input type="checkbox" id="answer4" name="answers">
-                            <span class="checkmark"></span>
-                            <span style="padding-left: 40px;">Җавапыгызны языгыз</span>
-                        </label>
-                    </div>
+                    {#each quizSitting.multiSelectQuestion.answersList as questionAnswer, i}
+                        <div class="question-answers">
+                            <label class="question-answers" for={`answer${questionAnswer.id}`}>
+                                <input type="checkbox" id={`answer${questionAnswer.id}`} bind:group={multipleAnswers} name="answers" value={`${i+1}`}>
+                                <span class="checkmark"></span>
+                                <span style="padding-left: 40px;">{questionAnswer.content}</span>
+                            </label>
+                        </div>
+                    {/each}
                 </div>
                 <div class="my-answer">
                     <input type="text" placeholder="Минем вариант...">
                 </div>
                 <div class="test-bottom">
-                    <div class="test-begin-button" on:click={() => {console.log(mcAnswer)}}>
+                    <div class="test-begin-button" on:click={() => {
+                        console.log(multipleAnswers);
+                        console.log(parseInt(quizSitting.quiz.id))
+                        answerQuestion(multipleAnswers, parseInt(quizSitting.quiz.id))
+                    }}>
                         Киләсе сорау
                         <img src="/icons/CaretRightWhite.svg" alt="">
                     </div>
