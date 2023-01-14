@@ -135,7 +135,11 @@
 
 <div class="test">
     <div class="test-top">
-        <h1>{quizSitting?.quiz?.title}</h1>
+        {#if quizSitting?.quiz?.title}    
+            <h1>{quizSitting?.quiz?.title}</h1>
+        {:else if $answerQuestionResult?.data?.answerQuestion?.sitting?.quiz?.title}
+            <h1>{$answerQuestionResult?.data?.answerQuestion?.sitting?.quiz?.title}</h1>
+        {/if}
         <div class="close-test">
             <img src="/icons/XCircle.svg" alt="">
             Тестны башка вакытта үтәргә
