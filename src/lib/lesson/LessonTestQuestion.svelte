@@ -344,29 +344,40 @@
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'RationQuestion'}
-                <h2>Выбор последовательности</h2>
+                // ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ
+                <h2>{quizSitting.rationQuestion.content}</h2>
                 <hr>
                 <div class="question">
-                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                    <span class="questions-title">Дөрес пунктларны берләштер</span>
                     <div class="question-answers-select">
-                        {#each quizSitting.rationQuestion.answerrationSet as questionAnswer, i}
+                        {#each quizSitting.rationQuestion.answersList as questionAnswer, i}
                             <div class="question-select">
                                 <select name="select" id={`rationQuestion${i}`}>
-                                    {#each quizSitting.rationQuestion.answerrationSet as questionAnswer, i}
+                                    {#each quizSitting.rationQuestion.answersList as questionAnswer, i}
                                         <option value={`${i+1}`}>{i+1}</option>
                                     {/each}
                                 </select>
                                 <label class="select-label" for={i}>
-                                    <span style="padding-left: 10px;">{questionAnswer.ration}</span>
+                                    <span style="padding-left: 10px;">{questionAnswer.content}</span>
                                 </label>
                             </div>
                         {/each}
+                    </div>
+                    <hr>
+                    <div class="question-select-variants">
+                        {#each quizSitting.rationQuestion.rationList as questionAnswer, i}
+                            <div class="question-select-variant">
+                                <div class="question-select-variant-number">{i+1}</div>
+                                <span>{questionAnswer.ration}</span>
+                            </div>
+                        {/each}
+                        
                     </div>
                 </div>
                 <div class="test-bottom">
                     <div class="test-begin-button" on:click={() => {
                         let answerList = [];
-                        quizSitting.rationQuestion.answerrationSet.forEach((questionAnswer, i) => {
+                        quizSitting.rationQuestion.answersList.forEach((questionAnswer, i) => {
                             let rationQuestionOption = document.getElementById(`rationQuestion${i}`)
                             answerList.push(rationQuestionOption.value);
                         });
@@ -401,10 +412,11 @@
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'SqQuestion'}
+                // СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ
                 <h2>{quizSitting.sqQuestion.content}</h2>
                 <hr>
                 <div class="question">
-                    <span class="questions-title">Дөрес пунктларны берләштер</span>
+                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
                     <div class="question-answers-select">
                         {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
                             <div class="question-select">
@@ -418,16 +430,6 @@
                                 </label>
                             </div>
                         {/each}
-                    </div>
-                    <hr>
-                    <div class="question-select-variants">
-                        {#each quizSitting.sqQuestion.answermcSet.sort((a, b) => (a.serialNumber > b.serialNumber) ? 1 : -1) as questionAnswer, i}
-                            <div class="question-select-variant">
-                                <div class="question-select-variant-number">{questionAnswer.serialNumber}</div>
-                                <span>{questionAnswer.content}</span>
-                            </div>
-                        {/each}
-                        
                     </div>
                 </div>
                 <div class="test-bottom">
