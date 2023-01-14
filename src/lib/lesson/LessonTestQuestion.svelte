@@ -147,6 +147,16 @@
     </div>
     {#if $answerQuestionResult?.data?.answerQuestion?.sitting?.complete}
         <div class="test-begin-card finished">
+            <div class="questions-nav">
+                {#each Array(quizSitting.totalQuestionsCount) as _, i}
+                    <div class="questions-nav-item passed">
+                        {i+1}
+                    </div>
+                {/each}    
+                <div class="questions-nav-item active">
+                    Результат
+                </div>
+            </div>
             <h2>Яхшы! Сез барлык сорауларга да җавап бирдегез 🔥</h2>
             <div class="result-info">
                 <div class="points">
@@ -184,48 +194,30 @@
                 <div class="test-begin-button">
                     Киләсе бүлек
                 </div>
-                <div class="test-begin-button again">
+                <a href={`/quiz/${$answerQuestionResult?.data?.answerQuestion?.sitting?.quiz?.id}`} class="test-begin-button again">
                     Тестны кабат узарга
-                </div>
+                </a>
             </div>
         </div>
     {:else}
         <div class="test-begin-card">
             <span>Бүлек буенча йомгаклау тестына сораулар</span>
             <div class="questions-nav">
-                <div class="questions-nav-item passed">
-                    <p>1</p>
-                </div>
-                <div class="questions-nav-item passed">
-                    2
-                </div>
-                <div class="questions-nav-item passed">
-                    3
-                </div>
-                <div class="questions-nav-item passed">
-                    4
-                </div>
-                <div class="questions-nav-item passed">
-                    5
-                </div>
-                <div class="questions-nav-item active">
-                    6
-                </div>
-                <div class="questions-nav-item">
-                    7
-                </div>
-                <div class="questions-nav-item">
-                    8
-                </div>
-                <div class="questions-nav-item">
-                    9
-                </div>
-                <div class="questions-nav-item">
-                    10
-                </div>
-                <div class="questions-nav-item">
-                    11
-                </div>
+                {#each Array(quizSitting.totalQuestionsCount) as _, i}
+                    {#if quizSitting.currentQuestionNumber === i+1}
+                        <div class="questions-nav-item active">
+                            {i+1}
+                        </div>
+                    {:else if quizSitting.currentQuestionNumber > i+1}
+                        <div class="questions-nav-item passed">
+                            {i+1}
+                        </div>
+                    {:else}
+                        <div class="questions-nav-item">
+                            {i+1}
+                        </div>
+                    {/if}
+                {/each}    
                 <div class="questions-nav-item">
                     Результат
                 </div>
