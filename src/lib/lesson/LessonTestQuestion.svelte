@@ -148,7 +148,7 @@
     {#if $answerQuestionResult?.data?.answerQuestion?.sitting?.complete}
         <div class="test-begin-card finished">
             <div class="questions-nav">
-                {#each Array(quizSitting.totalQuestionsCount) as _, i}
+                {#each Array($answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount) as _, i}
                     <div class="questions-nav-item passed">
                         {i+1}
                     </div>
