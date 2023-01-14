@@ -22,6 +22,7 @@
                         id
                         quiz {
                             id
+                            title
                         }
                         questionOrder
                         questionList
@@ -135,82 +136,43 @@
 
 <div class="test">
     <div class="test-top">
-        <h1>{quizSitting.quiz.title}</h1>
+        <h1>{quizSitting?.quiz?.title}</h1>
         <div class="close-test">
             <img src="/icons/XCircle.svg" alt="">
             Тестны башка вакытта үтәргә
         </div>
     </div>
-    {#if quizSitting.complete}
+    {#if $answerQuestionResult?.data?.answerQuestion?.sitting?.complete}
         <div class="test-begin-card finished">
-            <span>Бүлек буенча йомгаклау тестына сораулар</span>
-            <div class="questions-nav">
-                <div class="questions-nav-item passed">
-                    <p>1</p>
-                </div>
-                <div class="questions-nav-item passed">
-                    2
-                </div>
-                <div class="questions-nav-item passed">
-                    3
-                </div>
-                <div class="questions-nav-item passed">
-                    4
-                </div>
-                <div class="questions-nav-item passed">
-                    5
-                </div>
-                <div class="questions-nav-item active">
-                    6
-                </div>
-                <div class="questions-nav-item">
-                    7
-                </div>
-                <div class="questions-nav-item">
-                    8
-                </div>
-                <div class="questions-nav-item">
-                    9
-                </div>
-                <div class="questions-nav-item">
-                    10
-                </div>
-                <div class="questions-nav-item">
-                    11
-                </div>
-                <div class="questions-nav-item">
-                    Результат
-                </div>
-            </div>
             <h2>Яхшы! Сез барлык сорауларга да җавап бирдегез 🔥</h2>
             <div class="result-info">
                 <div class="points">
                     <div class="points-number">
-                        <span class="number">54</span>
+                        <span class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount}</span>
                         <span class="text">Вы набрали баллов</span>
                     </div>
                     <div class="points-number">
-                        <span class="number">90</span>
+                        <span class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount}</span>
                         <span class="text">Проходной балл</span>
                     </div>
                 </div>
                 <div class="grapgh">
-                    <CircleProgressBar progress={progress} />
+                    <CircleProgressBar progress={$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount/$answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount} />
                     <img src="/icons/CheckCircleBlack.svg" alt="">
-                    <span class="true-number">7</span>
-                    <span class="false-number">4</span>
+                    <span class="true-number">{$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount}</span>
+                    <span class="false-number">{$answerQuestionResult?.data?.answerQuestion?.sitting.passingScore}</span>
                 </div>
                 <div class="question-amounts">
                     <div class="question-amount">
-                        <div class="number">11</div>
+                        <div class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount}</div>
                         <span class="text">Барлык сораулар</span>
                     </div>
                     <div class="question-amount">
-                        <div class="number">4</div>
+                        <div class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.wrongAnswersCount}</div>
                         <span class="text">Дөрестүгел җаваплар</span>
                     </div>
                     <div class="question-amount">
-                        <div class="number">7</div>
+                        <div class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount}</div>
                         <span class="text">Дөрес җаваплар</span>
                     </div>
                 </div>
@@ -225,45 +187,8 @@
             </div>
         </div>
     {:else}
-        <div class="test-begin-card">
-            {#if quizSitting.currentQuestionType === 'MCQuestion'}
-                <h2>{quizSitting.mCQuestion.content}</h2>
-                <hr>
-                <div class="question">
-                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-                    {#each quizSitting.mCQuestion.answermcsingleSet as questionAnswer, i}
-                        <div class="question-answers">
-                            <label class="question-answers" for={`answer${questionAnswer.id}`}>
-                                <input type="radio" id={`answer${questionAnswer.id}`} name="answers" bind:group={mcAnswer} value={i+1}>
-                                <span class="checkmark"></span>
-                                <span style="padding-left: 40px;">{questionAnswer.content}</span>
-                            </label>
-                        </div>
-                    {/each}
-                </div>
-                <div class="my-answer">
-                    <input type="text" placeholder="Минем вариант...">
-                </div>
-                <div class="test-bottom">
-                    <div class="test-begin-button" on:click={answerQuestion([mcAnswer.toString()], parseInt(quizSitting.quiz.id))}>
-                        Киләсе сорау
-                        <img src="/icons/CaretRightWhite.svg" alt="">
-                    </div>
-                    <div class="test-progress">
-                        <div class="test-progress-top">
-                            <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
-                            </div> 
-                            <div>
-                                <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
-                            </div>
-                        </div>
-                        <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
-                        </div>
-                    </div>
-                </div>
-            {:else if quizSitting.currentQuestionType === 'MultiSelectQuestion'}
+        <!-- {#if $answerQuestionResult?.data?.answerQuestion?.sitting?.complete}
+            <div class="test-begin-card finished">
                 <span>Бүлек буенча йомгаклау тестына сораулар</span>
                 <div class="questions-nav">
                     <div class="questions-nav-item passed">
@@ -303,184 +228,307 @@
                         Результат
                     </div>
                 </div>
-                <h2>{quizSitting.multiSelectQuestion.content}</h2>
-                <hr>
-                <div class="question">
-                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-                    {#each quizSitting.multiSelectQuestion.answersList as questionAnswer, i}
-                        <div class="question-answers">
-                            <label class="question-answers" for={`answer${questionAnswer.id}`}>
-                                <input type="checkbox" id={`answer${questionAnswer.id}`} bind:group={multipleAnswers} name="answers" value={`${i+1}`}>
-                                <span class="checkmark"></span>
-                                <span style="padding-left: 40px;">{questionAnswer.content}</span>
-                            </label>
+                <h2>Яхшы! Сез барлык сорауларга да җавап бирдегез 🔥</h2>
+                <div class="result-info">
+                    <div class="points">
+                        <div class="points-number">
+                            <span class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount}</span>
+                            <span class="text">Вы набрали баллов</span>
                         </div>
-                    {/each}
-                </div>
-                <div class="my-answer">
-                    <input type="text" placeholder="Минем вариант...">
-                </div>
-                <div class="test-bottom">
-                    <div class="test-begin-button" on:click={() => {
-                        console.log(multipleAnswers);
-                        console.log(parseInt(quizSitting.quiz.id))
-                        answerQuestion(multipleAnswers, parseInt(quizSitting.quiz.id))
-                    }}>
-                        Киләсе сорау
-                        <img src="/icons/CaretRightWhite.svg" alt="">
+                        <div class="points-number">
+                            <span class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount}</span>
+                            <span class="text">Проходной балл</span>
+                        </div>
                     </div>
-                    <div class="test-progress">
-                        <div class="test-progress-top">
-                            <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
-                            </div> 
-                            <div>
-                                <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
-                            </div>
+                    <div class="grapgh">
+                        <CircleProgressBar progress={$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount/$answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount} />
+                        <img src="/icons/CheckCircleBlack.svg" alt="">
+                        <span class="true-number">{$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount}</span>
+                        <span class="false-number">{$answerQuestionResult?.data?.answerQuestion?.sitting.passingScore}</span>
+                    </div>
+                    <div class="question-amounts">
+                        <div class="question-amount">
+                            <div class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.totalQuestionsCount}</div>
+                            <span class="text">Барлык сораулар</span>
                         </div>
-                        <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                        <div class="question-amount">
+                            <div class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.wrongAnswersCount}</div>
+                            <span class="text">Дөрестүгел җаваплар</span>
+                        </div>
+                        <div class="question-amount">
+                            <div class="number">{$answerQuestionResult?.data?.answerQuestion?.sitting.rightAnswersCount}</div>
+                            <span class="text">Дөрес җаваплар</span>
                         </div>
                     </div>
                 </div>
-            {:else if quizSitting.currentQuestionType === 'RationQuestion'}
-                <!-- СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ -->
-                <h2>{quizSitting.rationQuestion.content}</h2>
-                <hr>
-                <div class="question">
-                    <span class="questions-title">Дөрес пунктларны берләштер</span>
-                    <div class="question-answers-select">
-                        {#each quizSitting.rationQuestion.answersList as questionAnswer, i}
-                            <div class="question-select">
-                                <select name="select" id={`rationQuestion${i}`}>
-                                    {#each quizSitting.rationQuestion.answersList as questionAnswer, i}
-                                        <option value={`${i+1}`}>{i+1}</option>
-                                    {/each}
-                                </select>
-                                <label class="select-label" for={i}>
-                                    <span style="padding-left: 10px;">{questionAnswer.content}</span>
-                                </label>
-                            </div>
-                        {/each}
+                <div class="test-bottom finished">
+                    <div class="test-begin-button">
+                        Киләсе бүлек
                     </div>
+                    <div class="test-begin-button again">
+                        Тестны кабат узарга
+                    </div>
+                </div>
+            </div>
+        {:else} -->
+            <div class="test-begin-card">
+                <span>Бүлек буенча йомгаклау тестына сораулар</span>
+                <div class="questions-nav">
+                    <div class="questions-nav-item passed">
+                        <p>1</p>
+                    </div>
+                    <div class="questions-nav-item passed">
+                        2
+                    </div>
+                    <div class="questions-nav-item passed">
+                        3
+                    </div>
+                    <div class="questions-nav-item passed">
+                        4
+                    </div>
+                    <div class="questions-nav-item passed">
+                        5
+                    </div>
+                    <div class="questions-nav-item active">
+                        6
+                    </div>
+                    <div class="questions-nav-item">
+                        7
+                    </div>
+                    <div class="questions-nav-item">
+                        8
+                    </div>
+                    <div class="questions-nav-item">
+                        9
+                    </div>
+                    <div class="questions-nav-item">
+                        10
+                    </div>
+                    <div class="questions-nav-item">
+                        11
+                    </div>
+                    <div class="questions-nav-item">
+                        Результат
+                    </div>
+                </div>
+                {#if quizSitting.currentQuestionType === 'MCQuestion'}
+                    <h2>{quizSitting.mCQuestion.content}</h2>
                     <hr>
-                    <div class="question-select-variants">
-                        {#each quizSitting.rationQuestion.rationList as questionAnswer, i}
-                            <div class="question-select-variant">
-                                <div class="question-select-variant-number">{i+1}</div>
-                                <span>{questionAnswer.ration}</span>
-                            </div>
-                        {/each}
-                        
-                    </div>
-                </div>
-                <div class="test-bottom">
-                    <div class="test-begin-button" on:click={() => {
-                        let answerList = [];
-                        quizSitting.rationQuestion.answersList.forEach((questionAnswer, i) => {
-                            let rationQuestionOption = document.getElementById(`rationQuestion${i}`)
-                            answerList.push(rationQuestionOption.value);
-                        });
-                        console.log(answerList)
-
-                        let allUnique = () => answerList.length === new Set(answerList).size;
-                        if (allUnique()) {
-                            console.log(answerList)
-                            console.log(parseInt(quizSitting.quiz.id))
-                            answerQuestion(answerList, parseInt(quizSitting.quiz.id))
-                        }
-                        else {
-                            alert('цифры не должны повторяться')
-                            return;
-                        }
-                    }}>
-                        Киләсе сорау
-                        <img src="/icons/CaretRightWhite.svg" alt="">
-                    </div>
-                    <div class="test-progress">
-                        <div class="test-progress-top">
-                            <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
-                            </div> 
-                            <div>
-                                <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
-                            </div>
-                        </div>
-                        <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
-                        </div>
-                    </div>
-                </div>
-            {:else if quizSitting.currentQuestionType === 'SqQuestion'}
-                <!-- ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ -->
-                <h2>{quizSitting.sqQuestion.content}</h2>
-                <hr>
-                <div class="question">
-                    <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
-                    <div class="question-answers-select">
-                        {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
-                            <div class="question-select">
-                                <select name="select" id={i+1}>
-                                    {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
-                                        <option value={`${i+1}`}>{i+1}</option>
-                                    {/each}
-                                </select>
-                                <label class="select-label" for={i}>
-                                    <span style="padding-left: 10px;">{questionAnswer.content}</span>
+                    <div class="question">
+                        <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                        {#each quizSitting.mCQuestion.answermcsingleSet as questionAnswer, i}
+                            <div class="question-answers">
+                                <label class="question-answers" for={`answer${questionAnswer.id}`}>
+                                    <input type="radio" id={`answer${questionAnswer.id}`} name="answers" bind:group={mcAnswer} value={i+1}>
+                                    <span class="checkmark"></span>
+                                    <span style="padding-left: 40px;">{questionAnswer.content}</span>
                                 </label>
                             </div>
                         {/each}
                     </div>
-                </div>
-                <div class="test-bottom">
-                    <div class="test-begin-button" on:click={() => {
-                        let answerList = [];
-                        let answerObjList = [];
-                        let resultList = [];
-                        quizSitting.sqQuestion.answersList.forEach((questionAnswer, i) => {
-                            let rationQuestionOption = document.getElementById(i+1);
-                            answerList.push(rationQuestionOption.value);
-                        });
+                    <div class="my-answer">
+                        <input type="text" placeholder="Минем вариант...">
+                    </div>
+                    <div class="test-bottom">
+                        <div class="test-begin-button" on:click={answerQuestion([mcAnswer.toString()], parseInt(quizSitting.quiz.id))}>
+                            Киләсе сорау
+                            <img src="/icons/CaretRightWhite.svg" alt="">
+                        </div>
+                        <div class="test-progress">
+                            <div class="test-progress-top">
+                                <div>
+                                    <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                </div> 
+                                <div>
+                                    <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
+                                </div>
+                            </div>
+                            <div class="progress-line-back">
+                                <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            </div>
+                        </div>
+                    </div>
+                {:else if quizSitting.currentQuestionType === 'MultiSelectQuestion'}
+                    <h2>{quizSitting.multiSelectQuestion.content}</h2>
+                    <hr>
+                    <div class="question">
+                        <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                        {#each quizSitting.multiSelectQuestion.answersList as questionAnswer, i}
+                            <div class="question-answers">
+                                <label class="question-answers" for={`answer${questionAnswer.id}`}>
+                                    <input type="checkbox" id={`answer${questionAnswer.id}`} bind:group={multipleAnswers} name="answers" value={`${i+1}`}>
+                                    <span class="checkmark"></span>
+                                    <span style="padding-left: 40px;">{questionAnswer.content}</span>
+                                </label>
+                            </div>
+                        {/each}
+                    </div>
+                    <div class="my-answer">
+                        <input type="text" placeholder="Минем вариант...">
+                    </div>
+                    <div class="test-bottom">
+                        <div class="test-begin-button" on:click={() => {
+                            console.log(multipleAnswers);
+                            console.log(parseInt(quizSitting.quiz.id))
+                            answerQuestion(multipleAnswers, parseInt(quizSitting.quiz.id))
+                        }}>
+                            Киләсе сорау
+                            <img src="/icons/CaretRightWhite.svg" alt="">
+                        </div>
+                        <div class="test-progress">
+                            <div class="test-progress-top">
+                                <div>
+                                    <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                </div> 
+                                <div>
+                                    <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
+                                </div>
+                            </div>
+                            <div class="progress-line-back">
+                                <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            </div>
+                        </div>
+                    </div>
+                {:else if quizSitting.currentQuestionType === 'RationQuestion'}
+                    <!-- СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ -->
+                    <h2>{quizSitting.rationQuestion.content}</h2>
+                    <hr>
+                    <div class="question">
+                        <span class="questions-title">Дөрес пунктларны берләштер</span>
+                        <div class="question-answers-select">
+                            {#each quizSitting.rationQuestion.answersList as questionAnswer, i}
+                                <div class="question-select">
+                                    <select name="select" id={`rationQuestion${i}`}>
+                                        {#each quizSitting.rationQuestion.answersList as questionAnswer, i}
+                                            <option value={`${i+1}`}>{i+1}</option>
+                                        {/each}
+                                    </select>
+                                    <label class="select-label" for={i}>
+                                        <span style="padding-left: 10px;">{questionAnswer.content}</span>
+                                    </label>
+                                </div>
+                            {/each}
+                        </div>
+                        <hr>
+                        <div class="question-select-variants">
+                            {#each quizSitting.rationQuestion.rationList as questionAnswer, i}
+                                <div class="question-select-variant">
+                                    <div class="question-select-variant-number">{i+1}</div>
+                                    <span>{questionAnswer.ration}</span>
+                                </div>
+                            {/each}
+                            
+                        </div>
+                    </div>
+                    <div class="test-bottom">
+                        <div class="test-begin-button" on:click={() => {
+                            let answerList = [];
+                            quizSitting.rationQuestion.answersList.forEach((questionAnswer, i) => {
+                                let rationQuestionOption = document.getElementById(`rationQuestion${i}`)
+                                answerList.push(rationQuestionOption.value);
+                            });
+                            console.log(answerList)
 
-                        let allUnique = () => answerList.length === new Set(answerList).size;
-                        if (allUnique()) {
+                            let allUnique = () => answerList.length === new Set(answerList).size;
+                            if (allUnique()) {
+                                console.log(answerList)
+                                console.log(parseInt(quizSitting.quiz.id))
+                                answerQuestion(answerList, parseInt(quizSitting.quiz.id))
+                            }
+                            else {
+                                alert('цифры не должны повторяться')
+                                return;
+                            }
+                        }}>
+                            Киләсе сорау
+                            <img src="/icons/CaretRightWhite.svg" alt="">
+                        </div>
+                        <div class="test-progress">
+                            <div class="test-progress-top">
+                                <div>
+                                    <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                </div> 
+                                <div>
+                                    <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
+                                </div>
+                            </div>
+                            <div class="progress-line-back">
+                                <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            </div>
+                        </div>
+                    </div>
+                {:else if quizSitting.currentQuestionType === 'SqQuestion'}
+                    <!-- ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ -->
+                    <h2>{quizSitting.sqQuestion.content}</h2>
+                    <hr>
+                    <div class="question">
+                        <span class="questions-title">Җавапның бер вариантын сайлагыз</span>
+                        <div class="question-answers-select">
+                            {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
+                                <div class="question-select">
+                                    <select name="select" id={i+1}>
+                                        {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
+                                            <option value={`${i+1}`}>{i+1}</option>
+                                        {/each}
+                                    </select>
+                                    <label class="select-label" for={i}>
+                                        <span style="padding-left: 10px;">{questionAnswer.content}</span>
+                                    </label>
+                                </div>
+                            {/each}
+                        </div>
+                    </div>
+                    <div class="test-bottom">
+                        <div class="test-begin-button" on:click={() => {
+                            let answerList = [];
+                            let answerObjList = [];
+                            let resultList = [];
                             quizSitting.sqQuestion.answersList.forEach((questionAnswer, i) => {
                                 let rationQuestionOption = document.getElementById(i+1);
-                                answerObjList.push({answeredNumber: rationQuestionOption.value, orderNumber: i+1});
+                                answerList.push(rationQuestionOption.value);
                             });
-                            answerObjList.sort((a, b) => (a.answeredNumber > b.answeredNumber) ? 1 : -1)
-                            console.log(answerObjList)
-                            answerObjList.forEach(obj => {
-                                resultList.push(obj.orderNumber.toString());
-                            })
-                            console.log(resultList);
-                            console.log(parseInt(quizSitting.quiz.id));
-                            answerQuestion(resultList, parseInt(quizSitting.quiz.id))
-                        }
-                        else {
-                            alert('цифры не должны повторяться')
-                            return;
-                        }
-                    }}>
-                        Киләсе сорау
-                        <img src="/icons/CaretRightWhite.svg" alt="">
-                    </div>
-                    <div class="test-progress">
-                        <div class="test-progress-top">
-                            <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
-                            </div> 
-                            <div>
-                                <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
+
+                            let allUnique = () => answerList.length === new Set(answerList).size;
+                            if (allUnique()) {
+                                quizSitting.sqQuestion.answersList.forEach((questionAnswer, i) => {
+                                    let rationQuestionOption = document.getElementById(i+1);
+                                    answerObjList.push({answeredNumber: rationQuestionOption.value, orderNumber: i+1});
+                                });
+                                answerObjList.sort((a, b) => (a.answeredNumber > b.answeredNumber) ? 1 : -1)
+                                console.log(answerObjList)
+                                answerObjList.forEach(obj => {
+                                    resultList.push(obj.orderNumber.toString());
+                                })
+                                console.log(resultList);
+                                console.log(parseInt(quizSitting.quiz.id));
+                                answerQuestion(resultList, parseInt(quizSitting.quiz.id))
+                            }
+                            else {
+                                alert('цифры не должны повторяться')
+                                return;
+                            }
+                        }}>
+                            Киләсе сорау
+                            <img src="/icons/CaretRightWhite.svg" alt="">
+                        </div>
+                        <div class="test-progress">
+                            <div class="test-progress-top">
+                                <div>
+                                    <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                </div> 
+                                <div>
+                                    <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
+                                </div>
+                            </div>
+                            <div class="progress-line-back">
+                                <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
                             </div>
                         </div>
-                        <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
-                        </div>
                     </div>
-                </div>
-            {/if}
-        </div>
+                {/if}
+            </div>
+        <!-- {/if} -->
+        
     {/if}
 </div>
 
