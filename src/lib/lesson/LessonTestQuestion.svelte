@@ -326,9 +326,6 @@
                             </div>
                         {/each}
                     </div>
-                    <!-- <div class="my-answer">
-                        <input type="text" placeholder="Минем вариант...">
-                    </div> -->
                     <div class="test-bottom">
                         <div class="test-begin-button" on:click={answerQuestion([mcAnswer.toString()], parseInt(quizSitting.quiz.id))}>
                             Киләсе сорау
