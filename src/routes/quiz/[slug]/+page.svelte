@@ -99,6 +99,7 @@
                         id
                         quiz {
                             id
+                            title
                         }
                         questionOrder
                         questionList
@@ -340,8 +341,8 @@
             <!-- <h1>{$quiz.data.quiz.course.name}</h1> -->
             {#if $resultResumeQuiz?.data}
                 <LessonTestQuestion quizSitting={$resultResumeQuiz.data.quizSitting} />
-            <!-- {:else if $resultStartQuiz?.data?.startQuiz?.sitting}
-                <LessonTestQuestion quizSitting={$resultStartQuiz.data.startQuiz.sitting} /> -->
+            {:else if $resultStartQuiz?.data?.startQuiz?.sitting}
+                <LessonTestQuestion quizSitting={$resultStartQuiz.data.startQuiz.sitting} />
             {:else}
                 <LessonTestBegin quiz={$quiz.data.quiz} on:startQuiz={startQuiz} on:resumeQuiz={resumeQuiz}/>
             {/if}
