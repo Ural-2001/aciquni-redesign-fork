@@ -344,7 +344,7 @@
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'RationQuestion'}
-                // ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ
+                <!-- СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ -->
                 <h2>{quizSitting.rationQuestion.content}</h2>
                 <hr>
                 <div class="question">
@@ -412,7 +412,7 @@
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'SqQuestion'}
-                // СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ
+                <!-- ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ -->
                 <h2>{quizSitting.sqQuestion.content}</h2>
                 <hr>
                 <div class="question">
@@ -420,7 +420,7 @@
                     <div class="question-answers-select">
                         {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
                             <div class="question-select">
-                                <select name="select" id={`rationQuestion${i}`}>
+                                <select name="select" id={i+1}>
                                     {#each quizSitting.sqQuestion.answersList as questionAnswer, i}
                                         <option value={`${i+1}`}>{i+1}</option>
                                     {/each}
@@ -435,17 +435,27 @@
                 <div class="test-bottom">
                     <div class="test-begin-button" on:click={() => {
                         let answerList = [];
+                        let answerObjList = [];
+                        let resultList = [];
                         quizSitting.sqQuestion.answersList.forEach((questionAnswer, i) => {
-                            let rationQuestionOption = document.getElementById(`rationQuestion${i}`)
+                            let rationQuestionOption = document.getElementById(i+1);
                             answerList.push(rationQuestionOption.value);
                         });
-                        console.log(answerList)
 
                         let allUnique = () => answerList.length === new Set(answerList).size;
                         if (allUnique()) {
-                            console.log(answerList)
-                            console.log(parseInt(quizSitting.quiz.id))
-                            answerQuestion(answerList, parseInt(quizSitting.quiz.id))
+                            quizSitting.sqQuestion.answersList.forEach((questionAnswer, i) => {
+                                let rationQuestionOption = document.getElementById(i+1);
+                                answerObjList.push({answeredNumber: rationQuestionOption.value, orderNumber: i+1});
+                            });
+                            answerObjList.sort((a, b) => (a.answeredNumber > b.answeredNumber) ? 1 : -1)
+                            console.log(answerObjList)
+                            answerObjList.forEach(obj => {
+                                resultList.push(obj.orderNumber.toString());
+                            })
+                            console.log(resultList);
+                            console.log(parseInt(quizSitting.quiz.id));
+                            answerQuestion(resultList, parseInt(quizSitting.quiz.id))
                         }
                         else {
                             alert('цифры не должны повторяться')
