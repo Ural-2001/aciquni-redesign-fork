@@ -1,7 +1,12 @@
 <script>
     import LessonCard from "$lib/lesson/LessonCard.svelte";
+    import LessonText from "$lib/lesson/LessonText.svelte";
+    import LessonVideo from "$lib/lesson/LessonVideo.svelte";
+    import LessonPresentation from "$lib/lesson/LessonPresentation.svelte";
     import LessonTestBegin from "$lib/lesson/LessonTestBegin.svelte";
+    import LessonTestQuestion from "$lib/lesson/LessonTestQuestion.svelte";
 
+    import { onMount } from 'svelte';
     import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
     import { page } from '$app/stores';
 
@@ -71,6 +76,121 @@
 		`,
         variables: { quizId: id }
 	});
+
+    const resumeQuiz = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query ($quizId: ID!) {
+                quizSitting(quizId: $quizId) {
+                    id
+                    quiz {
+                        id
+                        title
+                    }
+                    questionOrder
+                    questionList
+                    complete
+                    end
+                    totalQuestionsCount
+                    wrongAnswersCount
+                    rightAnswersCount
+                    userScore
+                    passingScore
+                    isUserPassed
+                    text
+                    currentQuestionNumber
+                    currentQuestionType
+                    multiSelectQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        answerOrder
+                        correctAnswer
+                        answersList (quizId: $quizId) {
+                            id
+                            content
+                        }
+                    } 
+                    sqQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        userAnswer
+                        answermcSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                userAnswer
+                            }
+                            content
+                            serialNumber
+                        }
+                        answersList(quizId: $quizId) {
+                            id
+                            content
+                        }
+                    } 
+                    rationQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        userAnswer
+                        answerrationSet {
+                        ration
+                        }
+                        rationList {
+                        ration
+                        }
+                        answersList (quizId: $quizId) {
+                            id
+                            content
+                        }
+                    } 
+                    mCQuestion {
+                        id
+                        figure
+                        imageCropped
+                        content
+                        explanation
+                        hidden
+                        answerOrder
+                        answermcsingleSet {
+                        id
+                        question {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                        }
+                        content
+                        correct
+                        }
+                        answersList(quizId: $quizId) {
+                            id
+                            content
+                        }
+                    }
+                }
+            }`,
+        variables: { quizId: id }
+	});
     
 </script>
 
@@ -81,9 +201,24 @@
         <p>Oh no... {$quiz.error.message}</p>
     {:else}
         <LessonCard quiz={$quiz.data.quiz} isQuiz={true} />
-        <div class="lesson">
-            <LessonTestBegin quiz={$quiz.data.quiz}/>
-        </div>
+        {#if $resumeQuiz.fetching}
+            <p>Loading...</p>
+        {:else if $resumeQuiz.error}
+            <p>Oh no... {$resumeQuiz.error.message}</p>
+        {:else}
+            <div class="lesson">
+                <LessonTestQuestion quizSitting={$resumeQuiz?.data?.quizSitting} />
+                <!-- <div class="test">
+                    <div class="test-top">
+                        <h1>{$resumeQuiz?.data?.quizSitting?.quiz?.title}</h1>
+                        <div class="close-test">
+                            <img src="/icons/XCircle.svg" alt="">
+                            Тестны башка вакытта үтәргә
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        {/if}
     {/if}
 </div>
 

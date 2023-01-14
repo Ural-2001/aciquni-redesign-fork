@@ -1,17 +1,145 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+    import { queryStore, gql, getContextClient, mutationStore } from '@urql/svelte';
+    import { page } from '$app/stores';
 
     export let quiz;
 
-	const dispatch = createEventDispatcher();
+    const id = parseInt($page.params.slug);
 
-	function startQuiz() {
-		dispatch('startQuiz');
-	}
+    let resultStartQuiz;
+    let client = getContextClient();
+    const startQuizMutation = async () => {
+        resultStartQuiz = await mutationStore({
+            client,
+            query: gql`
+            mutation ($quizId: ID,) {
+                startQuiz(quizId: $quizId) {
+                    ok
+                    firstQuestionId
+                    sitting {
+                        id
+                        quiz {
+                            id
+                            title
+                        }
+                        questionOrder
+                        questionList
+                        complete
+                        end
+                        totalQuestionsCount
+                        wrongAnswersCount
+                        rightAnswersCount
+                        userScore
+                        passingScore
+                        isUserPassed
+                        text
+                        currentQuestionNumber
+                        userProgressInQuiz
+                        currentQuestionType
+                        multiSelectQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            correctAnswer
+                            answersList (quizId: $quizId) {
+                                id
+                                content
+                            }
+                        } 
+                        sqQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                            answermcSet {
+                                id
+                                question {
+                                    id
+                                    figure
+                                    imageCropped
+                                    content
+                                    explanation
+                                    hidden
+                                    userAnswer
+                                }
+                                content
+                                serialNumber
+                            }
+                            answersList(quizId: $quizId) {
+                                id
+                                content
+                            }
+                        } 
+                        rationQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            userAnswer
+                            answerrationSet {
+                            ration
+                            }
+                            rationList {
+                            ration
+                            }
+                            answersList (quizId: $quizId) {
+                                id
+                                content
+                            }
+                        } 
+                        mCQuestion {
+                            id
+                            figure
+                            imageCropped
+                            content
+                            explanation
+                            hidden
+                            answerOrder
+                            answermcsingleSet {
+                            id
+                            question {
+                                id
+                                figure
+                                imageCropped
+                                content
+                                explanation
+                                hidden
+                                answerOrder
+                            }
+                            content
+                            correct
+                            }
+                            answersList(quizId: $quizId) {
+                                id
+                                content
+                            }
+                        }
+                    }
+                    errors
+                }
+            }`,
+            variables: { quizId: id }
+        });        
+    };
 
-    function resumeQuiz() {
-		dispatch('resumeQuiz');
-	}
+    let startQuiz = (quizId) => {
+        startQuizMutation();
+        window.location.href = `/quiz/${quizId}/question`;
+    }
+
+    let resumeQuiz = (quizId) => {
+        window.location.href = `/quiz/${quizId}/question`;
+    }
 </script>
 
 <div class="test">
@@ -27,12 +155,12 @@
         <h2>Бу "{quiz.module.name}" модуле буенча тест. Әгәр дә сез 60% сорауга дөрес җавап бирсәгез, сезгә киләсе модуль ачылачак!</h2>
         <div class="test-begin-button-section">
             {#if quiz.isUserStarted}
-                <div class="test-begin-button" on:click={resumeQuiz}>
+                <div on:click={resumeQuiz(quiz.id)} class="test-begin-button">
                     Дэвам итергэ
                     <img src="/icons/CaretRightWhite.svg" alt="">
                 </div>
             {:else}
-                <div class="test-begin-button" on:click={startQuiz}>
+                <div on:click={startQuiz(quiz.id)} class="test-begin-button">
                     Тестны башларга
                     <img src="/icons/CaretRightWhite.svg" alt="">
                 </div>

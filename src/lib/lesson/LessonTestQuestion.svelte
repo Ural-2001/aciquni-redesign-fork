@@ -36,7 +36,6 @@
                         isUserPassed
                         text
                         currentQuestionNumber
-                        userProgressInQuiz
                         currentQuestionType
                         multiSelectQuestion {
                             id
@@ -250,14 +249,14 @@
                     <div class="test-progress">
                         <div class="test-progress-top">
                             <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                <p class="percent"><span>{Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%</span> сорауларга җавап бирдем</p>
                             </div> 
                             <div>
                                 <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
                             </div>
                         </div>
                         <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            <div class="progress-line-front" style={`width: ${Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%;`}></div>
                         </div>
                     </div>
                 </div>
@@ -288,19 +287,19 @@
                     <div class="test-progress">
                         <div class="test-progress-top">
                             <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                <p class="percent"><span>{Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%</span> сорауларга җавап бирдем</p>
                             </div> 
                             <div>
                                 <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
                             </div>
                         </div>
                         <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            <div class="progress-line-front" style={`width: ${Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%;`}></div>
                         </div>
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'RationQuestion'}
-                <!-- СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ -->
+                СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ
                 <h2>{quizSitting.rationQuestion.content}</h2>
                 <hr>
                 <div class="question">
@@ -355,19 +354,19 @@
                     <div class="test-progress">
                         <div class="test-progress-top">
                             <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                <p class="percent"><span>{Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%</span> сорауларга җавап бирдем</p>
                             </div> 
                             <div>
                                 <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
                             </div>
                         </div>
                         <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            <div class="progress-line-front" style={`width: ${Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%;`}></div>
                         </div>
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'SqQuestion'}
-                <!-- ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ -->
+                ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ
                 <h2>{quizSitting.sqQuestion.content}</h2>
                 <hr>
                 <div class="question">
@@ -423,14 +422,14 @@
                     <div class="test-progress">
                         <div class="test-progress-top">
                             <div>
-                                <p class="percent"><span>{quizSitting.userProgressInQuiz}%</span> сорауларга җавап бирдем</p>
+                                <p class="percent"><span>{Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%</span> сорауларга җавап бирдем</p>
                             </div> 
                             <div>
                                 <p><span>{quizSitting.currentQuestionNumber}</span>/{quizSitting.totalQuestionsCount}</p>
                             </div>
                         </div>
                         <div class="progress-line-back">
-                            <div class="progress-line-front" style={`width: ${quizSitting.userProgressInQuiz}%;`}></div>
+                            <div class="progress-line-front" style={`width: ${Math.floor((quizSitting.currentQuestionNumber-1)/quizSitting.totalQuestionsCount*100)}%;`}></div>
                         </div>
                     </div>
                 </div>
