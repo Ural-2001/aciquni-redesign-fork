@@ -295,7 +295,6 @@
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'RationQuestion'}
-                СООТНЕСЕНИЕ ПОСЛЕДОВАТЕЛЬСНОТЕЙ
                 <h2>{quizSitting.rationQuestion.content}</h2>
                 <hr>
                 <div class="question">
@@ -362,7 +361,6 @@
                     </div>
                 </div>
             {:else if quizSitting.currentQuestionType === 'SqQuestion'}
-                ВЫБОР ПОСЛЕДОВАТЕЛЬНОСТИ
                 <h2>{quizSitting.sqQuestion.content}</h2>
                 <hr>
                 <div class="question">
