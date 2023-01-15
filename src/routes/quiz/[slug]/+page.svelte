@@ -66,22 +66,6 @@
                     successText
                     failText
                     isUserStarted
-                    sittingSet {
-                        id
-                        questionOrder
-                        questionList
-                        complete
-                        end
-                        totalQuestionsCount
-                        wrongAnswersCount
-                        rightAnswersCount
-                        userScore
-                        passingScore
-                        isUserPassed
-                        text
-                        currentQuestionNumber
-                        userProgressInQuiz
-                    }
                 }
             }
 		`,
