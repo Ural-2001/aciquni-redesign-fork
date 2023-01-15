@@ -2,6 +2,9 @@
     import ProfileCard from "$lib/profile/ProfileCard.svelte";
     import { queryStore, gql, getContextClient } from '@urql/svelte';
     import { page } from '$app/stores';
+    // import { API_URL } from '$env/static/private'
+    // import { API_URL } from '$env/static/public'
+
 
     const id = parseInt($page.params.slug);
 
@@ -201,7 +204,7 @@
                     <p>Курс хакында фикерегезне калдыра аласыз. Безнең өчен бу бик мөһим, рәхмәт!</p>
                     <div class="certificate-buttons">
                         <a href="" class="send-advice">Фикер калдыру</a>
-                        <a href="" class="download">Сертификатны йөкләргә</a>
+                        <a href={`http://82.146.54.209/media/${$certificate.data.certificate.file}`} target="_blank" download class="download">Сертификатны йөкләргә</a>
                     </div>
                 </div>
             </div>
