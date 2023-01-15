@@ -23,7 +23,12 @@
                         quiz {
                             id
                             title
+                            isLastCourseModuleAndNoModuleAfter 
+                            course {
+                                id
+                            }
                         }
+                        nextLessonId
                         questionOrder
                         questionList
                         complete
@@ -131,6 +136,21 @@
             variables: { answers, quizId }
         });        
     };
+
+    let endCourseResult;
+    const endCourse = async (courseId) => {
+        endCourseResult = await mutationStore({
+            client,
+            query: gql`
+            mutation ($courseId: ID!) {
+                endCourse(courseId: $courseId) {
+                    ok
+                    errors
+                }
+            }`,
+            variables: { courseId: parseInt(courseId) }
+        });        
+    };
 </script>
 
 <div class="test">
@@ -191,10 +211,21 @@
                 </div>
             </div>
             <div class="test-bottom finished">
-                <div class="test-begin-button">
-                    Киләсе бүлек
-                </div>
-                <a href={`/quiz/${$answerQuestionResult?.data?.answerQuestion?.sitting?.quiz?.id}`} class="test-begin-button again">
+                {#if  $answerQuestionResult?.data?.answerQuestion?.sitting.isUserPassed}
+                    {#if $answerQuestionResult?.data?.answerQuestion?.sitting.quiz.isLastCourseModuleAndNoModuleAfter}
+                        <div class="test-begin-button" on:click={() => {
+                            endCourse($answerQuestionResult?.data?.answerQuestion?.sitting.quiz.course.id);
+                            // window.location.href = '/profile';
+                        }}>
+                            Личный кабинет
+                        </div>
+                    {:else}
+                        <a data-sveltekit-reload href={`/lesson/${$answerQuestionResult?.data?.answerQuestion?.sitting?.nextLessonId}`} class="test-begin-button">
+                            Киләсе бүлек
+                        </a>
+                    {/if}
+                {/if}
+                <a data-sveltekit-reload href={`/quiz/${$answerQuestionResult?.data?.answerQuestion?.sitting?.quiz?.id}`} class="test-begin-button again">
                     Тестны кабат узарга
                 </a>
             </div>
@@ -582,6 +613,7 @@
         font-size: 14px;
         padding: 10px 30px;
         cursor: pointer;
+        text-decoration: none;
     }
     .test-progress-top {
         display: flex;
@@ -701,6 +733,7 @@
         border: 1px solid var(--primary-color);
         background-color: transparent;
         color: #1A233E;
+        text-decoration: none;
     }
     .grapgh img {
         position: absolute;
