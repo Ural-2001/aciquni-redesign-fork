@@ -94,6 +94,7 @@
                     userLessonStartedStatus
                     time
                     nextLessonId
+                    previousLessonId
                 }
             }
 		`,
@@ -160,10 +161,12 @@
             <h1>{$lesson.data.lesson.name}</h1>
             <p class="lesson-info">{$lesson.data.lesson.time}  ·  Лектор {$lesson.data.lesson.teachers[0].firstName} {$lesson.data.lesson.teachers[0].lastName}</p>
             <div class="lesson-nav">
-                <div class="lesson-left">
-                    <img src="/icons/CaretLeft.svg" alt="">
-                    Алдагы дәрес
-                </div>
+                {#if $lesson.data.lesson.previousLessonId}
+                    <a data-sveltekit-reload href={`/lesson/${$lesson.data.lesson.previousLessonId}`}  class="lesson-left">
+                        <img src="/icons/CaretLeft.svg" alt="">
+                        Алдагы дәрес
+                    </a>
+                {/if}
                 <div class="lesson-lessons">
                     {#each $lesson.data.lesson.module.lessons as moduleLesson, i}
                         {#if moduleLesson.id  === $lesson.data.lesson.id}
@@ -182,10 +185,12 @@
                     {/each}
                     <!-- <div class="lesson-number test">Тест</div> -->
                 </div>
-                <a data-sveltekit-reload href={`/lesson/${$lesson.data.lesson.nextLessonId}`} class="lesson-right">
-                    Киләсе дәрес
-                    <img src="/icons/CaretRightWhite.svg" alt="">
-                </a>
+                {#if $lesson.data.lesson.nextLessonId}
+                    <a data-sveltekit-reload href={`/lesson/${$lesson.data.lesson.nextLessonId}`} class="lesson-right">
+                        Киләсе дәрес
+                        <img src="/icons/CaretRightWhite.svg" alt="">
+                    </a>
+                {/if}
             </div>
             {#if $lesson.data.lesson.type === 'MP4'}
                 <LessonVideo lesson={$lesson.data.lesson} />
@@ -297,6 +302,8 @@
         border: 1px solid var(--primary-color);
         border-radius: 50px;
         cursor: pointer;
+        text-decoration: none;
+        color: initial;
     }
     .lesson-right {
         font-size: 14px;

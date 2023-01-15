@@ -140,6 +140,21 @@
     let resumeQuiz = (quizId) => {
         window.location.href = `/quiz/${quizId}/question`;
     }
+
+    let months = [
+        'январь',
+        'февраль',
+        'март',
+        'апрель',
+        'май',
+        'июнь',
+        'июль',
+        'август',
+        'сентябрь',
+        'октябрь',
+        'ноябрь',
+        'декабрь',
+    ]
 </script>
 
 <div class="test">
@@ -175,51 +190,37 @@
             <h6>Элекеге тест нәтиҗәләре</h6>
             <div class="previous-attempts-table">
                 <div class="previous-attempts-dates">
-                    <div class="previous-attempts-date" style="background:#F7F7F5;">
-                        28 июль 2022 - 15:34
-                    </div>
-                    <div class="previous-attempts-date">
-                        28 июль 2022 - 15:34
-                    </div>
-                    <div class="previous-attempts-date" style="background:#F7F7F5;">
-                        28 июль 2022 - 15:34
-                    </div>
+                    {#each quiz.sittingSet as sitting, i}
+                        <div class="previous-attempts-date" class:grey_row="{i % 2 === 0}">
+                            {new Date(sitting.end).getDate()} {months[new Date(sitting.end).getMonth()]} {new Date(sitting.end).getFullYear()} - {new Date(sitting.end).getHours()}:{new Date(sitting.end).getMinutes()}
+                        </div>
+                    {/each}
                 </div>
                 <div class="previous-attempts-falses">
-                    <div class="previous-attempts-false" style="background:#F7F7F5;">
-                        <span>4</span> · Дөрестүгел җаваплар
-                    </div>
-                    <div class="previous-attempts-false">
-                        <span>4</span> · Дөрестүгел җаваплар
-                    </div>
-                    <div class="previous-attempts-false" style="background:#F7F7F5;">
-                        <span>4</span> · Дөрестүгел җаваплар
-                    </div>
+                    {#each quiz.sittingSet as sitting, i}
+                        <div class="previous-attempts-false" class:grey_row="{i % 2 === 0}">
+                            <span>{sitting.wrongAnswersCount}</span> · Дөрестүгел җаваплар
+                        </div>
+                    {/each}
                 </div>
                 <div class="previous-attempts-trues">
-                    <div class="previous-attempts-true" style="background:#F7F7F5;">
-                        <span>7</span> · Дөрес җаваплар
-                    </div>
-                    <div class="previous-attempts-true">
-                        <span>7</span> · Дөрес җаваплар
-                    </div>
-                    <div class="previous-attempts-true" style="background:#F7F7F5;">
-                        <span>7</span> · Дөрес җаваплар
-                    </div>
+                    {#each quiz.sittingSet as sitting, i}
+                        <div class="previous-attempts-true" class:grey_row="{i % 2 === 0}">
+                            <span>{sitting.rightAnswersCount}</span> · Дөрестүгел җаваплар
+                        </div>
+                    {/each}
                 </div>
                 <div class="previous-attempts-results">
-                    <div class="previous-attempts-result" style="background:#F7F7F5;">
-                        <p><span>54</span> · Сез баллар җыйдыгыз</p>
-                        <img src="/icons/ThumbsUpPurple.svg" alt="">
-                    </div>
-                    <div class="previous-attempts-result">
-                        <p><span style="color: #D83A3A;">54</span> · Сез баллар җыйдыгыз</p>
-                        <img src="/icons/Prohibit.svg" alt="">
-                    </div>
-                    <div class="previous-attempts-result" style="background:#F7F7F5;">
-                        <p><span>54</span> · Сез баллар җыйдыгыз</p>
-                        <img src="/icons/ThumbsUpPurple.svg" alt="">
-                    </div>
+                    {#each quiz.sittingSet as sitting, i}
+                        <div class="previous-attempts-result" class:grey_row="{i % 2 === 0}">
+                            <p><span>{sitting.userScore}</span> · Сез баллар җыйдыгыз</p>
+                            {#if sitting.isUserPassed}
+                                <img src="/icons/ThumbsUpPurple.svg" alt="">
+                            {:else}
+                                <img src="/icons/Prohibit.svg" alt="">
+                            {/if}
+                        </div>
+                    {/each}
                 </div>
             </div>
         </div>
@@ -227,6 +228,9 @@
 </div>
 
 <style>
+    .grey_row {
+        background:#F7F7F5;
+    }
     .test-top {
         display: flex;
         align-items: center;
@@ -312,6 +316,7 @@
     .previous-attempts-false,
     .previous-attempts-true,
     .previous-attempts-result {
+        padding: 4px 15px 4px 15px;
         font-size: 12px;
         color: #9096A9;
     }
