@@ -215,7 +215,7 @@
                     {#if $answerQuestionResult?.data?.answerQuestion?.sitting.quiz.isLastCourseModuleAndNoModuleAfter}
                         <div class="test-begin-button" on:click={() => {
                             endCourse($answerQuestionResult?.data?.answerQuestion?.sitting.quiz.course.id);
-                            // window.location.href = '/profile';
+                            window.location.href = '/profile';
                         }}>
                             Личный кабинет
                         </div>
