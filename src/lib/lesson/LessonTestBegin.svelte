@@ -4,6 +4,7 @@
     import { page } from '$app/stores';
 
     export let quiz;
+    export let results;
 
     const id = parseInt($page.params.slug);
 
@@ -190,28 +191,28 @@
             <h6>Элекеге тест нәтиҗәләре</h6>
             <div class="previous-attempts-table">
                 <div class="previous-attempts-dates">
-                    {#each quiz.sittingSet as sitting, i}
+                    {#each results as sitting, i}
                         <div class="previous-attempts-date" class:grey_row="{i % 2 === 0}">
                             {new Date(sitting.end).getDate()} {months[new Date(sitting.end).getMonth()]} {new Date(sitting.end).getFullYear()} - {new Date(sitting.end).getHours()}:{new Date(sitting.end).getMinutes()}
                         </div>
                     {/each}
                 </div>
                 <div class="previous-attempts-falses">
-                    {#each quiz.sittingSet as sitting, i}
+                    {#each results as sitting, i}
                         <div class="previous-attempts-false" class:grey_row="{i % 2 === 0}">
                             <span>{sitting.wrongAnswersCount}</span> · Дөрестүгел җаваплар
                         </div>
                     {/each}
                 </div>
                 <div class="previous-attempts-trues">
-                    {#each quiz.sittingSet as sitting, i}
+                    {#each results as sitting, i}
                         <div class="previous-attempts-true" class:grey_row="{i % 2 === 0}">
                             <span>{sitting.rightAnswersCount}</span> · Дөрестүгел җаваплар
                         </div>
                     {/each}
                 </div>
                 <div class="previous-attempts-results">
-                    {#each quiz.sittingSet as sitting, i}
+                    {#each results as sitting, i}
                         <div class="previous-attempts-result" class:grey_row="{i % 2 === 0}">
                             <p><span>{sitting.userScore}</span> · Сез баллар җыйдыгыз</p>
                             {#if sitting.isUserPassed}

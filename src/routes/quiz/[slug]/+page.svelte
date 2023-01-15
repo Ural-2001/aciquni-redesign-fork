@@ -87,6 +87,31 @@
 		`,
         variables: { quizId: id }
 	});
+
+    const results = queryStore({
+		client: getContextClient(),
+		query: gql`
+            query ($quizId: ID!) {
+                results (quizId: $quizId) {
+                    id
+                    questionOrder
+                    questionList
+                    complete
+                    end
+                    totalQuestionsCount
+                    wrongAnswersCount
+                    rightAnswersCount
+                    userScore
+                    passingScore
+                    isUserPassed
+                    text
+                    currentQuestionNumber
+                    userProgressInQuiz
+                }
+            }
+		`,
+        variables: { quizId: id }
+	});
     
 </script>
 
@@ -98,7 +123,13 @@
     {:else}
         <LessonCard quiz={$quiz.data.quiz} isQuiz={true} />
         <div class="lesson">
-            <LessonTestBegin quiz={$quiz.data.quiz}/>
+            {#if $results.fetching}
+                <p>Loading...</p>
+            {:else if $results.error}
+                <p>Oh no... {$results.error.message}</p>
+            {:else}
+                <LessonTestBegin quiz={$quiz.data.quiz} results={$results.data.results}/>
+            {/if}
         </div>
     {/if}
 </div>
