@@ -12,7 +12,7 @@
                 <span class="profile-certificate-card-date">Сертификат · {certificate.created}</span>
                 <p class="certificate-card-title">{certificate.course.name}</p>
                 <p class="certificate-card-description">{certificate.course.shortDescription}</p>
-                <a href="" class="certificate-download">
+                <a href={`/profile/certificate/${certificate.id}`} class="certificate-download">
                     Сертификат алу
                     <img src="/icons/DownloadWhite.svg" alt="">
                 </a>

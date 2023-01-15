@@ -1,15 +1,9 @@
 <script>
     import ProfileCard from "$lib/profile/ProfileCard.svelte";
     import { queryStore, gql, getContextClient } from '@urql/svelte';
+    import { page } from '$app/stores';
 
-    import { onMount } from 'svelte';
-
-    let selectedPage = 'courses';
-    let selectPage = (page) => {
-        selectedPage = page;
-    };
-    // onMount(() => {
-	// });
+    const id = parseInt($page.params.slug);
 
     const me = queryStore({
 		client: getContextClient(),
@@ -153,6 +147,27 @@
 			}
 		`,
 	});
+
+    const certificate = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query ($certificateId: ID!){
+				certificate (certificateId: $certificateId) {
+                    id
+                    course {
+                        id
+                        name
+                        shortDescription
+                        description
+                    }
+                    file
+                    image
+                    created
+                }
+			}
+		`,
+        variables: { certificateId: id }
+	});
     
 </script>
 
@@ -163,27 +178,34 @@
         <p>Oh no... {$me.error.message}</p>
     {:else}
         <ProfileCard me={$me.data.me} />
-        <div class="profile-content">
-            <h1 class="certificate-title">Котлыйбыз! Сезнең сертификат.</h1>
-            <p class="certificate-course-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-            <div class="certificate">
-                <div class="certificate-description">
-                    <div class="divider"></div>
-                    <p>Барлык курслар Ачык Университетның партнеры "Ачык мәктәп" ширкәте өстәмә белем бирү програмнарына кертелгән һәм лицензияләнгән. Бу сезгә әлеге курсны уңышлы узудан соң квалификацияне үстерү таныклыгын (повышение квалификации) алырга мөмкинлек бирә. Аның өчен бу биткә күчеп, анда булган форманы тутырыгыз. Әгәр ниндидер авырлыклар туа икән, безнең univer.tatar@gmail.com электрон адресыбызга языгыз.</p>
-                    <div class="divider" style="margin-top: 30px;"></div>
+        {#if $certificate.fetching}
+            <p>Loading...</p>
+        {:else if $certificate.error}
+            <p>Oh no... {$certificate.error.message}</p>
+        {:else}
+            <div class="profile-content">
+                <h1 class="certificate-title">Котлыйбыз! Сезнең сертификат.</h1>
+                <p class="certificate-course-title">{$certificate.data.certificate.course.name}</p>
+                <div class="certificate">
+                    <div class="certificate-description">
+                        <div class="divider"></div>
+                        <p contenteditable bind:innerHTML={$certificate.data.certificate.course.description}>
+                        </p>
+                        <div class="divider" style="margin-top: 30px;"></div>
+                    </div>
+                    <div class="certificate-img-section">
+                        <img src="/img/certificates/1.png" alt="">
+                    </div>
                 </div>
-                <div class="certificate-img-section">
-                    <img src="/img/certificates/1.png" alt="">
+                <div class="certificate-actions">
+                    <p>Курс хакында фикерегезне калдыра аласыз. Безнең өчен бу бик мөһим, рәхмәт!</p>
+                    <div class="certificate-buttons">
+                        <a href="" class="send-advice">Фикер калдыру</a>
+                        <a href="" class="download">Сертификатны йөкләргә</a>
+                    </div>
                 </div>
             </div>
-            <div class="certificate-actions">
-                <p>Курс хакында фикерегезне калдыра аласыз. Безнең өчен бу бик мөһим, рәхмәт!</p>
-                <div class="certificate-buttons">
-                    <a href="" class="send-advice">Фикер калдыру</a>
-                    <a href="" class="download">Сертификатны йөкләргә</a>
-                </div>
-            </div>
-        </div>
+        {/if}
     {/if}
 </div>
 
