@@ -1,5 +1,6 @@
 <script>
     import ProfileCard from "$lib/profile/ProfileCard.svelte";
+    import { queryStore, gql, getContextClient } from '@urql/svelte';
 
     import { onMount } from 'svelte';
 
@@ -9,32 +10,181 @@
     };
     // onMount(() => {
 	// });
+
+    const me = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				me {
+					id
+					username
+					firstName
+					lastName
+					email
+					isActive
+					dateJoined
+					middleName
+					phoneNumber
+					birthDate
+					activeCourses {
+						id
+						name
+						shortDescription
+						description
+						image
+						imageCoursesAndCourse
+						imageDash
+						tags
+						chat
+						isVideo
+						videoLink
+						created
+						updated
+						isActive
+						isReady
+						totalStarted
+						totalEnded
+						totalWatches
+						queueNumber
+						isCertificated
+						lessonsCount
+						time
+						total
+                        userProgress
+						getUserLastLesson  {
+							id
+							queueNumber
+							module {
+								id
+								queueNumber
+							}
+						}
+					}
+					endedCourses {
+						id
+						name
+						shortDescription
+						description
+						image
+						imageCoursesAndCourse
+						imageDash
+						tags
+						chat
+						isVideo
+						videoLink
+						created
+						updated
+						isActive
+						isReady
+						totalStarted
+						totalEnded
+						totalWatches
+						queueNumber
+						isCertificated
+						lessonsCount
+						time
+						total
+					}
+					certificates {
+						id
+						course {
+							id
+							name
+                            shortDescription
+						}
+						file
+						image
+						created
+					}
+					savedCourses {
+						id
+						name
+						shortDescription
+						description
+						image
+						imageCoursesAndCourse
+						imageDash
+						tags
+						chat
+						isVideo
+						videoLink
+						created
+						updated
+						isActive
+						isReady
+						totalStarted
+						totalEnded
+						totalWatches
+						queueNumber
+						isCertificated
+						lessonsCount
+						time
+						total
+					}
+					savedArticlePosts {
+						id
+						title
+						slug
+						body
+						datePub
+						viewCount
+						image
+						cropping
+						croppingGrid
+						status
+						total
+					}
+					savedVideoPosts {
+						id
+						title
+						slug
+						videoLink
+						tags {
+							id
+							title
+						}
+						description
+						datePub
+						viewCount
+						status
+						total
+					}
+				}
+			}
+		`,
+	});
     
 </script>
 
 <div class="container profile">
-    <ProfileCard />
-    <div class="profile-content">
-        <h1 class="certificate-title">Котлыйбыз! Сезнең сертификат.</h1>
-        <p class="certificate-course-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
-        <div class="certificate">
-            <div class="certificate-description">
-                <div class="divider"></div>
-                <p>Барлык курслар Ачык Университетның партнеры "Ачык мәктәп" ширкәте өстәмә белем бирү програмнарына кертелгән һәм лицензияләнгән. Бу сезгә әлеге курсны уңышлы узудан соң квалификацияне үстерү таныклыгын (повышение квалификации) алырга мөмкинлек бирә. Аның өчен бу биткә күчеп, анда булган форманы тутырыгыз. Әгәр ниндидер авырлыклар туа икән, безнең univer.tatar@gmail.com электрон адресыбызга языгыз.</p>
-                <div class="divider" style="margin-top: 30px;"></div>
+    {#if $me.fetching}
+        <p>Loading...</p>
+    {:else if $me.error}
+        <p>Oh no... {$me.error.message}</p>
+    {:else}
+        <ProfileCard me={$me.data.me} />
+        <div class="profile-content">
+            <h1 class="certificate-title">Котлыйбыз! Сезнең сертификат.</h1>
+            <p class="certificate-course-title">Татар телен укытуда заманча һәм нәтиҗәле ысуллар</p>
+            <div class="certificate">
+                <div class="certificate-description">
+                    <div class="divider"></div>
+                    <p>Барлык курслар Ачык Университетның партнеры "Ачык мәктәп" ширкәте өстәмә белем бирү програмнарына кертелгән һәм лицензияләнгән. Бу сезгә әлеге курсны уңышлы узудан соң квалификацияне үстерү таныклыгын (повышение квалификации) алырга мөмкинлек бирә. Аның өчен бу биткә күчеп, анда булган форманы тутырыгыз. Әгәр ниндидер авырлыклар туа икән, безнең univer.tatar@gmail.com электрон адресыбызга языгыз.</p>
+                    <div class="divider" style="margin-top: 30px;"></div>
+                </div>
+                <div class="certificate-img-section">
+                    <img src="/img/certificates/1.png" alt="">
+                </div>
             </div>
-            <div class="certificate-img-section">
-                <img src="/img/certificates/1.png" alt="">
+            <div class="certificate-actions">
+                <p>Курс хакында фикерегезне калдыра аласыз. Безнең өчен бу бик мөһим, рәхмәт!</p>
+                <div class="certificate-buttons">
+                    <a href="" class="send-advice">Фикер калдыру</a>
+                    <a href="" class="download">Сертификатны йөкләргә</a>
+                </div>
             </div>
         </div>
-        <div class="certificate-actions">
-            <p>Курс хакында фикерегезне калдыра аласыз. Безнең өчен бу бик мөһим, рәхмәт!</p>
-            <div class="certificate-buttons">
-                <a href="" class="send-advice">Фикер калдыру</a>
-                <a href="" class="download">Сертификатны йөкләргә</a>
-            </div>
-        </div>
-    </div>
+    {/if}
 </div>
 
 
