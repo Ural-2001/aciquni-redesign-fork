@@ -25,7 +25,7 @@
 	setContextClient(client);
 </script>
 
-<!-- {#if $page.status === 200 || $page.status === 404}
+{#if $page.status === 200 || $page.status === 404}
 	<div id="popupBackground" style="display: none; background-color: rgba(0, 0, 0, 0.343); position: absolute; width: 100%; height: 100%; "></div>
 
 	<Login />
@@ -41,11 +41,11 @@
 
 	<Footer />
 
-{:else} -->
+{:else}
 	<div style="margin-top: 100px;">
 		<Error />
 	</div>
-<!-- {/if} -->
+{/if}
 
 <style>
 	main {
