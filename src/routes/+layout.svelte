@@ -9,6 +9,8 @@
 	import GetSertificate from '../lib/popups/sertificate/GetSertificate.svelte';
 	import { createClient, setContextClient } from '@urql/svelte';
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import Error from './+error.svelte';
 
 	const client = createClient({
 		url: 'http://82.146.54.209/graphql/',
@@ -22,21 +24,25 @@
 	});
 	setContextClient(client);
 </script>
-<div id="popupBackground" style="display: none; background-color: rgba(0, 0, 0, 0.343); position: absolute; width: 100%; height: 100%; "></div>
+{#if $page.status === 200 || $page.status === 404}
+	<div id="popupBackground" style="display: none; background-color: rgba(0, 0, 0, 0.343); position: absolute; width: 100%; height: 100%; "></div>
 
-<Login />
-<PasswordReset />
-<GetSertificate />
-<AdvicePopup />
+	<Login />
+	<PasswordReset />
+	<GetSertificate />
+	<AdvicePopup />
 
-<Header />
+	<Header />
 
-<main>
-	<slot />
-</main>
+	<main>
+		<slot />
+	</main>
 
-<Footer />
+	<Footer />
 
+{:else}
+	<Error />
+{/if}
 <style>
 	main {
 		margin-top: 55px;
