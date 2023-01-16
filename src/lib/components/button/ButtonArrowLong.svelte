@@ -15,6 +15,7 @@
 		padding: 15px 30px 18px 30px;
 		border-radius: 50px;	
 		/* margin-left: 25px; */
+		width: fit-content;
 	}
 	.button img {
 		width: 20px;
