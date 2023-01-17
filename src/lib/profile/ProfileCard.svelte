@@ -1,5 +1,13 @@
 <script>
 	export let me;
+    import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	let selectPage = () => {
+        console.log('cl');
+		dispatch('selectPage');
+	}
 </script>
 <div class="profile-cards">
     <div class="profile-card">
@@ -10,7 +18,7 @@
                 <h1>{me.firstName} {me.lastName}</h1>
             </div>
         </div>
-        <div class="settings">
+        <div class="settings" on:click={() => selectPage()}>
             <img src="/icons/GearFix.svg" alt="">
         </div>
     </div>

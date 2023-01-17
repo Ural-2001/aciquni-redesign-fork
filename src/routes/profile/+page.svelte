@@ -3,12 +3,14 @@
     import ProfileCourses from "$lib/profile/ProfileCourses.svelte";
     import ProfileCertificates from "$lib/profile/ProfileCertificates.svelte";
     import ProfileFavourites from "$lib/profile/ProfileFavourites.svelte";
+	import ProfileEdit from "$lib/profile/ProfileEdit.svelte";
 
     import { onMount } from 'svelte';
     import { queryStore, gql, getContextClient } from '@urql/svelte';
 
-    let selectedPage = 'courses';
+    let selectedPage = 'edit';
     let selectPage = (page) => {
+		console.log('selectedPage')
         selectedPage = page;
     };
 
@@ -167,42 +169,46 @@
     {:else if $me.error}
         <p>Oh no... {$me.error.message}</p>
     {:else}
-        <ProfileCard me={$me.data.me} />
+        <ProfileCard me={$me.data.me} selectPage={() => selectPage('edit')} />
         <div class="profile-content">
 			{#if !$me.data.me.isActive}
 				<div class="confirm">
 					<p>На указанную почту ({$me.data.me.email}) было отправлено письмо с подтверждением <br/> <b>Подтвердите! Иначе ваш аккаунт удалиться через 2 недели</b></p>
 				</div>
 			{/if}
-            <div class="profile-pages-links">
-                <div on:click={() => selectPage('courses')} 
-                    class="profile-pages-link" class:active="{selectedPage === 'courses'}"
-                >
-                    курслар
-                </div>
-                <div on:click={() => selectPage('certificates')} 
-                    class="profile-pages-link" class:active="{selectedPage === 'certificates'}"
-                >
-                    сертификатлар
-                    <div class="profile-pages-links-notify">
-                        <span>3</span>
-                    </div>
-                </div>
-                <div on:click={() => selectPage('favourites')} 
-                    class="profile-pages-link" class:active="{selectedPage === 'favourites' }"
-                >
-                    сайланма
-                    <div class="profile-pages-links-notify">
-                        <span>7</span>
-                    </div>
-                </div>
-            </div>
+			{#if selectedPage !== 'edit'}
+				<div class="profile-pages-links">
+					<div on:click={() => selectPage('courses')} 
+						class="profile-pages-link" class:active="{selectedPage === 'courses'}"
+					>
+						курслар
+					</div>
+					<div on:click={() => selectPage('certificates')} 
+						class="profile-pages-link" class:active="{selectedPage === 'certificates'}"
+					>
+						сертификатлар
+						<div class="profile-pages-links-notify">
+							<span>3</span>
+						</div>
+					</div>
+					<div on:click={() => selectPage('favourites')} 
+						class="profile-pages-link" class:active="{selectedPage === 'favourites' }"
+					>
+						сайланма
+						<div class="profile-pages-links-notify">
+							<span>7</span>
+						</div>
+					</div>
+				</div>
+			{/if}
             {#if selectedPage === 'courses'}
                 <ProfileCourses me={$me.data.me} />
             {:else if selectedPage === 'certificates'}
                 <ProfileCertificates me={$me.data.me} />
             {:else if selectedPage === 'favourites'}
                 <ProfileFavourites me={$me.data.me} />  
+			{:else if selectedPage === 'edit'}
+                <ProfileEdit me={$me.data.me} />
             {/if}
         </div>
     {/if}
