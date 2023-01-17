@@ -4,21 +4,23 @@
 
 	const dispatch = createEventDispatcher();
 
-	let selectPage = () => {
-        console.log('cl');
-		dispatch('selectPage');
+	let selectPage = (page) => {
+        console.log(page);
+		dispatch('selectPage', {
+			text: page
+		});
 	}
 </script>
 <div class="profile-cards">
     <div class="profile-card">
-        <div class="profile-card-img-info">
+        <div class="profile-card-img-info" on:click={() => {selectPage('courses')}}>
             <img src="/img/people/1.png" alt="">
             <div class="profile-info">
                 <span>Минем профиль</span>
                 <h1>{me.firstName} {me.lastName}</h1>
             </div>
         </div>
-        <div class="settings" on:click={() => selectPage()}>
+        <div class="settings" on:click={() => {selectPage('edit')}}>
             <img src="/icons/GearFix.svg" alt="">
         </div>
     </div>

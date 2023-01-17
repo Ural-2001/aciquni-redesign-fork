@@ -8,10 +8,16 @@
     import { onMount } from 'svelte';
     import { queryStore, gql, getContextClient } from '@urql/svelte';
 
-    let selectedPage = 'edit';
+    let selectedPage = 'courses';
     let selectPage = (page) => {
-		console.log('selectedPage')
-        selectedPage = page;
+		console.log(page);
+		console.log('selectedPage');
+		if (page?.detail) {
+			selectedPage = page?.detail?.text;
+		}
+		else {
+			selectedPage = page;
+		}
     };
 
     let isAuthenticated;
@@ -169,7 +175,7 @@
     {:else if $me.error}
         <p>Oh no... {$me.error.message}</p>
     {:else}
-        <ProfileCard me={$me.data.me} selectPage={() => selectPage('edit')} />
+        <ProfileCard me={$me.data.me} selectPage={selectPage} />
         <div class="profile-content">
 			{#if !$me.data.me.isActive}
 				<div class="confirm">
