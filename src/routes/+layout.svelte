@@ -13,7 +13,7 @@
 	import Error from '../lib/error/Error.svelte';
 
 	const client = createClient({
-		url: 'http://82.146.54.209/graphql/',
+		url: 'https://univer.tatar/graphql/',
 		fetchOptions: () => {
 			let token = browser ? (window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')).token : '') : '';
 
