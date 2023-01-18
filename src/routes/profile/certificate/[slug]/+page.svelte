@@ -204,7 +204,7 @@
                     <p>Курс хакында фикерегезне калдыра аласыз. Безнең өчен бу бик мөһим, рәхмәт!</p>
                     <div class="certificate-buttons">
                         <a href="" class="send-advice">Фикер калдыру</a>
-                        <a href={`http://82.146.54.209/media/${$certificate.data.certificate.file}`} target="_blank" download class="download">Сертификатны йөкләргә</a>
+                        <a href={`https://univer.tatar/media/${$certificate.data.certificate.file}`} target="_blank" download class="download">Сертификатны йөкләргә</a>
                     </div>
                 </div>
             </div>
