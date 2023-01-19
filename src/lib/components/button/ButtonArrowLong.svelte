@@ -5,7 +5,7 @@
 
 <div class="button" on:click={action}>
 	<span>{text}</span>
-    <img src="../icons/ArrowUpRightWhite.svg" alt="">
+    <img src="/icons/ArrowUpRightWhite.svg" alt="">
 </div>
 
 <style>

@@ -233,6 +233,7 @@
 						<button 
 							on:click|preventDefault={() => {
 								closePopup();
+								isFeedbackSent = !isFeedbackSent;
 							}}
 						type="submit" class="button submit-button">
 							ОК

@@ -124,14 +124,14 @@
                             <label for="email">Электрон почта</label>
                             <input type="text" bind:value={login} id="email" placeholder="name@mail.com">
                         </div>
-                        <img src="./icons/user.svg" alt="">
+                        <img src="/icons/user.svg" alt="">
                     </div>
                     <div class="form-input">
                         <div class="form-input-field">
                             <label for="password">Сезнең пароль</label>
                             <input type="password" bind:value={password} id="password" placeholder="****">
                         </div>
-                        <img src="./icons/lockOpen.svg" alt="">
+                        <img src="/icons/lockOpen.svg" alt="">
                     </div>
                     <div class="popup-bottom">
                         <button
@@ -150,7 +150,7 @@
                             }}
                             type="submit" class="button submit-button">
                             Керү
-                            <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                            <img src="/icons/ArrowUpRightWhite.svg" alt="">
                         </button>
                         <span on:click={openPasswordResetPopup} class="forgot-password">Пароль онытылдымы?</span>
                     </div>
@@ -174,14 +174,14 @@
                             <label for="password1">Пароль уйлап табыгыз</label>
                             <input bind:value={passwordReg} type="password" id="password" placeholder="****">
                         </div>
-                        <img src="./icons/Eye.svg" alt="">
+                        <img src="/icons/Eye.svg" alt="">
                     </div>
                     <div class="form-input">
                         <div class="form-input-field">
                             <label for="password2">Парольне кабатлагыз</label>
                             <input  bind:value={passwordRegRepeat} type="password" id="password2" placeholder="****">
                         </div>
-                        <img src="./icons/EyeSlash.svg" alt="">
+                        <img src="/icons/EyeSlash.svg" alt="">
                     </div>
                     <div class="check-terms">
                         <input type="checkbox" id="check-terms">
@@ -204,7 +204,7 @@
                         }}
                         type="submit" class="button submit-button">
                             Теркәү
-                            <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                            <img src="/icons/ArrowUpRightWhite.svg" alt="">
                         </button>
                     </div>
                 </form>
@@ -212,7 +212,7 @@
         </div> 
         <div>
             <button class="button-secondary close-button" on:click={closePopup}>
-                <img src="./icons/x.svg" alt="">
+                <img src="/icons/x.svg" alt="">
             </button>
         </div>
     </div>
@@ -285,7 +285,7 @@
         border-radius: 25px;
         border: 1px solid var(--text-tertiary-color);
         padding: 8px 20px;
-        /* background: url(./MagnifyingGlass.svg) no-repeat scroll 95% 50%; */
+        /* background: url(/MagnifyingGlass.svg) no-repeat scroll 95% 50%; */
         font-size: 14px;
         width: 350px;
         margin-bottom: 15px;
