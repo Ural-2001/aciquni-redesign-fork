@@ -20,9 +20,9 @@
                 <h1>{me.firstName} {me.lastName}</h1>
             </div>
         </div>
-        <div class="settings" on:click={() => {selectPage('edit')}}>
+        <a data-sveltekit-reload href="/profile/settings" class="settings">
             <img src="/icons/GearFix.svg" alt="">
-        </div>
+        </a>
     </div>
     <div class="my-courses-card">
         <div class="my-courses">

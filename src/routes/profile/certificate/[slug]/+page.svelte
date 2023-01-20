@@ -374,6 +374,7 @@
         background-color: var(--primary-color);
         padding: 10px 25px;
         color: white;
+        cursor: pointer;
     }
     .download {
         display: flex;
