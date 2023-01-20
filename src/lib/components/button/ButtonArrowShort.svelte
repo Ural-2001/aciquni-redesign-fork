@@ -4,7 +4,7 @@
 
 <a href="/" class="button">
 	<span>{text}</span>
-    <img src="./icons/ArrowUpRightWhite.svg" alt="">
+    <img src="/icons/ArrowUpRightWhite.svg" alt="">
 </a>
 
 <style>

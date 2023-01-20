@@ -1,8 +1,5 @@
 <script>
     import ProfileCard from "$lib/profile/ProfileCard.svelte";
-    import ProfileCourses from "$lib/profile/ProfileCourses.svelte";
-    import ProfileCertificates from "$lib/profile/ProfileCertificates.svelte";
-    import ProfileFavourites from "$lib/profile/ProfileFavourites.svelte";
 	import ProfileEdit from "$lib/profile/ProfileEdit.svelte";
 
     import { onMount } from 'svelte';
@@ -182,40 +179,7 @@
 					<p>На указанную почту ({$me.data.me.email}) было отправлено письмо с подтверждением <br/> <b>Подтвердите! Иначе ваш аккаунт удалиться через 2 недели</b></p>
 				</div>
 			{/if}
-			{#if selectedPage !== 'edit'}
-				<div class="profile-pages-links">
-					<div on:click={() => selectPage('courses')} 
-						class="profile-pages-link" class:active="{selectedPage === 'courses'}"
-					>
-						курслар
-					</div>
-					<div on:click={() => selectPage('certificates')} 
-						class="profile-pages-link" class:active="{selectedPage === 'certificates'}"
-					>
-						сертификатлар
-						<div class="profile-pages-links-notify">
-							<span>3</span>
-						</div>
-					</div>
-					<div on:click={() => selectPage('favourites')} 
-						class="profile-pages-link" class:active="{selectedPage === 'favourites' }"
-					>
-						сайланма
-						<div class="profile-pages-links-notify">
-							<span>7</span>
-						</div>
-					</div>
-				</div>
-			{/if}
-            {#if selectedPage === 'courses'}
-                <ProfileCourses me={$me.data.me} />
-            {:else if selectedPage === 'certificates'}
-                <ProfileCertificates me={$me.data.me} />
-            {:else if selectedPage === 'favourites'}
-                <ProfileFavourites me={$me.data.me} />  
-			{:else if selectedPage === 'edit'}
-                <ProfileEdit me={$me.data.me} />
-            {/if}
+            <ProfileEdit me={$me.data.me} />
         </div>
     {/if}
 </div>

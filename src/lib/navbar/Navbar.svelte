@@ -27,7 +27,7 @@
 <div class="container-xl navibar">
 	<div class="left-links">
 		<a href="/courses" class="button-secondary courses-button">
-            <img src="../icons/CirclesFour.svg" alt="">
+            <img src="/icons/CirclesFour.svg" alt="">
 			Курслар
 		</a>
 		<a href="/blog">
@@ -68,7 +68,7 @@
 <!-- <div class="container navibar">
 	<div class="left-links">
 		<a href="/courses" class="button-secondary courses-button">
-            <img src="../icons/CirclesFour.svg" alt="">
+            <img src="/icons/CirclesFour.svg" alt="">
 			Курслар
 		</a>
 		<a href="#">
@@ -83,22 +83,22 @@
 	</div>
 
 	<a href="">
-		<img src="../aciquni-logo.svg" alt="">
+		<img src="/aciquni-logo.svg" alt="">
 	</a>
 
 	<div class="profile-buttons">
         <a href="" class="my-courses-button">
-            <img src="../avatar.png" alt="">
+            <img src="/avatar.png" alt="">
             Минем курслар
         </a>
         <a href="">
-            <img src="../icons/Trophy.svg" alt="">
+            <img src="/icons/Trophy.svg" alt="">
         </a>
         <a href="">
-            <img src../icons/HeartStraight.svg" alt="">
+            <img src/icons/HeartStraight.svg" alt="">
         </a>
         <a href="">
-            <img src="../icons/SignOut.svg" alt="">
+            <img src="/icons/SignOut.svg" alt="">
         </a>
 	</div>
 

@@ -38,35 +38,35 @@
                         <label for="email">Исемегез</label>
                         <input type="text" id="email" value="Александр">
                     </div>
-                    <img src="./icons/user.svg" alt="">
+                    <img src="/icons/user.svg" alt="">
                 </div>
                 <div class="form-input">
                     <div class="form-input-field">
                         <label for="email">Отчество</label>
                         <input type="text" id="email" value="Игнатович">
                     </div>
-                    <img src="./icons/user.svg" alt="">
+                    <img src="/icons/user.svg" alt="">
                 </div>
                 <div class="form-input">
                     <div class="form-input-field">
                         <label for="email">Туган көнегез</label>
                         <input type="date" id="email" value="26.10.1904">
                     </div>
-                    <img src="./icons/Calendar.svg" alt="">
+                    <img src="/icons/Calendar.svg" alt="">
                 </div>
                 <div class="form-input">
                     <div class="form-input-field">
                         <label for="email">Телефон номеры</label>
                         <input type="text" id="email" value="+7 999 156-19-92">
                     </div>
-                    <img src="./icons/user.svg" alt="">
+                    <img src="/icons/user.svg" alt="">
                 </div>
                 <div class="form-input">
                     <div class="form-input-field">
                         <label for="email">СНИЛС номеры</label>
                         <input type="text" id="email" value="556 578 685">
                     </div>
-                    <img src="./icons/user.svg" alt="">
+                    <img src="/icons/user.svg" alt="">
                 </div>
             </form>
             <div class="city-index">
@@ -81,17 +81,17 @@
             <div class="popup-bottom">
                 <button type="submit" class="button submit-button">
                     Сертификат алу
-                    <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                    <img src="/icons/ArrowUpRightWhite.svg" alt="">
                 </button>
                 <div>
-                    <img src="./icons/CheckCircle.svg" alt="">
+                    <img src="/icons/CheckCircle.svg" alt="">
                     <span class="terms-checked">Принимаю <a href="">условия обработки</a> пользовательских данных</span>
                 </div> 
             </div>
         </div> 
         <div>
             <button class="button-secondary close-button" on:click={closeGetSertificatePopup}>
-                <img src="./icons/x.svg" alt="">
+                <img src="/icons/x.svg" alt="">
             </button>
         </div>
     </div>

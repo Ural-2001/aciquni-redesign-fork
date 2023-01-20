@@ -13,7 +13,7 @@
 	import Error from '../lib/error/Error.svelte';
 
 	const client = createClient({
-		url: 'http://82.146.54.209/graphql/',
+		url: 'https://univer.tatar/graphql/',
 		fetchOptions: () => {
 			let token = browser ? (window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')).token : '') : '';
 
@@ -26,7 +26,7 @@
 </script>
 
 {#if $page.status === 200 || $page.status === 404}
-	<div id="popupBackground" style="display: none; background-color: rgba(0, 0, 0, 0.343); position: absolute; width: 100%; height: 100%; "></div>
+	<div id="popupBackground" style="display: none; background-color: rgba(0, 0, 0, 0.343); position: fixed; width: 100%; height: 100%; "></div>
 
 	<Login />
 	<PasswordReset />

@@ -31,19 +31,19 @@
                         <label for="email">Электрон почта</label>
                         <input type="text" id="email" placeholder="name@mail.com">
                     </div>
-                    <img src="./icons/user.svg" alt="">
+                    <img src="/icons/user.svg" alt="">
                 </div>
                 <div class="popup-bottom">
                     <button type="submit" class="button submit-button">
                         Яңарту
-                        <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                        <img src="/icons/ArrowUpRightWhite.svg" alt="">
                     </button>
                 </div>
             </form>
         </div> 
         <div>
             <button class="button-secondary close-button" on:click={closePasswordResetPopup}>
-                <img src="./icons/x.svg" alt="">
+                <img src="/icons/x.svg" alt="">
             </button>
         </div>
     </div>

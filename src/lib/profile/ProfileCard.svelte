@@ -1,18 +1,28 @@
 <script>
 	export let me;
+    import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	let selectPage = (page) => {
+        console.log(page);
+		dispatch('selectPage', {
+			text: page
+		});
+	}
 </script>
 <div class="profile-cards">
     <div class="profile-card">
-        <div class="profile-card-img-info">
+        <div class="profile-card-img-info" on:click={() => {selectPage('courses')}}>
             <img src="/img/people/1.png" alt="">
             <div class="profile-info">
                 <span>Минем профиль</span>
                 <h1>{me.firstName} {me.lastName}</h1>
             </div>
         </div>
-        <div class="settings">
+        <a data-sveltekit-reload href="/profile/settings" class="settings">
             <img src="/icons/GearFix.svg" alt="">
-        </div>
+        </a>
     </div>
     <div class="my-courses-card">
         <div class="my-courses">

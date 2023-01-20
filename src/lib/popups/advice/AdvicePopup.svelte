@@ -37,13 +37,13 @@
             <div class="popup-bottom">
                 <button type="submit" class="button submit-button">
                     Фикерне җибәрергә
-                    <img src="./icons/ArrowUpRightWhite.svg" alt="">
+                    <img src="/icons/ArrowUpRightWhite.svg" alt="">
                 </button> 
             </div>
         </div> 
         <div>
             <button class="button-secondary close-button" on:click={closeAdvicePopup}>
-                <img src="./icons/x.svg" alt="">
+                <img src="/icons/x.svg" alt="">
             </button>
         </div>
     </div>
